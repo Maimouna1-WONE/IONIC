@@ -19,7 +19,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "security"="is_granted('ROLE_ADMIN_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *      },
- *     collectionOperations={},
+ *     collectionOperations={
+ *             "postAgence"={
+ *                      "method"="POST",
+ *                      "route_name"="postAgence",
+ *     "denormalization_context"={"groups"={"postagence:write"}},
+ *                   }
+ *     },
  *     itemOperations={
  *              "getUsersAgence"={"method"="GET",
  *                      "path"="/{id}/users",
@@ -43,7 +49,7 @@ class Agence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"getuseragence:read","postcompte:write"})
+     * @Groups ({"getuseragence:read","postagence:write"})
      * @Assert\NotBlank(message = "Donner le telephone")
      * @Assert\Regex(
      *     pattern="/^3[3|0][0-9]{7}$/",
@@ -54,27 +60,27 @@ class Agence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"getuseragence:read","postcompte:write"})
+     * @Groups ({"getuseragence:read","postagence:write"})
      * @Assert\NotBlank(message = "Donner le telephone")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups ({"getuseragence:read","postcompte:write"})
+     * @Groups ({"getuseragence:read","postagence:write"})
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups ({"getuseragence:read","postcompte:write"})
+     * @Groups ({"getuseragence:read","postagence:write"})
      */
     private $longitude;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="agence")
      * @ApiSubresource ()
-     * @Groups ({"getuseragence:read","postcompte:write"})
+     * @Groups ({"getuseragence:read","postagence:write"})
      */
     private $users;
 
@@ -82,6 +88,12 @@ class Agence
      * @ORM\Column(name="statut", type="boolean", options={"default":false})
      */
     private $statut = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Compte::class, cascade={"persist", "remove"})
+     * @Groups ({"postagence:write"})
+     */
+    private $compte;
 
     public function __construct()
     {
@@ -179,6 +191,18 @@ class Agence
     public function setStatut(bool $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getCompte(): ?Compte
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(?Compte $compte): self
+    {
+        $this->compte = $compte;
 
         return $this;
     }

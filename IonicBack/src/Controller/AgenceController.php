@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-class CompteController extends AbstractController
+class AgenceController extends AbstractController
 {
     private $encoder;
     private $serializer;
@@ -55,39 +55,40 @@ class CompteController extends AbstractController
 
     /**
      * @Route(
-     *     path="/api/comptes",
-     *     name="postCompte",
+     *     path="/api/agences",
+     *     name="postAgence",
      *     methods={"POST"},
      *     defaults={
-     *          "__controller"="App\Controller\TransactionController::postCompte",
-     *          "__api_resource_class"=Transaction::class,
-     *          "__api_collection_operation_name"="postCompte"
+     *          "__controller"="App\Controller\TransactionController::postAgence",
+     *          "__api_resource_class"=Agence::class,
+     *          "__api_collection_operation_name"="postAgence"
      *     }
      * )
      * @param Request $request
      */
-    public function postCompte(Request $request){
+    public function postAgence(Request $request){
         $cmpt= json_decode($request->getContent(), true);
-        $compte= new Compte();
+        //dd($cmpt);
         $ag= new Agence();
-        $ag->setTelephone($cmpt['agence']['telephone']);
-        $ag->setAdresse($cmpt['agence']['adresse']);
-        foreach ($cmpt['agence']['users'] as $val){
+        $ag->setTelephone($cmpt['telephone']);
+        $ag->setAdresse($cmpt['adresse']);
+        foreach ($cmpt['users'] as $val){
             $us= $this->repoU->find($val);
             $ag->addUser($us);
         }
-        $compte->setAgence($ag);
+        $compte=new Compte();
         $compte->setCreatedAt(new \DateTime);
         $compte->setUser($this->user);
         $compte->setNumero(random_int(100,300).'-'.random_int(400,700).'-'.random_int(800,999));
+        $ag->setCompte($compte);
         //dd($compte);
-        $errors = $this->validator->validate($compte);
+        $errors = $this->validator->validate($ag);
         if (count($errors)){
             $errors = $this->serializer->serialize($errors,"json");
             return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
         }
-        $this->manager->persist($compte);
+        $this->manager->persist($ag);
         $this->manager->flush();
-        return $this->json("Compte crée",200);
+        return $this->json("Agence crée et compte crée",200);
     }
 }

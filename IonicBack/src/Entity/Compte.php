@@ -25,12 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={
  *     "getComptes"={"method"="GET",
  *                      "path"="",
- *     "normalization_context"={"groups"={"getcompte:read"}}},
- *      "postCompte"={
- *                      "method"="POST",
- *                      "route_name"="postCompte",
- *     "denormalization_context"={"groups"={"postcompte:write"}},
- *                   }
+ *     "normalization_context"={"groups"={"getcompte:read"}}}
  *     },
  *     itemOperations={
  *              "getCompteId"={
@@ -61,19 +56,19 @@ class Compte
 
     /**
      * @ORM\Column(type="string", length=255,unique=true)
-     * @Groups ({"getcompte:read"})
+     * @Groups ({"getcompte:read","postagence:write"})
      */
     private $numero;
 
     /**
      * @ORM\Column(type="integer", name="solde", options={"default": 700000})
-     * @Groups ({"getcompte:read","putcompte:write"})
+     * @Groups ({"getcompte:read","putcompte:write","postagence:write"})
      */
     private $solde = 700000;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups ({"getcompte:read"})
+     * @Groups ({"getcompte:read","postagence:write"})
      */
     private $createdAt;
 
@@ -92,11 +87,6 @@ class Compte
      */
     private $transactions;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Agence::class, cascade={"persist", "remove"})
-     * @Groups ({"postcompte:write"})
-     */
-    private $agence;
 
     public function __construct()
     {
@@ -194,18 +184,6 @@ class Compte
                 $transaction->setCompte(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getAgence(): ?Agence
-    {
-        return $this->agence;
-    }
-
-    public function setAgence(?Agence $agence): self
-    {
-        $this->agence = $agence;
 
         return $this;
     }

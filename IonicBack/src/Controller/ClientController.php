@@ -85,7 +85,7 @@ class ClientController extends AbstractController
         $trans->setClientDepot($exp);
         $trans->setClientRetrait($dest);
         $trans->setMontant($dep['montant']);
-        ($trans->getCompte())->setSolde(($trans->getCompte())->getSolde() + $dep['montant']);
+        ($trans->getCompte())->setSolde(($trans->getCompte())->getSolde() - $dep['montant']);
         $trans->setDateDepot(new  \DateTime());
         $exp->addTransaction($trans);
         $errors = $this->validator->validate($exp);
