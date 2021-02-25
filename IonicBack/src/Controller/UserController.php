@@ -10,6 +10,7 @@ use App\Services\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -23,13 +24,16 @@ class UserController extends AbstractController
     private $validator;
     private $manager;
     private $repo;
-    public function __construct(UserService $service,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer,ValidatorInterface $validator, EntityManagerInterface $manager, UserRepository $repo){
+    private $user;
+    public function __construct(
+        TokenStorageInterface $tokenStorage,UserService $service,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer,ValidatorInterface $validator, EntityManagerInterface $manager, UserRepository $repo){
         $this->repo=$repo;
         $this->service=$service;
         $this->encoder=$encoder;
         $this->manager=$manager;
         $this->validator=$validator;
         $this->serializer=$serializer;
+        $this->user = ($tokenStorage->getToken())->getUser();
     }
     /**
      * @Route(
@@ -75,26 +79,32 @@ class UserController extends AbstractController
     public function putUser(Request $request, int $id)
     {
         $object = $this->repo->find($id);
-        $data = $this->service->UpdateUser($request, 'avatar');
-        foreach ($data as $key=>$value){
-            $ok="set".ucfirst($key);
-            if ($key === "password"){
-                //dd((string)substr($data[$key],0,-6));
-                $object->$ok($this->encoder->encodePassword($object,(string)substr($data[$key],0,-6)));
-            }
-            else {
-                $object->$ok($value);
-            }
+        if (($this->user)->getId() === 2 && (($object->getProfil())->getId() !==3)){
+            $obj="impossible de modifier cet utilisateur";
         }
-        $errors = $this->validator->validate($object);
-        if (count($errors)){
-            $errors = $this->serializer->serialize($errors,"json");
-            return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+        else{
+            $data = $this->service->UpdateUser($request, 'avatar');
+            foreach ($data as $key=>$value){
+                $ok="set".ucfirst($key);
+                if ($key === "password"){
+                    //dd((string)substr($data[$key],0,-6));
+                    $object->$ok($this->encoder->encodePassword($object,(string)substr($data[$key],0,-6)));
+                }
+                else {
+                    $object->$ok($value);
+                }
+            }
+            $errors = $this->validator->validate($object);
+            if (count($errors)){
+                $errors = $this->serializer->serialize($errors,"json");
+                return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+            }
+            $this->manager->persist($object);
+            $this->manager->flush();
+            $obj="modification reussi";
         }
-        $this->manager->persist($object);
-        $this->manager->flush();
         //dd($object);
-        return $this->json("modification reussie",201);
+        return $this->json($obj,201);
     }
 
     /**

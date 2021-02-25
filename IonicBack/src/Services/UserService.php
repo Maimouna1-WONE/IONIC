@@ -85,7 +85,7 @@ class UserService
      */
     public function UpdateUser(Request $request,string $fileName = null)
     {
-        $raw =$request->getContent();
+       $raw =$request->getContent();
         $delimiteur = "multipart/form-data; boundary=";
         $boundary= "--" . explode($delimiteur,$request->headers->get("content-type"))[1];
         $elements = str_replace([$boundary,'Content-Disposition: form-data;',"name="],"",$raw);
