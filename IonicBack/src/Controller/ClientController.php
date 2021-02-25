@@ -85,6 +85,7 @@ class ClientController extends AbstractController
         $trans->setClientDepot($exp);
         $trans->setClientRetrait($dest);
         $trans->setMontant($dep['montant']);
+        ($trans->getCompte())->setSolde(($trans->getCompte())->getSolde() + $dep['montant']);
         $trans->setDateDepot(new  \DateTime());
         $exp->addTransaction($trans);
         $errors = $this->validator->validate($exp);
@@ -127,10 +128,11 @@ class ClientController extends AbstractController
         //dd($obj);
         $Tretrait = ($obj->getClientRetrait())->getTelephone();
         if ($obj->getDateRetrait() === null && $Tretrait === $dep['destinataire']['telephone'] && $obj->getMontant() === $dep['montant']){
-                    $obj->setMontant(0);
-                    $obj->setType("retrait");
-                    $obj->setDateRetrait(new \DateTime());
-                    ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
+            $obj->setMontant(0);
+            ($obj->getCompte())->setSolde(($obj->getCompte())->getSolde() + $obj->getMontant());
+            $obj->setType("retrait");
+            $obj->setDateRetrait(new \DateTime());
+            ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
         }
         else{
             return $this->json("Retrait impossible",200);

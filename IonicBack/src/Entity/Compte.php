@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "normalization_context"={"groups"={"getcompte:read"}}},
  *      "postCompte"={
  *                      "method"="POST",
- *                      "path"="",
+ *                      "route_name"="postCompte",
  *     "denormalization_context"={"groups"={"postcompte:write"}},
  *                   }
  *     },
@@ -94,6 +94,7 @@ class Compte
 
     /**
      * @ORM\OneToOne(targetEntity=Agence::class, cascade={"persist", "remove"})
+     * @Groups ({"postcompte:write"})
      */
     private $agence;
 

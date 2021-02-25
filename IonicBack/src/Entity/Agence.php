@@ -14,13 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=AgenceRepository::class)
  * @ApiResource (
- *     routePrefix="/agence",
+ *     routePrefix="/agences",
  *      attributes={
  *          "security"="is_granted('ROLE_ADMIN_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *      },
- *     collectionOperations={
- *     },
+ *     collectionOperations={},
  *     itemOperations={
  *              "getUsersAgence"={"method"="GET",
  *                      "path"="/{id}/users",
@@ -44,7 +43,7 @@ class Agence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"getuseragence:read"})
+     * @Groups ({"getuseragence:read","postcompte:write"})
      * @Assert\NotBlank(message = "Donner le telephone")
      * @Assert\Regex(
      *     pattern="/^3[3|0][0-9]{7}$/",
@@ -55,36 +54,34 @@ class Agence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"getuseragence:read"})
+     * @Groups ({"getuseragence:read","postcompte:write"})
      * @Assert\NotBlank(message = "Donner le telephone")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups ({"getuseragence:read"})
-     * @Assert\NotBlank(message = "Donner la latitude")
+     * @Groups ({"getuseragence:read","postcompte:write"})
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups ({"getuseragence:read"})
-     * @Assert\NotBlank(message = "Donner la longitude")
+     * @Groups ({"getuseragence:read","postcompte:write"})
      */
     private $longitude;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="agence")
      * @ApiSubresource ()
-     * @Groups ({"getuseragence:read"})
+     * @Groups ({"getuseragence:read","postcompte:write"})
      */
     private $users;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="statut", type="boolean", options={"default":false})
      */
-    private $statut;
+    private $statut = false;
 
     public function __construct()
     {
