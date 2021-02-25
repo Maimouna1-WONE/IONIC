@@ -91,6 +91,12 @@ class Compte
      */
     private $transactions;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Groups ({"putcompte:write"})
+     */
+    private $date_depot;
+
 
     public function __construct()
     {
@@ -188,6 +194,18 @@ class Compte
                 $transaction->setCompte(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateDepot(): ?\DateTimeInterface
+    {
+        return $this->date_depot;
+    }
+
+    public function setDateDepot(?\DateTimeInterface $date_depot): self
+    {
+        $this->date_depot = $date_depot;
 
         return $this;
     }

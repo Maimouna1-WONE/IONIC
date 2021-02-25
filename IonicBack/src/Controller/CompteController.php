@@ -74,6 +74,7 @@ class CompteController extends AbstractController
             $object=$this->repoC->find($id);
             if ($cmpt !== []){
                 $object->setSolde($object->getSolde() + $cmpt['solde']);
+                $object->setDateDepot(new \DateTime());
             }
             $object->setUser($this->user);
             $errors = $this->validator->validate($object);
