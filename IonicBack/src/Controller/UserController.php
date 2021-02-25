@@ -45,13 +45,16 @@ class UserController extends AbstractController
      */
     public function postUser(Request $request)
     {
-        //dd('ok');
         $val = $this->service->addUser($request);
-        $status = Response::HTTP_BAD_REQUEST;
         if ($val instanceof User){
             $status =Response::HTTP_CREATED;
+            $text= "ajout reussi";
         }
-        return $this->json("Ajout reussi",$status);
+        else{
+            $status =Response::HTTP_BAD_REQUEST;
+            $text= "impossible d'ajouter un utilisateur de ce profil";
+        }
+        return $this->json($text,$status);
     }
 
     /**

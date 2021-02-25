@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -21,13 +22,16 @@ class UserService
     private $manager;
     private $repo;
     private $repoProfil;
-    public function __construct(EntityManagerInterface $manager,UserPasswordEncoderInterface $encoder,SerializerInterface $serializer,ValidatorInterface $validator,UserRepository $repo,ProfilRepository $repoProfil) {
+    private $user;
+    public function __construct(
+        TokenStorageInterface $tokenStorage,EntityManagerInterface $manager,UserPasswordEncoderInterface $encoder,SerializerInterface $serializer,ValidatorInterface $validator,UserRepository $repo,ProfilRepository $repoProfil) {
         $this->manager = $manager;
         $this->encoder= $encoder;
         $this->serializer=$serializer;
         $this->validator=$validator;
         $this->repo=$repo;
         $this->repoProfil=$repoProfil;
+        $this->user = ($tokenStorage->getToken())->getUser();
     }
     public function addUser(Request $request)
     {
@@ -60,12 +64,18 @@ class UserService
         if (count($errors)){
             return $errors;
         }
-        $this->manager->persist($user);
-        $this->manager->flush();
-        if ($avatar){
-            fclose($avatar);
+        if (($this->user)->getId() === 2 && ($user->getProfil()->getId() !==3)){
+                $obj=null;
         }
-        return $user;
+        else{
+            $this->manager->persist($user);
+            $this->manager->flush();
+            if ($avatar){
+                fclose($avatar);
+            }
+            $obj=$user;
+        }
+        return $obj;
     }
 
     /**

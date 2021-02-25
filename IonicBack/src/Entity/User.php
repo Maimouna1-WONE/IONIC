@@ -27,9 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                 "postUser"={
  *                      "method"="POST",
  *                      "route_name"="postUser",
- *     "denormalization_context"={"groups"={"postuser:write"}},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
+ *     "denormalization_context"={"groups"={"postuser:write"}}
  *                   },
  *               "getUsers"={"method"="GET",
  *                      "path"="",
