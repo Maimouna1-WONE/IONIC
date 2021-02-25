@@ -49,6 +49,8 @@ class AgenceDataPersister implements ContextAwareDataPersisterInterface
         foreach ($users as $user){
             $user->setStatut(1);
         }
+        $compte=$data->getCompte();
+        $compte->setStatut(1);
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
     }
