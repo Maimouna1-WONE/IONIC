@@ -67,28 +67,34 @@ class AgenceController extends AbstractController
      * @param Request $request
      */
     public function postAgence(Request $request){
-        $cmpt= json_decode($request->getContent(), true);
-        //dd($cmpt);
-        $ag= new Agence();
-        $ag->setTelephone($cmpt['telephone']);
-        $ag->setAdresse($cmpt['adresse']);
-        foreach ($cmpt['users'] as $val){
-            $us= $this->repoU->find($val);
-            $ag->addUser($us);
+        if (($this->user->getProfil())->getId() === 1) {
+            $cmpt = json_decode($request->getContent(), true);
+            //dd($cmpt);
+            $ag = new Agence();
+            $ag->setTelephone($cmpt['telephone']);
+            $ag->setAdresse($cmpt['adresse']);
+            foreach ($cmpt['users'] as $val) {
+                $us = $this->repoU->find($val);
+                $ag->addUser($us);
+            }
+            $compte = new Compte();
+            $compte->setCreatedAt(new \DateTime);
+            $compte->setUser($this->user);
+            $compte->setNumero(random_int(100, 300) . '-' . random_int(400, 700) . '-' . random_int(800, 999));
+            $ag->setCompte($compte);
+            //dd($compte);
+            $errors = $this->validator->validate($ag);
+            if (count($errors)) {
+                $errors = $this->serializer->serialize($errors, "json");
+                return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
+            }
+            $this->manager->persist($ag);
+            $this->manager->flush();
+            $obj="Agence crée et compte crée";
         }
-        $compte=new Compte();
-        $compte->setCreatedAt(new \DateTime);
-        $compte->setUser($this->user);
-        $compte->setNumero(random_int(100,300).'-'.random_int(400,700).'-'.random_int(800,999));
-        $ag->setCompte($compte);
-        //dd($compte);
-        $errors = $this->validator->validate($ag);
-        if (count($errors)){
-            $errors = $this->serializer->serialize($errors,"json");
-            return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+        else{
+            $obj="impossible de creer cet agence";
         }
-        $this->manager->persist($ag);
-        $this->manager->flush();
-        return $this->json("Agence crée et compte crée",200);
+        return $this->json($obj,200);
     }
 }

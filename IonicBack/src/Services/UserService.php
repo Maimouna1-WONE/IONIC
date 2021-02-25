@@ -87,7 +87,7 @@ class UserService
     {
        $raw =$request->getContent();
         $delimiteur = "multipart/form-data; boundary=";
-        $boundary= "--" . explode($delimiteur,$request->headers->get("content-type"))[1];
+        $boundary= "--" . explode($delimiteur,$request->headers->get("conntent-type"))[1];
         $elements = str_replace([$boundary,'Content-Disposition: form-data;',"name="],"",$raw);
         $elementsTab = explode("\r\n\r\n",$elements);
         $data =[];

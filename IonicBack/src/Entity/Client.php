@@ -60,7 +60,7 @@ class Client
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=13)
      * @Groups ({"depotclient:write"})
      */
     private $cni;

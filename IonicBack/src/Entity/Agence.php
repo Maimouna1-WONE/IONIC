@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource (
  *     routePrefix="/agences",
  *      attributes={
- *          "security"="is_granted('ROLE_ADMIN_AGENCE')",
+ *          "security"="is_granted('ROLE_ADMIN_SYS')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *      },
  *     collectionOperations={
