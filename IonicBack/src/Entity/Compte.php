@@ -18,29 +18,32 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ApiResource (
  *     routePrefix="/comptes",
- *      attributes={
- *          "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *      },
  *     collectionOperations={
  *     "getComptes"={"method"="GET",
  *                      "path"="",
- *     "normalization_context"={"groups"={"getcompte:read"}}}
+ *     "normalization_context"={"groups"={"getcompte:read"}},
+ *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     },
  *     itemOperations={
  *              "getCompteId"={
  *                    "method"="GET",
  *                      "path"="/{id}",
- *                          "requirements"={"id":"\d+"}
+ *                          "requirements"={"id":"\d+"},
+ *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                },"updateCompte"={
  *                    "method"="PUT",
- *                      "path"="/{id}",
- *                          "requirements"={"id":"\d+"},
- *     "denormalization_context"={"groups"={"putcompte:write"}}
+ *                      "route_name"="updateCompte",
+ *     "denormalization_context"={"groups"={"putcompte:write"}},
+ *     "security"="is_granted('ROLE_CAISSIER')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                },
  *     "deleteCompte"={"method"="DELETE",
  *                          "path"="/{id}",
- *                          "requirements"={"id":"\d+"}}
+ *                          "requirements"={"id":"\d+"},
+ *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     }
  * )
  */
@@ -79,6 +82,7 @@ class Compte
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comptes")
+     * @Groups ({"putcompte:write"})
      */
     private $user;
 

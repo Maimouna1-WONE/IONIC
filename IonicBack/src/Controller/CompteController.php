@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-class AgenceController extends AbstractController
+class CompteController extends AbstractController
 {
     private $encoder;
     private $serializer;
@@ -55,45 +55,38 @@ class AgenceController extends AbstractController
 
     /**
      * @Route(
-     *     path="/api/agences",
-     *     name="postAgence",
-     *     methods={"POST"},
+     *     path="/api/comptes/{id}",
+     *     name="updateCompte",
+     *     methods={"PUT"},
      *     defaults={
-     *          "__controller"="App\Controller\TransactionController::postAgence",
-     *          "__api_resource_class"=Agence::class,
-     *          "__api_collection_operation_name"="postAgence"
+     *          "__controller"="App\Controller\CompteController::updateCompte",
+     *          "__api_resource_class"=Compte::class,
+     *          "__api_collection_operation_name"="updateCompte"
      *     }
      * )
      * @param Request $request
      */
-    public function postAgence(Request $request){
-        if (($this->user->getProfil())->getId() === 1) {
+    public function updateCompte(Request $request, int $id){
+        if (($this->user->getProfil())->getId() === 3) {
+            //dd('ok');
             $cmpt = json_decode($request->getContent(), true);
             //dd($cmpt);
-            $ag = new Agence();
-            $ag->setTelephone($cmpt['telephone']);
-            $ag->setAdresse($cmpt['adresse']);
-            foreach ($cmpt['users'] as $val) {
-                $us = $this->repoU->find($val);
-                $ag->addUser($us);
+            $object=$this->repoC->find($id);
+            if ($cmpt !== []){
+                $object->setSolde($object->getSolde() + $cmpt['solde']);
             }
-            $compte = new Compte();
-            $compte->setCreatedAt(new \DateTime);
-            //$compte->setUser($this->user);
-            $compte->setNumero(random_int(100, 300) . '-' . random_int(400, 700) . '-' . random_int(800, 999));
-            $ag->setCompte($compte);
-            //dd($compte);
-            $errors = $this->validator->validate($ag);
+            $object->setUser($this->user);
+            $errors = $this->validator->validate($object);
             if (count($errors)) {
                 $errors = $this->serializer->serialize($errors, "json");
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
             }
-            $this->manager->persist($ag);
+            $this->manager->persist($object);
             $this->manager->flush();
-            $obj="Agence crée et compte crée";
+            $obj="Compte modifié";
         }
         else{
-            $obj="impossible de creer cet agence";
+            $obj="impossible de modifier cette compte";
         }
         return $this->json($obj,200);
     }
