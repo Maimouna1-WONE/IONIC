@@ -20,13 +20,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                      "method"="POST",
  *                      "route_name"="depotClient",
  *     "denormalization_context"={"groups"={"depotclient:write"}},
- *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE') or is_granted('ROLE_ADMIN_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                   },"retraitClient"={
  *                      "method"="POST",
  *                      "route_name"="retraitClient",
  *     "denormalization_context"={"groups"={"depotclient:write"}},
- *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE') or is_granted('ROLE_ADMIN_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                   }
  *     },

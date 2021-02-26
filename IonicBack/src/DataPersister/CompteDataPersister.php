@@ -10,6 +10,7 @@ use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -21,14 +22,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CompteDataPersister implements ContextAwareDataPersisterInterface
 {
     private $_entityManager;private $validator;private $serializer;
-    private $user;private $repoU;
+    private $user;private $repoU;private $request;
 
-    public function __construct(TokenStorageInterface $tokenStorage, UserRepository $repoU,
+    public function __construct(RequestStack $request,TokenStorageInterface $tokenStorage, UserRepository $repoU,
         EntityManagerInterface $entityManager,ValidatorInterface $validator,SerializerInterface $serializer
     ) {
         $this->_entityManager = $entityManager;$this->validator=$validator;$this->serializer=$serializer;
         $this->user = ($tokenStorage->getToken())->getUser();
-        $this->repoU=$repoU;
+        $this->repoU=$repoU;$this->request=$request;
     }
 
     /**

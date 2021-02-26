@@ -27,63 +27,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                      "path"="",
  *     "normalization_context"={"groups"={"gettransaction:read"}},
  *      "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"},
- *      "depotUA"={
- *                      "method"="POST",
- *                      "route_name"="depotUA",
- *     "denormalization_context"={"groups"={"depotua:write"}},
- *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   },"depotCaisssier"={
- *                      "method"="POST",
- *                      "route_name"="depotCaisssier",
- *     "denormalization_context"={"groups"={"depotus:write"}},
- *     "security"="is_granted('ROLE_CAISSIER')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   },"depotA"={
- *                      "method"="POST",
- *                      "route_name"="depotA",
- *     "denormalization_context"={"groups"={"depotus:write"}},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   },"retraitUA"={
- *                      "method"="POST",
- *                      "route_name"="retraitUA",
- *     "denormalization_context"={"groups"={"depotua:write"}},
- *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   },"recuDepot"={
- *                      "method"="GET",
- *                      "path"="/recudepot",
- *     "normalization_context"={"groups"={"recudepot:read"}},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   },"recuRetrait"={
- *                      "method"="GET",
- *                      "path"="/recuretrait",
- *     "normalization_context"={"groups"={"recuratrait:read"}},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                   }
+ *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     },
  *     itemOperations={
  *              "getTransactionId"={
  *                    "method"="GET",
  *                      "path"="/{id}",
  *                          "requirements"={"id":"\d+"},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
- *                },"updateTransaction"={
- *                    "method"="PUT",
- *                      "path"="/{id}",
- *                          "requirements"={"id":"\d+"},"security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource",
- *     "denormalization_context"={"groups"={"puttransaction:write"}}
  *                },
  *     "deleteTransaction"={"method"="DELETE",
  *                          "path"="/{id}",
  *                          "requirements"={"id":"\d+"},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     }
  * )

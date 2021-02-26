@@ -6,6 +6,7 @@ use App\Entity\Profil;
 use Doctrine\ORM\EntityManagerInterface;
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -16,11 +17,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ProfilDataPersister implements ContextAwareDataPersisterInterface
 {
     private $_entityManager;private $validator;private $serializer;
+    private $request;
 
-    public function __construct(
+    public function __construct(RequestStack $request,
         EntityManagerInterface $entityManager,ValidatorInterface $validator,SerializerInterface $serializer
     ) {
         $this->_entityManager = $entityManager;$this->validator=$validator;$this->serializer=$serializer;
+        $this->request=$request;
     }
 
     /**
@@ -36,8 +39,11 @@ class ProfilDataPersister implements ContextAwareDataPersisterInterface
      */
     public function persist($data, array $context = [])
     {
+        //dd($this->request->getCurrentRequest()->getContent());
+        //dd($this->serializer->decode($this->request->getCurrentRequest()->getContent(),"json"));
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
+        //return new JsonResponse($pr,200,[],true);
     }
 
     /**

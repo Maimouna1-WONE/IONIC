@@ -69,43 +69,50 @@ class ClientController extends AbstractController
     public function depotClient(Request $request)
     {
         //dd('ok');
-        $dep= json_decode($request->getContent(), true);
-        //dd($dep);
-        $exp = new Client();
-        $exp->setNomComplet($dep['expediteur']['nom_complet']);
-        $exp->setTelephone($dep['expediteur']['telephone']);
-        $exp->setCni($dep['expediteur']['cni']);
-        $dest = new Client();
-        $dest->setNomComplet($dep['destinataire']['nom_complet']);
-        $dest->setTelephone($dep['destinataire']['telephone']);
-        $trans = $this->frais->generateFrais($dep['montant']);
-        $code=random_int(10000,99999).''.random_int(100,999);
-        $trans->setCode((string)$code);
-        $trans->setType("depot");
-        $trans->setClientDepot($exp);
-        $trans->setClientRetrait($dest);
-        $trans->setMontant($dep['montant']);
-        ($trans->getCompte())->setSolde(($trans->getCompte())->getSolde() - $dep['montant']);
-        $trans->setDateDepot(new  \DateTime());
-        $exp->addTransaction($trans);
-        $errors = $this->validator->validate($exp);
-        if (count($errors)){
-            $errors = $this->serializer->serialize($errors,"json");
-            return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+        //dd($this->user->getAgence()->getCompte());
+        $agence=$this->user->getAgence()->getCompte();
+        if ($agence->getSolde() >= 5000){
+            $dep= json_decode($request->getContent(), true);
+            //dd($dep);
+            $exp = new Client();
+            $exp->setNomComplet($dep['expediteur']['nom_complet']);
+            $exp->setTelephone($dep['expediteur']['telephone']);
+            $exp->setCni($dep['expediteur']['cni']);
+            $dest = new Client();
+            $dest->setNomComplet($dep['destinataire']['nom_complet']);
+            $dest->setTelephone($dep['destinataire']['telephone']);
+            $trans = $this->frais->generateFrais($dep['montant']);
+            $code=random_int(10000,99999).''.random_int(100,999);
+            $trans->setCode((string)$code);
+            $trans->setType("depot");
+            $trans->setClientDepot($exp);
+            $trans->setClientRetrait($dest);
+            $trans->setUserDepot($this->user);
+            $trans->setMontant($dep['montant']);
+            ($trans->getCompte())->setSolde($agence->getSolde() - $dep['montant']);
+            $trans->setCompte($agence);
+            $trans->setDateDepot(new \DateTime());
+            $exp->addTransaction($trans);
+            $errors = $this->validator->validate($exp);
+            if (count($errors)){
+                $errors = $this->serializer->serialize($errors,"json");
+                return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+            }
+            $errors = $this->validator->validate($dest);
+            if (count($errors)){
+                $errors = $this->serializer->serialize($errors,"json");
+                return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+            }
+            $this->manager->persist($exp);
+            $this->manager->persist($dest);
+            $this->manager->flush();
+            $obj="Depot reussi";
         }
-        $errors = $this->validator->validate($dest);
-        if (count($errors)){
-            $errors = $this->serializer->serialize($errors,"json");
-            return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+        else{
+            $obj= "impossible de faire un depot";
         }
-        //dd($trans);
-        //$sms = new SmsMessage($dep['destinataire']['telephone'],'hello');
-        //$texter->send($sms);
-        //dd('ok');
-        $this->manager->persist($exp);
-        $this->manager->persist($dest);
-        $this->manager->flush();
-        return $this->json("Depot reussi",200);
+
+        return $this->json($obj,200);
     }
 
     /**
@@ -125,26 +132,34 @@ class ClientController extends AbstractController
         //dd('ok');
         $dep= json_decode($request->getContent(), true);
         $obj= $this->repoC->findOneBy(['code' => $dep['code']]);
-        //dd($obj);
-        $Tretrait = ($obj->getClientRetrait())->getTelephone();
-        if ($obj->getDateRetrait() === null && $Tretrait === $dep['destinataire']['telephone'] && $obj->getMontant() === $dep['montant']){
-            $obj->setMontant(0);
-            ($obj->getCompte())->setSolde(($obj->getCompte())->getSolde() + $obj->getMontant());
-            $obj->setType("retrait");
-            $obj->setDateRetrait(new \DateTime());
-            ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
+        $agence=$this->user->getAgence()->getCompte();
+        if ($agence->getSolde() >= $obj->getMontant()){
+            //dd($obj);
+            if ($obj->getDateRetrait() === null ){
+                $obj->setMontant(0);
+                ($obj->getCompte())->setSolde($agence->getSolde() + $obj->getMontant());
+                $obj->setType("retrait");
+                $obj->setUserRetrait($this->user);
+                $obj->setDateRetrait(new \DateTime());
+                ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
+            }
+            else{
+                return $this->json("Retrait impossible",200);
+            }
+            $errors = $this->validator->validate($obj);
+            if (count($errors)){
+                $errors = $this->serializer->serialize($errors,"json");
+                return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+            }
+            //dd(($obj->getClientRetrait()));
+            $this->manager->persist($obj);
+            $this->manager->flush();
+            $ok= "retrait reussi";
         }
         else{
-            return $this->json("Retrait impossible",200);
+            $ok= "impossible de faire un retrait";
         }
-        $errors = $this->validator->validate($obj);
-        if (count($errors)){
-            $errors = $this->serializer->serialize($errors,"json");
-            return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
-        }
-        //dd(($obj->getClientRetrait()));
-        $this->manager->persist($obj);
-        $this->manager->flush();
-        return $this->json("Retrait reussi",200);
+
+        return $this->json($ok,200);
     }
 }

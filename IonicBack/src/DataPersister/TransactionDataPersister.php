@@ -49,7 +49,9 @@ class TransactionDataPersister implements ContextAwareDataPersisterInterface
      */
     public function remove($data, array $context = [])
     {
-        $data->setStatut(1);
+        if ($data->getDateRetrait() === null){
+            $data->setStatut(1);
+        }
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
     }
