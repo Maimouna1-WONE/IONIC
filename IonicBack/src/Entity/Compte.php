@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompteRepository::class)
@@ -66,6 +67,9 @@ class Compte
     /**
      * @ORM\Column(type="integer", name="solde", options={"default": 700000})
      * @Groups ({"getcompte:read","putcompte:write","postagence:write"})
+     * @Assert\GreaterThanOrEqual(
+     *     value = 700000
+     * )
      */
     private $solde = 700000;
 

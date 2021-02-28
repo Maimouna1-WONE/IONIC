@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-thumbnail>
+              <ion-grid>
+                <ion-row style="margin-top: 70%">
+                  <ion-col>
+                    <img src="../../assets/Logo%20MONEY%20SA%201.png" alt="">
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-thumbnail>
+          </div>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+  <!--<ion-tabs>
+    <ion-tab-bar vertical="bottom" horizontal="center" slot="fixed">
+      <ion-tab-button>
+        <ion-title>Login</ion-title>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>-->
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="full" style="margin-bottom: 10%; margin-top: 100%">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" required formControlName="login"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" required formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-row style="margin-top: 5%">
+      <ion-col>
+        <a [routerLink]="['/forgot-password']" class="small-text">Mot de passe oublié?</a>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block">Connexion</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

@@ -79,6 +79,9 @@ class AgenceController extends AbstractController
             }
             $compte = new Compte();
             $compte->setCreatedAt(new \DateTime);
+            if ($cmpt['compte']['solde']){
+                $compte->setSolde($cmpt['compte']['solde']);
+            }
             //$compte->setUser($this->user);
             $compte->setNumero(random_int(100, 300) . '-' . random_int(400, 700) . '-' . random_int(800, 999));
             $ag->setCompte($compte);

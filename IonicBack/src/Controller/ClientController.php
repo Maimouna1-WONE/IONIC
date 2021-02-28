@@ -68,12 +68,9 @@ class ClientController extends AbstractController
      */
     public function depotClient(Request $request)
     {
-        //dd('ok');
-        //dd($this->user->getAgence()->getCompte());
         $agence=$this->user->getAgence()->getCompte();
         if ($agence->getSolde() >= 5000){
             $dep= json_decode($request->getContent(), true);
-            //dd($dep);
             $exp = new Client();
             $exp->setNomComplet($dep['expediteur']['nom_complet']);
             $exp->setTelephone($dep['expediteur']['telephone']);
@@ -129,12 +126,10 @@ class ClientController extends AbstractController
      * @throws \Exception
      */
     public function retraitClient(Request $request){
-        //dd('ok');
         $dep= json_decode($request->getContent(), true);
         $obj= $this->repoC->findOneBy(['code' => $dep['code']]);
         $agence=$this->user->getAgence()->getCompte();
         if ($agence->getSolde() >= $obj->getMontant()){
-            //dd($obj);
             if ($obj->getDateRetrait() === null ){
                 $obj->setMontant(0);
                 ($obj->getCompte())->setSolde($agence->getSolde() + $obj->getMontant());
@@ -151,7 +146,6 @@ class ClientController extends AbstractController
                 $errors = $this->serializer->serialize($errors,"json");
                 return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
             }
-            //dd(($obj->getClientRetrait()));
             $this->manager->persist($obj);
             $this->manager->flush();
             $ok= "retrait reussi";
@@ -159,7 +153,6 @@ class ClientController extends AbstractController
         else{
             $ok= "impossible de faire un retrait";
         }
-
         return $this->json($ok,200);
     }
 }
