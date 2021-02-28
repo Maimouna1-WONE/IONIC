@@ -3,21 +3,19 @@ import {Profil} from './profil';
 
 export class User {
   id?: number;
-  login: string;
+  email: string;
   password?: string;
   prenom: string;
   nom: string;
   adresse: string;
   telephone: string;
-  email: string;
   avatar?: any;
   token?: string;
   profil?: Profil;
-  constructor(id: number, login: string, password: string,
+  constructor(id: number, password: string,
               prenom: string, nom: string, adresse: string,
               telephone: string, email: string, profil: Profil, avatar: any) {
     this.id = id;
-    this.login = login;
     this.password = password;
     this.prenom = prenom;
     this.nom = nom;

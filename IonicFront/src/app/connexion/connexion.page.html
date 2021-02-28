@@ -36,7 +36,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <ion-item lines="full" style="margin-bottom: 10%; margin-top: 100%">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required formControlName="login"></ion-input>
+      <ion-input type="text" required formControlName="email"></ion-input>
     </ion-item>
 
     <ion-item lines="full">
@@ -46,7 +46,7 @@
 
     <ion-row style="margin-top: 5%">
       <ion-col>
-        <a [routerLink]="['/forgot-password']" class="small-text">Mot de passe oublié?</a>
+        <a class="small-text">Mot de passe oublié?</a>
       </ion-col>
     </ion-row>
 

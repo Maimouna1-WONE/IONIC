@@ -31,18 +31,15 @@ export class ConnexionService
     return this.currentUserSubject.value;
   }
   // tslint:disable-next-line:typedef
-  login( username: string, password: string)
+  login( email: string, password: string)
   {
-    return this.http.post<any>(`/api/login_check`, { 'email' : username, 'password' : password })
+    return this.http.post<any>(`/api/login_check`, { 'email' : email, 'password' : password })
       .pipe(map(token => {
           const tokenInfo = this.getInfoToken(token['token']);
-          console.log(tokenInfo);
+          // console.log(tokenInfo);
           if (tokenInfo.statut === false) {
             localStorage.setItem('currentUser', JSON.stringify(token));
             localStorage.setItem('currentUserInfo', JSON.stringify(tokenInfo));
-            /*const en = window.atob(password);
-            console.log(en);*/
-            // localStorage.setItem('password', JSON.stringify(password));
             this.currentUserSubject.next(token);
             return tokenInfo.roles[0];
           }

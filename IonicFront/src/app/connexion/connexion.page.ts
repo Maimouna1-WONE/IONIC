@@ -18,7 +18,10 @@ export class ConnexionPage implements OnInit {
   dtee: User;
   hide = true;
   // tslint:disable-next-line:max-line-length
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: ConnexionService )
+  constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
+              private authenticationService: ConnexionService )
   {
     if (this.authenticationService.currentUserValue){
       this.router.navigate(['/']);
@@ -26,7 +29,7 @@ export class ConnexionPage implements OnInit {
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      login: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
@@ -43,19 +46,19 @@ export class ConnexionPage implements OnInit {
     if (this.loginForm.invalid){
       return;
     }
-    this.authenticationService.login(this.f.login.value, this.f.password.value)
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
           if (data === 'ROLE_ADMIN_SYS')
           {
             console.log('good AS');
-            //this.returnUrl = 'home';
+            //this.returnUrl = '';
           }
           else if (data === 'ROLE_ADMIN_AGENCE')
           {
-            console.log('good AA');
-            //this.returnUrl = 'formateur';
+            //console.log('good AA');
+            this.returnUrl = '';
           }
           else if (data === 'ROLE_UTILISATEUR_AGENCE')
           {
@@ -67,8 +70,8 @@ export class ConnexionPage implements OnInit {
             console.log('good C');
             //this.returnUrl = 'cm';
           }
-          console.log('bakhna deiii');
-          //this.router.navigate([this.returnUrl]);
+          //console.log('bakhna deiii');
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;
