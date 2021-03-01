@@ -36,12 +36,12 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <ion-item lines="full" style="margin-bottom: 10%; margin-top: 100%">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required formControlName="email"></ion-input>
+      <ion-input type="text" clear-input required formControlName="email"></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required formControlName="password"></ion-input>
+      <ion-input type="password" clear-input required formControlName="password"></ion-input>
     </ion-item>
 
     <ion-row style="margin-top: 5%">

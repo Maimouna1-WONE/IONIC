@@ -18,6 +18,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource (
  *      routePrefix="/transactions",
  *     collectionOperations={
+ *     "depotCaisssier"={"method"="POST",
+ *                      "route_name"="depotCaisssier",
+ *     "security"="is_granted('ROLE_ADMIN_SYS') or is_granted('ROLE_CAISSIER')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *     "getParts"={"method"="GET",
  *                      "path"="/parts",
  *     "normalization_context"={"groups"={"getpart:read"}},
