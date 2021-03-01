@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {AuthGuard} from './_helpers/auth.guard';
 
 const routes: Routes = [
   {
@@ -7,9 +8,12 @@ const routes: Routes = [
     redirectTo: 'folder/Inbox',
     pathMatch: 'full'
   },
+  {path: 'login_check', loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule),
+  },
   {
     path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'accueil',
@@ -18,6 +22,12 @@ const routes: Routes = [
   {
     path: 'connexion',
     loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule)
+  },
+  { path: 'not-found', loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)},
+  {path: '**', redirectTo: '/not-found'},
+  {
+    path: 'notfound',
+    loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
 ];
 

@@ -12,9 +12,11 @@ export class FolderPage implements OnInit {
   date: Date;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.avatar = JSON.parse(String(localStorage.getItem('currentUserInfo'))).avatar;
-    this.date = JSON.parse(String(localStorage.getItem('currentUserInfo'))).date_depot;
-    this.solde = JSON.parse(String(localStorage.getItem('currentUserInfo'))).solde;
+    if (JSON.parse(String(localStorage.getItem('currentUserInfo')))) {
+      this.avatar = JSON.parse(String(localStorage.getItem('currentUserInfo'))).avatar;
+      this.date = JSON.parse(String(localStorage.getItem('currentUserInfo'))).date_depot;
+      this.solde = JSON.parse(String(localStorage.getItem('currentUserInfo'))).solde;
+    }
   }
   isActiveToggleTextPassword = true;
   public toggleTextPassword(): void{
