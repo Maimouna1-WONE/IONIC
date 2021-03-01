@@ -68,7 +68,11 @@ class Compte
      * @ORM\Column(type="integer", name="solde", options={"default": 700000})
      * @Groups ({"getcompte:read","putcompte:write","postagence:write"})
      * @Assert\GreaterThanOrEqual(
-     *     value = 700000
+     *     value = 700000,
+     *      message="Le solde doit etre superieur à 700000"
+     * )
+     * @Assert\Positive(
+     *      message="Le solde doit etre positif"
      * )
      */
     private $solde = 700000;

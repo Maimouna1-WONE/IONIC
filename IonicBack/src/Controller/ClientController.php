@@ -103,7 +103,7 @@ class ClientController extends AbstractController
             $this->manager->persist($exp);
             $this->manager->persist($dest);
             $this->manager->flush();
-            $obj="Depot reussi";
+            $obj=$trans;
         }
         else{
             $obj= "impossible de faire un depot";
@@ -148,7 +148,7 @@ class ClientController extends AbstractController
             }
             $this->manager->persist($obj);
             $this->manager->flush();
-            $ok= "retrait reussi";
+            $ok= $obj;
         }
         else{
             $ok= "impossible de faire un retrait";

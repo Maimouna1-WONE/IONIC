@@ -62,6 +62,9 @@ class Client
     /**
      * @ORM\Column(type="string", length=13)
      * @Groups ({"depotclient:write"})
+     * @Assert\Positive(
+     *      message="Le cni est toujours positif"
+     * )
      */
     private $cni;
 

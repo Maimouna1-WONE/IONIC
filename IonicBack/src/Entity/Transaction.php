@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={
  *     "depotCaisssier"={"method"="POST",
  *                      "route_name"="depotCaisssier",
- *     "security"="is_granted('ROLE_ADMIN_SYS') or is_granted('ROLE_CAISSIER')",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_CAISSIER')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *     "getParts"={"method"="GET",
  *                      "path"="/parts",
@@ -63,6 +63,9 @@ class Transaction
      * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","recudepot:read","recuratrait:read"})
      * @Assert\NotBlank(message = "Donner le montant")
+     * @Assert\Positive(
+     *      message="Le montant doit etre positif"
+     * )
      */
     private $montant;
 
