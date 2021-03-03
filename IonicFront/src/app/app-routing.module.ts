@@ -24,10 +24,42 @@ const routes: Routes = [
     loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule)
   },
   { path: 'not-found', loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)},
-  {path: '**', redirectTo: '/not-found'},
+  // {path: '**', redirectTo: '/not-found'},
   {
     path: 'notfound',
     loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },
+  {
+    path: 'transaction',
+    loadChildren: () => import('./transaction/transaction.module').then( m => m.TransactionPageModule)
+  },
+  {
+    path: 'commission',
+    loadChildren: () => import('./commission/commission.module').then( m => m.CommissionPageModule)
+  },
+  {
+    path: 'calculatrice',
+    loadChildren: () => import('./calculatrice/calculatrice.module').then( m => m.CalculatricePageModule)
+  },
+  {
+    path: 'depot',
+    loadChildren: () => import('./depot/depot.module').then( m => m.DepotPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'header',
+    loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
+  },
+  {
+    path: 'retrait',
+    loadChildren: () => import('./retrait/retrait.module').then( m => m.RetraitPageModule)
+  },
+  {
+    path: 'footer',
+    loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
   }
 ];
 

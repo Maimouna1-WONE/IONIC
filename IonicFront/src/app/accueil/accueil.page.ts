@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {LoadingController, NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-accueil',
@@ -8,11 +9,22 @@ import {Router} from '@angular/router';
 })
 export class AccueilPage implements OnInit {
 
-  constructor(private route: Router) { }
-
-  ngOnInit() {
+  constructor(public loadingController: LoadingController,
+              private route: Router, private navController: NavController) {
+    this.presentLoading();
   }
-action(){
-    this.route.navigate(['connexion']);
-}
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      spinner: 'crescent',
+      duration: 2000
+    });
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+    await this.route.navigate(['login_check']);
+    await loading.dismiss();
+  }
+
+  ngOnInit(): void {
+  }
 }

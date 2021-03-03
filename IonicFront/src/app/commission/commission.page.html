@@ -1,0 +1,105 @@
+<app-header>
+
+</app-header>
+
+<ion-content>
+
+  <ion-segment (ionChange)="segmentChanged($event)" value="list">
+    <ion-segment-button value="list"  style="
+  border-bottom: solid 2px #16a7be;">
+      <ion-label>Type</ion-label>
+      <ion-select value="depot">
+        <ion-select-option value="depot">depot</ion-select-option>
+        <ion-select-option value="retrait">retrait</ion-select-option>
+      </ion-select>
+    </ion-segment-button>
+    <ion-segment-button value="list" style="
+  border-bottom: solid 2px #16a7be;">
+      <ion-label>Du</ion-label>
+      <ion-select value="1996">
+        <ion-select-option value="1989">1989</ion-select-option>
+        <ion-select-option value="1990">1990</ion-select-option>
+        <ion-select-option value="1991">1991</ion-select-option>
+        <ion-select-option value="1992">1992</ion-select-option>
+        <ion-select-option value="1993">1993</ion-select-option>
+        <ion-select-option value="1994">1994</ion-select-option>
+        <ion-select-option value="1995">1995</ion-select-option>
+        <ion-select-option value="1996">1996</ion-select-option>
+        <ion-select-option value="1997">1997</ion-select-option>
+        <ion-select-option value="1998">1998</ion-select-option>
+        <ion-select-option value="1999">1999</ion-select-option>
+      </ion-select>
+    </ion-segment-button>
+    <ion-segment-button value="list"  style="
+  border-bottom: solid 2px #16a7be;">
+      <ion-label>Au</ion-label>
+      <ion-select value="1996">
+        <ion-select-option value="1989">1989</ion-select-option>
+        <ion-select-option value="1990">1990</ion-select-option>
+        <ion-select-option value="1991">1991</ion-select-option>
+        <ion-select-option value="1992">1992</ion-select-option>
+        <ion-select-option value="1993">1993</ion-select-option>
+        <ion-select-option value="1994">1994</ion-select-option>
+        <ion-select-option value="1995">1995</ion-select-option>
+        <ion-select-option value="1996">1996</ion-select-option>
+        <ion-select-option value="1997">1997</ion-select-option>
+        <ion-select-option value="1998">1998</ion-select-option>
+        <ion-select-option value="1999">1999</ion-select-option>
+      </ion-select>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <ion-list
+    class="animate__animated animate__slideInUp animate__fast"
+    *ngIf="segment === 'list'"
+  >
+    <ion-row style="border-bottom: groove;">
+      <ion-col col-3>
+        <ion-label >header</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >header</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >header</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-bottom: groove;">
+      <ion-col col-3>
+        <ion-label >row</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >row</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >02/02/2018</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-bottom: groove;">
+      <ion-col col-3>
+        <ion-label >row</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >row</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >02/02/2018</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col col-3>
+        <ion-label >row</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >02/02/2018</ion-label>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label >02/02/2018</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <ion-button shape="round" style="float: right; margin-right: 10%;">Round Button</ion-button>
+</ion-content>
+
+<app-footer></app-footer>

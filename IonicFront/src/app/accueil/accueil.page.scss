@@ -1,4 +1,24 @@
 ion-content.background{
   --width: 100%;
-  --background: url("../../assets/AccueilMoney SA.png") no-repeat center center/ cover ;
+  --background: url("../../assets/josh-appel-NeTPASr-bmQ-unsplash1.jpg") no-repeat center center/ cover ;
+  div{
+    position: absolute;
+    width: 262px;
+    height: 262px;
+    left: 60px;
+    top: 270px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+    img{
+      position: absolute;
+      width: 143px;
+      height: 109px;
+      left: 60px;
+      top: 0;
+    }
+  }
+}
+ion-spinner{
+  border: none;
 }

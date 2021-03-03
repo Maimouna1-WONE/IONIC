@@ -1,0 +1,33 @@
+
+      <ion-list style="width: 100%; height: 100%; margin-top: 70%">
+        <ion-item button [routerLink]="['/depot']" style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="return-up-forward" slot="start" style="color: orangered" routerLink="['depot']"></ion-icon>
+          <ion-label>Depot</ion-label>
+        </ion-item>
+        <ion-item button style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="return-up-back" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Retrait</ion-label>
+        </ion-item>
+        <ion-item button style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="repeat" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Mes transactions</ion-label>
+        </ion-item>
+        <ion-item *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'" button style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="repeat" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Toutes mes transactions</ion-label>
+        </ion-item>
+        <ion-item *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'" button style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="list-circle-outline" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Mes commissions</ion-label>
+        </ion-item>
+        <ion-item button style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="calculator-outline" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Calculateur de frais</ion-label>
+        </ion-item>
+        <ion-item button (click)="deconnexion()" style="border-bottom: 1px solid #E56946; margin-bottom: 5%">
+          <ion-icon name="exit-outline" slot="start" style="color: orangered"></ion-icon>
+          <ion-label>Deconnexion</ion-label>
+        </ion-item>
+      </ion-list>
+
+

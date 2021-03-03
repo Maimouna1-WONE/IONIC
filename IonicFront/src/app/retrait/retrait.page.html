@@ -1,0 +1,85 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-label position="floating" color="medium">Code</ion-label>
+    <ion-input type="text" clear-input></ion-input>
+  </ion-item>
+
+  <ion-segment (ionChange)="segmentChanged($event)" value="list">
+    <ion-segment-button value="list" style="
+  border-bottom: solid 2px orangered;">
+      <ion-label>
+        Beneficiaire
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="card" style="
+  border-bottom: solid 2px orangered;">
+      <ion-label>
+        Emetteur
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <ion-list
+    class="animate__animated animate__slideInUp animate__fast"
+    *ngIf="segment === 'list'"
+  >
+    <form (ngSubmit)="OnSubmit()">
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">N° CNI</ion-label>
+        <ion-input type="text" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Nom & Prenom</ion-label>
+        <ion-input type="nom" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Montant à recevoir</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Telephone</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Date d'envoi</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" expand="block" style="margin-top: 20%;" color="danger">Retirer</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+
+
+  <ion-list class="animate__animated animate__slideInUp animate__fast"
+            *ngIf="segment === 'card'">
+
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">N° CNI</ion-label>
+        <ion-input type="text" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Nom & Prenom</ion-label>
+        <ion-input type="nom" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Montant à recevoir</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Telephone</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating" color="medium">Date d'envoi</ion-label>
+        <ion-input type="number" clear-input></ion-input>
+      </ion-item>
+
+  </ion-list>
+
+</ion-content>

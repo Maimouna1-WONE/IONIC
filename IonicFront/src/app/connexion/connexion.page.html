@@ -1,59 +1,59 @@
+
+
+
 <ion-header>
   <ion-toolbar>
     <ion-grid>
+      <ion-row style="margin-top: 20%; margin-bottom: 53px">
+        <ion-col>
+        </ion-col>
+        <ion-col>
+          <ion-thumbnail style="width: 100%; height: 100%">
+            <img id="imglogo" src="../../assets/Logo%20MONEY%20SA%201.png" alt="pp" >
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col>
-        </ion-col>
-        <ion-col>
-          <div>
-            <ion-thumbnail>
-              <ion-grid>
-                <ion-row style="margin-top: 70%">
-                  <ion-col>
-                    <img src="../../assets/Logo%20MONEY%20SA%201.png" alt="">
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-thumbnail>
-          </div>
-        </ion-col>
-        <ion-col>
+          <ion-segment disabled color="light">
+            <ion-segment-button value="friends">
+              <ion-label>login</ion-label>
+            </ion-segment-button>
+          </ion-segment>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
 
-  <!--<ion-tabs>
-    <ion-tab-bar vertical="bottom" horizontal="center" slot="fixed">
-      <ion-tab-button>
-        <ion-title>Login</ion-title>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>-->
 </ion-header>
 
 <ion-content>
+
+
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <ion-item lines="full" style="margin-bottom: 10%; margin-top: 100%">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" clear-input required formControlName="email"></ion-input>
+    <ion-item lines="full" style="margin-bottom: 10%; margin-top: 90%;">
+      <ion-label position="floating" color="medium">Email</ion-label>
+      <ion-input type="email" clear-input required formControlName="email"></ion-input>
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating" color="medium">Password</ion-label>
       <ion-input type="password" clear-input required formControlName="password"></ion-input>
     </ion-item>
 
     <ion-row style="margin-top: 5%">
       <ion-col>
-        <a class="small-text">Mot de passe oublié?</a>
+        <a class="small-text" style="color: #51BFD0">Mot de passe oublié?</a>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" expand="block">Connexion</ion-button>
+        <ion-button type="submit" expand="block" style="margin-top: 20%;" color="secondary">Se Connecter</ion-button>
       </ion-col>
     </ion-row>
   </form>
+
 </ion-content>

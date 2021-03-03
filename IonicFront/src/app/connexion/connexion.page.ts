@@ -78,4 +78,7 @@ export class ConnexionPage implements OnInit {
         }
       );
   }
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
 }

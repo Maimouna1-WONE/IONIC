@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { FolderPage } from './folder.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FolderPage
+    redirectTo: 'ok',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: FolderPage, children:
+    [
+      {
+        path: 'ok',
+        loadChildren: () => import('../tabs/tabs.module').then( m => m.TabsPageModule)
+
+      }
+    ]
   }
 ];
 

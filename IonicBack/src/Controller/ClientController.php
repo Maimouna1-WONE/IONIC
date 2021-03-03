@@ -52,7 +52,6 @@ class ClientController extends AbstractController
         $this->serializer=$serializer;
         $this->user = ($tokenStorage->getToken())->getUser();
     }
-
     /**
      * @Route(
      *     path="/api/clients/depotclient",

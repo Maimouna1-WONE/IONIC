@@ -1,0 +1,20 @@
+<app-header></app-header>
+<ion-content>
+  <form (ngSubmit)="OnSubmit()">
+  <ion-item lines="full">
+    <ion-label position="floating" color="medium">Type de transaction</ion-label>
+    <ion-input type="text" clear-input></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating" color="medium">Montant</ion-label>
+    <ion-input type="number" clear-input></ion-input>
+  </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-button type="submit" expand="block" style="margin-top: 20%;" color="danger" >Calculer</ion-button>
+    </ion-col>
+  </ion-row>
+  </form>
+</ion-content>
+
+

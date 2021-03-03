@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {ConnexionService} from "../connexion/connexion.service";
 
 @Component({
   selector: 'app-folder',
@@ -14,13 +15,13 @@ export class FolderPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {
     if (JSON.parse(String(localStorage.getItem('currentUserInfo')))) {
       this.avatar = JSON.parse(String(localStorage.getItem('currentUserInfo'))).avatar;
-      this.date = JSON.parse(String(localStorage.getItem('currentUserInfo'))).date_depot;
+      this.date = JSON.parse(String(localStorage.getItem('currentUserInfo'))).date_depot.date;
+      // console.log(this.date);
       this.solde = JSON.parse(String(localStorage.getItem('currentUserInfo'))).solde;
     }
   }
   isActiveToggleTextPassword = true;
   public toggleTextPassword(): void{
-    console.log('ok');
     this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword !== true);
     if (this.isActiveToggleTextPassword) {
       this.cle = 'eye';

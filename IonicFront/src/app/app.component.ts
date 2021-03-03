@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {ConnexionService} from "./connexion/connexion.service";
-import {log} from "util";
+import {ConnexionService} from './connexion/connexion.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -8,13 +7,13 @@ import {log} from "util";
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Depot', url: '/folder/Inbox', icon: 'return-up-forward' },
-    { title: 'Retrait', url: '/folder/Outbox', icon: 'return-up-back' },
-    { title: 'Mes transactions', url: '/folder/Favorites', icon: 'repeat' },
-    { title: 'Toutes mes transactions', url: '/folder/Favorites', icon: 'repeat' },
-    { title: 'Mes commissions', url: '/folder/Archived', icon: 'list-circle' },
-    { title: 'Calculateur de frais', url: '/folder/Trash', icon: 'calculator' },
-    { title: 'Deconnexion', url: '', icon: 'exit', click: 'deconnexion()' },
+    { title: 'Depot', url: 'depot', icon: 'return-up-forward' },
+    { title: 'Retrait', url: 'retrait', icon: 'return-up-back' },
+    { title: 'Mes transactions', url: 'transaction', icon: 'repeat' },
+    { title: 'Toutes mes transactions', url: 'transaction', icon: 'repeat' },
+    { title: 'Mes commissions', url: 'commission', icon: 'list-circle' },
+    { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
+    { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];
   username: string; avatar: string;
   constructor(private auth: ConnexionService) {

@@ -1,0 +1,73 @@
+<ion-header style="background-color: #E5E5E5; border-radius: 3%" *ngIf="page!= 'transaction'; else other">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          <ion-buttons slot="start">
+            <ion-menu-button>
+            </ion-menu-button>
+          </ion-buttons>
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-thumbnail style="width: 100%; height: 100%">
+          <img id="imglogo" src="../../assets/Logo%20MONEY%20SA%201.png" alt="">
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-segment disabled id="head" color="light">
+          <ion-segment-button value="friends">
+            <ion-label><ion-icon name="{{GiveIcon(page)}}" style="color: #16a7be"></ion-icon>{{page}}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ng-template #other>
+  <ion-header style="background-color: #E5E5E5">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-buttons slot="start">
+              <ion-menu-button>
+              </ion-menu-button>
+            </ion-buttons>
+          </div>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col>
+          <ion-thumbnail style="width: 100%; height: 100%">
+            <img  src="../../assets/Logo%20MONEY%20SA%201.png" alt="">
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-segment disabled id="tr" color="light">
+            <ion-segment-button value="friends">
+              <ion-label><ion-icon name="{{GiveIcon(page)}}" style="color: #16a7be"></ion-icon>Mes {{page}}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+
+        <ion-col>
+          <ion-segment color="light" disabled id="tttr" *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'">
+            <ion-segment-button value="friends">
+              <ion-label><ion-icon name="{{GiveIcon(page)}}" style="color: #16a7be"></ion-icon>Toutes les {{page}}s</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+</ng-template>
