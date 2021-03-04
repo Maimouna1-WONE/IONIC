@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FooterPage } from './footer.page';
+import {CommissionPage} from '../commission/commission.page';
 
 const routes: Routes = [
   {

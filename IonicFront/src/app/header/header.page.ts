@@ -22,7 +22,7 @@ export class HeaderPage implements OnInit {
   }
 GiveIcon(t: string){
     if (t === 'commission'){
-      this.icon = 'list-circle';
+      this.icon = 'cash-outline';
     }
     if (t === 'depot'){
     this.icon = 'return-up-forward';
@@ -31,7 +31,7 @@ GiveIcon(t: string){
     this.icon = 'return-up-back';
   }
     if (t === 'transaction'){
-    this.icon = 'repeat';
+    this.icon = 'wallet-outline';
   }
     if (t === 'calculatrice'){
     this.icon = 'calculator';

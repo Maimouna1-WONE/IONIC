@@ -221,4 +221,28 @@ class TransactionController extends AbstractController
         $this->manager->flush();
         return $this->json("Retrait reussi",200);
     }
+
+    /**
+     * @Route(
+     *     path="/api/transactions/code",
+     *     name="code",
+     *     methods={"GET"},
+     *     defaults={
+     *          "__controller"="App\Controller\TransactionController::retraitUA",
+     *          "__api_resource_class"=Transaction::class,
+     *          "__api_item_operation_name"="getTransactionCode"
+     *     }
+     * )
+     * @param Request $request
+     */
+    public function code(Request $request){
+        $dep= json_decode($request->getContent(), true);
+        $obj= $this->repo->findTransaction($dep['code']);
+        //return $this->json($obj,200);
+        $status = Response::HTTP_BAD_REQUEST;
+        if ($obj instanceof Transaction){
+            $status =Response::HTTP_CREATED;
+        }
+        return $this->json($obj,$status);
+    }
 }

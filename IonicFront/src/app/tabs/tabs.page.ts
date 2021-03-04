@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import {ConnexionService} from '../connexion/connexion.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-tabs',
@@ -9,10 +10,14 @@ import {ConnexionService} from '../connexion/connexion.service';
 })
 export class TabsPage implements OnInit {
 role: string;
-  constructor(private route: Router, private auth: ConnexionService)
+  constructor(private route: Router,
+              private auth: ConnexionService,
+              private storage: Storage)
   {
-    if (JSON.parse(String(localStorage.getItem('currentUserInfo')))) {
-      this.role = JSON.parse(String(localStorage.getItem('currentUserInfo'))).roles[0];
+    if ((this.storage.get('currentUserInfo'))) {
+      this.storage.get('currentUserInfo').then((val) => {
+        this.role = JSON.parse(val).roles[0];
+      });
     }
   }
 

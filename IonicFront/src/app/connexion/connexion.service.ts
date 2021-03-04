@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 // @ts-ignore
 import { UserService } from '../services/user.service';
 import {Router} from '@angular/router';
+import { Storage } from '@ionic/storage';
 import {User} from '../models/user';
 
 @Injectable({
@@ -16,13 +17,18 @@ export class ConnexionService
 {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-  infoUser: User;
+  infoUser: User; chaine: any;
   private decode = new JwtHelperService();
 
   constructor(private http: HttpClient, private userService: UserService,
-              private router: Router)
+              private router: Router,
+              private storage: Storage)
   {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.storage.get('currentUser').then((res) => {
+      this.chaine = JSON.parse(res);
+    });
+    this.currentUserSubject = new BehaviorSubject<User>(this.chaine);
+    //console.log(this.currentUserSubject.value);
     this.currentUser = this.currentUserSubject.asObservable();
   }
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
@@ -38,8 +44,8 @@ export class ConnexionService
           const tokenInfo = this.getInfoToken(token['token']);
           // console.log(tokenInfo);
           if (tokenInfo.statut === false) {
-            localStorage.setItem('currentUser', JSON.stringify(token));
-            localStorage.setItem('currentUserInfo', JSON.stringify(tokenInfo));
+            this.storage.set('currentUser', JSON.stringify(token));
+            this.storage.set('currentUserInfo', JSON.stringify(tokenInfo));
             this.currentUserSubject.next(token);
             return tokenInfo.roles[0];
           }
@@ -53,10 +59,10 @@ export class ConnexionService
   // tslint:disable-next-line:typedef
   logout()
   {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentUserInfo');
+    this.storage.remove('currentUser');
+    this.storage.remove('currentUserInfo');
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login_check']);
+    this.router.navigate(['/accueil']);
   }
 
   getInfoToken(token: string): any
@@ -70,8 +76,4 @@ export class ConnexionService
       return null;
     }
   }
-  /*getbyLogin(): Observable<User>
-  {
-    return this.http.get<User>(`/api/admin/users/search`);
-  }*/
 }

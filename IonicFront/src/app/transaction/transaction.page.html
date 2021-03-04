@@ -4,6 +4,7 @@
 
 <ion-content>
 
+  <ion-card>
   <ion-segment (ionChange)="segmentChanged($event)" value="list">
     <ion-segment-button value="list" style="
   border-bottom: solid 2px #16a7be;" *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'">
@@ -117,7 +118,7 @@
       </ion-col>
     </ion-row>
   </ion-list>
-
+  </ion-card>
 </ion-content>
 
 <app-footer></app-footer>

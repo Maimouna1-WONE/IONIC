@@ -2,16 +2,14 @@
 <app-header></app-header>
 
 <ion-content>
-
+<ion-card>
   <ion-segment (ionChange)="segmentChanged($event)" value="list">
-    <ion-segment-button value="list" style="
-  border-bottom: solid 2px orangered;">
+    <ion-segment-button value="list" >
       <ion-label>
         Emetteur
       </ion-label>
     </ion-segment-button>
-    <ion-segment-button value="card" style="
-  border-bottom: solid 2px orangered;">
+    <ion-segment-button value="card">
       <ion-label>
         Beneficiaire
       </ion-label>
@@ -23,67 +21,89 @@
     class="animate__animated animate__slideInUp animate__fast"
     *ngIf="segment === 'list'"
   >
+    <ion-list formGroupName="expediteur">
+      <ion-card>
+        <ion-item lines="full">
+          <ion-label position="floating" color="medium">N° CNI</ion-label>
+          <ion-input type="text" clear-input [formControlName]="'cni'"></ion-input>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="full">
+          <ion-label position="floating" color="medium">Nom</ion-label>
+          <ion-input type="nom" clear-input [formControlName]="'nom'"></ion-input>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="full">
+          <ion-label position="floating" color="medium">Prenom</ion-label>
+          <ion-input type="text" clear-input [formControlName]="'prenom'"></ion-input>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item lines="full">
+          <ion-label position="floating" color="medium">Telephone</ion-label>
+          <ion-input type="number" clear-input [formControlName]="'telephone'"></ion-input>
+        </ion-item>
+      </ion-card>
 
-      <ion-item lines="full" formGroupName="client_depot">
-        <ion-label position="floating" color="medium">N° CNI</ion-label>
-        <ion-input type="text" clear-input [formControlName]="'cni'"></ion-input>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label position="floating" color="medium">Nom</ion-label>
-        <ion-input type="nom" clear-input></ion-input>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label position="floating" color="medium">Prenom</ion-label>
-        <ion-input type="text" clear-input></ion-input>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label position="floating" color="medium">Telephone</ion-label>
-        <ion-input type="number" clear-input></ion-input>
-      </ion-item>
+    </ion-list>
+    <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Montant</ion-label>
-        <ion-input type="number" clear-input [formControlName]="'montant'"></ion-input>
+        <ion-input type="number" clear-input [(ngModel)]="montant" [formControlName]="'montant'"></ion-input>
       </ion-item>
+    </ion-card>
+    <ion-card>
       <ion-item lines="full" style="width: 40%; float: right">
         <ion-label position="floating" color="medium">Fais</ion-label>
-        <ion-input type="number" clear-input style="color: orangered"></ion-input>
+        <ion-input type="number" [value]="calculerFrais()" clear-input style="color: #ff4500"></ion-input>
       </ion-item>
-      <ion-item lines="full" style="margin-top: 20%">
+    </ion-card>
+    <ion-card>
+      <ion-item lines="full">
         <ion-label position="floating" color="medium">Total</ion-label>
-        <ion-input type="number" clear-input ></ion-input>
+        <ion-input type="number" [value]="calculTotal()" clear-input ></ion-input>
       </ion-item>
-      <ion-row>
-        <ion-col>
-          <ion-button type="button" expand="block" style="margin-top: 20%;" color="danger" (click)="suivant()">Suivant</ion-button>
-        </ion-col>
-      </ion-row>
-
-
+    </ion-card>
+    <ion-row>
+      <ion-col>
+        <ion-button type="button" expand="block" style="margin-top: 20%;" color="danger" (click)="suivant()">Suivant</ion-button>
+      </ion-col>
+    </ion-row>
   </ion-list>
 
   <ion-list class="animate__animated animate__slideInUp animate__fast"
-            *ngIf="segment === 'card'" formGroupName="client_retrait">
+            *ngIf="segment === 'card'">
+    <ion-list formGroupName="destinataire">
+    <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Nom</ion-label>
-      <ion-input type="nom" clear-input></ion-input>
+      <ion-input type="nom" clear-input formControlName="nom"></ion-input>
     </ion-item>
+    </ion-card>
+    <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Prenom</ion-label>
-      <ion-input type="text" clear-input></ion-input>
+      <ion-input type="text" clear-input formControlName="prenom"></ion-input>
     </ion-item>
+    </ion-card>
+    <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Telephone</ion-label>
       <ion-input type="number" clear-input [formControlName]="'telephone'"></ion-input>
     </ion-item>
+    </ion-card>
+    </ion-list>
+
     <ion-row>
       <ion-col>
-        <ion-button type="submit" expand="block" style="margin-top: 20%;" color="danger">Suivant</ion-button>
+        <ion-button type="submit" expand="block" color="danger" [disabled]="!addForm.value">Suivant</ion-button>
       </ion-col>
     </ion-row>
-
   </ion-list>
   </form>
-
+</ion-card>
 </ion-content>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>

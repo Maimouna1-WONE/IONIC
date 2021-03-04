@@ -71,21 +71,23 @@ class ClientController extends AbstractController
         if ($agence->getSolde() >= 5000){
             $dep= json_decode($request->getContent(), true);
             $exp = new Client();
-            $exp->setNomComplet($dep['expediteur']['nom_complet']);
+            $exp->setNom($dep['expediteur']['nom']);
+            $exp->setPrenom($dep['expediteur']['prenom']);
             $exp->setTelephone($dep['expediteur']['telephone']);
             $exp->setCni($dep['expediteur']['cni']);
             $dest = new Client();
-            $dest->setNomComplet($dep['destinataire']['nom_complet']);
+            $dest->setNom($dep['destinataire']['nom']);
+            $dest->setPrenom($dep['destinataire']['prenom']);
             $dest->setTelephone($dep['destinataire']['telephone']);
             $trans = $this->frais->generateFrais($dep['montant']);
-            $code=random_int(10000,99999).''.random_int(100,999);
+            $code=random_int(100,999).'-'.random_int(100,999). '-'.random_int(100, 999);
             $trans->setCode((string)$code);
             $trans->setType("depot");
             $trans->setClientDepot($exp);
             $trans->setClientRetrait($dest);
             $trans->setUserDepot($this->user);
             $trans->setMontant($dep['montant']);
-            ($trans->getCompte())->setSolde($agence->getSolde() - $dep['montant']);
+            $agence->setSolde($agence->getSolde() - $dep['montant']);
             $trans->setCompte($agence);
             $trans->setDateDepot(new \DateTime());
             $exp->addTransaction($trans);
@@ -101,6 +103,7 @@ class ClientController extends AbstractController
             }
             $this->manager->persist($exp);
             $this->manager->persist($dest);
+            $this->manager->persist($trans);
             $this->manager->flush();
             $obj=$trans;
         }

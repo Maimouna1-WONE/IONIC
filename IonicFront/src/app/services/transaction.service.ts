@@ -13,6 +13,16 @@ export class TransactionService{
   DepotClient(data: Object): Observable<Transaction>
   {
     // @ts-ignore
-    return this.http.post('/api/client/depotclient', data);
+    return this.http.post('/api/clients/depotclient', data);
+  }
+  RetraitClient(data: Object): Observable<Transaction>
+  {
+    // @ts-ignore
+    return this.http.post('/api/clients/retraitclient', data);
+  }
+  getByCode(data: string): Observable<Transaction>
+  {
+    // @ts-ignore
+    return this.http.get<Transaction>('/api/transactions/code', data);
   }
 }

@@ -53,24 +53,19 @@ export class ConnexionPage implements OnInit {
           if (data === 'ROLE_ADMIN_SYS')
           {
             console.log('good AS');
-            //this.returnUrl = '';
           }
           else if (data === 'ROLE_ADMIN_AGENCE')
           {
-            //console.log('good AA');
             this.returnUrl = '';
           }
           else if (data === 'ROLE_UTILISATEUR_AGENCE')
           {
-            console.log('good UA');
-            //this.returnUrl = 'apprenant';
+            this.returnUrl = '';
           }
           else if (data === 'ROLE_CAISSIER')
           {
             console.log('good C');
-            //this.returnUrl = 'cm';
           }
-          //console.log('bakhna deiii');
           this.router.navigate([this.returnUrl]);
         },
         error => {

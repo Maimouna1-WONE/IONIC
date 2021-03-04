@@ -23,7 +23,7 @@ export class UserService{
   }
   getbyId(id: number): Observable<User>
   {
-    return this.http.get<User>(`/api/admin/users/${id}`);
+    return this.http.get<User>(`/api/users/${id}`);
   }
   getQrcode(id: number): Observable<User>
   {

@@ -30,19 +30,33 @@
 </ion-header>
 
 <ion-content>
-
-
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <ion-item lines="full" style="margin-bottom: 10%; margin-top: 90%;">
+<ion-card style="margin-bottom: 10%; margin-top: 100%;">
+    <ion-item lines="full" >
       <ion-label position="floating" color="medium">Email</ion-label>
-      <ion-input type="email" clear-input required formControlName="email"></ion-input>
+      <ion-input type="email" placeholder="aaaaaaaa@gmail.com" clear-input required formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"></ion-input>
     </ion-item>
-
+  <ion-grid *ngIf="(submitted && f.email.errors) || f.email.touched">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label class="ion-alert-danger">email is required</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+    <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Password</ion-label>
-      <ion-input type="password" clear-input required formControlName="password"></ion-input>
+      <ion-input type="password" placeholder="*******" clear-input required formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"></ion-input>
     </ion-item>
-
+      <ion-grid *ngIf="(submitted && f.password.errors) || f.password.touched">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label class="ion-alert-danger">password is required</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
     <ion-row style="margin-top: 5%">
       <ion-col>
         <a class="small-text" style="color: #51BFD0">Mot de passe oublié?</a>
@@ -51,7 +65,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" expand="block" style="margin-top: 20%;" color="secondary">Se Connecter</ion-button>
+        <ion-button type="submit" [disabled]="!loginForm.valid" expand="block" style="margin-top: 20%;" color="secondary">Se Connecter</ion-button>
       </ion-col>
     </ion-row>
   </form>

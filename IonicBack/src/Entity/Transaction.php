@@ -45,7 +45,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                          "path"="/{id}",
  *                          "requirements"={"id":"\d+"},
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"}
+ *          "security_message"="Vous n'avez pas access à cette Ressource"},
+ *     "getTransactionCode"={
+ *                    "method"="GET",
+ *                      "route_name"="code",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"
+ *                }
  *     }
  * )
  */
@@ -63,7 +69,7 @@ class Transaction
      * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","recudepot:read","recuratrait:read"})
      * @Assert\NotBlank(message = "Donner le montant")
-     * @Assert\Positive(
+     * @Assert\PositiveOrZero(
      *      message="Le montant doit etre positif"
      * )
      */

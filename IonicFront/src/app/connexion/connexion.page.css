@@ -31,4 +31,8 @@ ion-segment {
   width: 30%;
 }
 
+.ion-alert-danger {
+  color: red;
+}
+
 /*# sourceMappingURL=connexion.page.css.map */

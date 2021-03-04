@@ -29,8 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "security"="is_granted('ROLE_UTILISATEUR_AGENCE') or is_granted('ROLE_ADMIN_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                   }
- *     },
- *     itemOperations={}
+ *     }
  * )
  */
 class Client
@@ -42,11 +41,6 @@ class Client
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups ({"depotclient:write"})
-     */
-    private $nom_complet;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -60,8 +54,12 @@ class Client
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=13)
+     * @ORM\Column(type="string", length=13, nullable=true)
      * @Groups ({"depotclient:write"})
+     * @Assert\Regex(
+     *     pattern="/^[1|2][0-9]+$/",
+     *     message="Format incorrct"
+     * )
      * @Assert\Positive(
      *      message="Le cni est toujours positif"
      * )
@@ -74,6 +72,26 @@ class Client
      */
     private $transactions;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Donner le nom")
+     * @Assert\Regex(
+     *      pattern="/^[A-Z]+$/",
+     *      message="Le nom est ecrit en lettre capitale"
+     * )
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Donner le prenom")
+     * @Assert\Regex(
+     *      pattern="/^[A-Z][a-z]+$/",
+     *      message="Le prenom commence par une lettre majuscule"
+     * )
+     */
+    private $prenom;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -82,18 +100,6 @@ class Client
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNomComplet(): ?string
-    {
-        return $this->nom_complet;
-    }
-
-    public function setNomComplet(string $nom_complet): self
-    {
-        $this->nom_complet = $nom_complet;
-
-        return $this;
     }
 
     public function getTelephone(): ?string
@@ -146,6 +152,30 @@ class Client
                 $transaction->setClientDepot(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }

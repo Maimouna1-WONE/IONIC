@@ -1,25 +1,40 @@
 import { Component } from '@angular/core';
 import {ConnexionService} from './connexion/connexion.service';
+import { Storage } from '@ionic/storage';
+import {UserService} from "./services/user.service";
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
+  appPages = [
     { title: 'Depot', url: 'depot', icon: 'return-up-forward' },
     { title: 'Retrait', url: 'retrait', icon: 'return-up-back' },
-    { title: 'Mes transactions', url: 'transaction', icon: 'repeat' },
+    { title: 'Mes transactions', url: 'transaction', icon: 'wallet' },
     { title: 'Toutes mes transactions', url: 'transaction', icon: 'repeat' },
-    { title: 'Mes commissions', url: 'commission', icon: 'list-circle' },
+    { title: 'Mes commissions', url: 'commission', icon: 'cash' },
     { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
     { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];
-  username: string; avatar: string;
-  constructor(private auth: ConnexionService) {
-    if (localStorage.getItem('currentUserInfo')){
-      this.username = JSON.parse(String(localStorage.getItem('currentUserInfo'))).username;
-      this.avatar = JSON.parse(String(localStorage.getItem('currentUserInfo'))).avatar;
+  username: string; avatar: any; role: string;
+  constructor(private auth: ConnexionService,
+              private storage: Storage,
+              private userservice: UserService) {
+    if ((this.storage.get('currentUserInfo'))) {
+      this.storage.get('currentUserInfo').then((val) => {
+        this.userservice.getbyId(JSON.parse(val).id).subscribe(
+          res => {
+            this.avatar = res.avatar;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+        this.username = JSON.parse(val).username;
+        this.role = JSON.parse(val).roles[0];
+      });
     }
   }
   deconnexion(){

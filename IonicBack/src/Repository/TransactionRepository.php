@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Transaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,4 +48,15 @@ class TransactionRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findTransaction(string $value): ?Transaction
+    {
+        try {
+            return $this->createQueryBuilder('t')
+                ->andWhere('t.code = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+    }
 }

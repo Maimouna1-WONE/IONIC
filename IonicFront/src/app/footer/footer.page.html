@@ -1,6 +1,6 @@
 
 
-<ion-tabs>
+<!--<ion-tabs>
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="ok" [routerLink]="['/folder/Inbox']" routerLinkActive="selected">
       <ion-icon name="home-outline"></ion-icon>
@@ -18,4 +18,21 @@
       <ion-icon name="calculator-outline"></ion-icon>
     </ion-tab-button>
   </ion-tab-bar>
-</ion-tabs>
+</ion-tabs>-->
+
+<ion-grid slot="bottom">
+  <ion-row class="ion-text-center">
+    <ion-col [routerLink]="['/folder/Inbox']" routerLinkActive="selected">
+      <ion-icon name="home-outline" color="medium" size="large"></ion-icon>
+    </ion-col>
+    <ion-col [routerLink]="['/transaction']" routerLinkActive="selected">
+      <ion-icon name="wallet-outline" color="medium" size="large"></ion-icon>
+    </ion-col>
+    <ion-col [routerLink]="['/commission']" routerLinkActive="selected">
+        <ion-icon name="cash-outline" color="medium" size="large"></ion-icon>
+    </ion-col>
+    <ion-col [routerLink]="['/calculatrice']">
+      <ion-icon name="calculator-outline" color="medium" size="large"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-grid>
