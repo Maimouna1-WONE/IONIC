@@ -20,14 +20,16 @@ export class FolderPage implements OnInit {
     // console.log(this.storage.get('currentUserInfo'));
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
-        this.userservice.getbyId(JSON.parse(val).id).subscribe(
-          res => {
-            this.avatar = res.avatar;
-          },
-          error => {
-            console.log(error);
-          }
-        );
+        if (JSON.parse(val).id){
+          this.userservice.getbyId(JSON.parse(val).id).subscribe(
+            res => {
+              this.avatar = res.avatar;
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
         this.date = JSON.parse(val).date_depot.date;
         this.solde = JSON.parse(val).solde;
       });

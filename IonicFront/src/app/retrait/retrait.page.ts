@@ -4,6 +4,7 @@ import {AlertController} from "@ionic/angular";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TransactionService} from "../services/transaction.service";
 import {Transaction} from "../models/transaction";
+import {Client} from "../models/client";
 
 @Component({
   selector: 'app-retrait',
@@ -14,7 +15,7 @@ export class RetraitPage implements OnInit {
 
   public segment = 'list'; page: string;
   addForm: FormGroup; submitted: boolean;
-  info: Transaction; code: string;
+  info: Transaction; code: number; depot: Client; retrait: Client;
   constructor(private route: Router,
               private alertController: AlertController,
               private formBuilder: FormBuilder,
@@ -34,9 +35,12 @@ export class RetraitPage implements OnInit {
     return this.addForm.controls;
   }
   getTransaction(){
-    this.transactionservice.getByCode(JSON.stringify(this.code)).subscribe(
+    this.transactionservice.getByCode(this.code.toString()).subscribe(
       res => {
-        console.log(res);
+        this.info = res[0];
+        console.log(this.info.date_depot);
+        this.depot = res[0].client_depot;
+        this.retrait = res[0].client_retrait;
       },
       error => {
         console.log(error);
@@ -47,14 +51,53 @@ export class RetraitPage implements OnInit {
     this.segment = ev.detail.value;
   }
   OnSubmit() {
-    this.transactionservice.RetraitClient(this.addForm.value).subscribe(
-      res => {
-        console.log(res);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    console.log(this.addForm.value);
+    this.alertController.create({
+      header: 'Confirmation',
+      cssClass: 'my-custom-class',
+      // tslint:disable-next-line:max-line-length
+      message: 'BENEFICIAIRE: ' + this.retrait.nom + '' + this.retrait.prenom + 'TELEPHONE: ' + this.retrait.telephone + 'N° CNI: ' + this.addForm.get('destinataire').get('cni').value + 'MONTANT: ' + this.info.montant + 'EMETTEUR: ' + this.depot.nom + ' ' + this.depot.prenom + 'TELEPHONE: ' + this.depot.telephone + '',
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: () => {
+            console.log('I care about humanity');
+          }
+        },
+        {
+          text: 'Confirmer',
+          handler: () => {
+            this.transactionservice.RetraitClient(this.addForm.value).subscribe(
+              res => {
+                console.log(res);
+                /*this.alertController.create({
+                  header: 'Retrait reussi',
+                  // tslint:disable-next-line:max-line-length
+                  message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
+                  buttons: [
+                    {
+                      text: 'Retour',
+                      handler: () => {
+                      }
+                    },
+                    {
+                      text: 'SMS',
+                      handler: () => {}
+                    }
+                  ]
+                });*/
+              },
+              error => {
+                console.log(error);
+                /*this.alertController.create({
+                  header: 'Erreur'
+                });*/
+              }
+            );
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
   }
 }

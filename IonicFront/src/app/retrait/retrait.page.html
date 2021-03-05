@@ -7,16 +7,19 @@
     <ion-card>
   <ion-item lines="full">
     <ion-label position="floating" color="medium">Code</ion-label>
-    <ion-input type="text" clear-input (focusout)="getTransaction()" [(ngModel)]="code" [formControlName]="'code'" [ngClass]="{ 'is-invalid': submitted && f.code.errors }"></ion-input>
+    <ion-input type="text" clear-input (focusout)="getTransaction()" [(ngModel)]="code" [formControlName]="'code'"></ion-input>
   </ion-item>
-      <ion-grid *ngIf="(submitted && f.code.errors) || f.code.touched">
+      <!--<ion-grid *ngIf="(submitted && f.code.errors) || f.code.touched">
         <ion-row>
           <ion-col class="ion-text-center">
             <ion-label class="ion-alert-danger">Donner le code de retrait: ***-***-***</ion-label>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid>-->
     </ion-card>
+
+    <div *ngIf="info">
+
   <ion-segment (ionChange)="segmentChanged($event)" value="list">
     <ion-segment-button value="list">
       <ion-label>
@@ -38,32 +41,33 @@
       <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">N° CNI</ion-label>
-        <ion-input type="text" clear-input readonly></ion-input>
+        <ion-input type="text" clear-input readonly [value]="depot.cni"></ion-input>
       </ion-item>
       </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Nom & Prenom</ion-label>
-        <ion-input type="nom" clear-input readonly></ion-input>
+        <ion-input type="nom" clear-input readonly [value]="depot.nom + ' ' + depot.prenom"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Montant à recevoir</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="number" clear-input readonly [value]="info.montant"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Telephone</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="number" clear-input readonly [value]="depot.telephone"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Date d'envoi</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="text" clear-input readonly value="{{info.date_depot | date: 'dd/MM/yyyy'}}"></ion-input>
       </ion-item>
+
     </ion-card>
       <ion-row>
         <ion-col>
@@ -86,29 +90,30 @@
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Nom & Prenom</ion-label>
-        <ion-input type="nom" clear-input readonly></ion-input>
+        <ion-input type="nom" clear-input readonly [value]="retrait.nom + ' ' + retrait.prenom"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Montant à recevoir</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="number" clear-input readonly [value]="info.montant"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Telephone</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="number" clear-input readonly [value]="retrait.telephone"></ion-input>
       </ion-item>
     </ion-card>
     <ion-card>
       <ion-item lines="full">
         <ion-label position="floating" color="medium">Date d'envoi</ion-label>
-        <ion-input type="number" clear-input readonly></ion-input>
+        <ion-input type="text" clear-input readonly [value]="info.date_depot | date: 'dd/MM/yyyy'"></ion-input>
       </ion-item>
     </ion-card>
   </ion-list>
 
+    </div>
   </form>
 </ion-card>
 </ion-content>

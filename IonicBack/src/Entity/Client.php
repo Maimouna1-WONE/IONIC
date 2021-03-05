@@ -38,6 +38,7 @@ class Client
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ({"getcode:read"})
      */
     private $id;
 
@@ -50,12 +51,14 @@ class Client
      *     message="Seuls les operateurs Tigo, Expresso, ProMobile et Orange sont permis"
      * )
      * @Groups ({"depotclient:write"})
+     * @Groups ({"getcode:read"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=13, nullable=true)
      * @Groups ({"depotclient:write"})
+     * @Groups ({"getcode:read"})
      * @Assert\Regex(
      *     pattern="/^[1|2][0-9]+$/",
      *     message="Format incorrct"
@@ -79,6 +82,7 @@ class Client
      *      pattern="/^[A-Z]+$/",
      *      message="Le nom est ecrit en lettre capitale"
      * )
+     * @Groups ({"getcode:read"})
      */
     private $nom;
 
@@ -89,6 +93,7 @@ class Client
      *      pattern="/^[A-Z][a-z]+$/",
      *      message="Le prenom commence par une lettre majuscule"
      * )
+     * @Groups ({"getcode:read"})
      */
     private $prenom;
 

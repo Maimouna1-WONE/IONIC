@@ -23,6 +23,6 @@ export class TransactionService{
   getByCode(data: string): Observable<Transaction>
   {
     // @ts-ignore
-    return this.http.get<Transaction>('/api/transactions/code', data);
+    return this.http.get<Transaction>(`/api/transactions/${data}`);
   }
 }

@@ -48,15 +48,14 @@ class TransactionRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findTransaction(string $value): ?Transaction
+    public function findTransaction(string $value)
     {
-        try {
-            return $this->createQueryBuilder('t')
-                ->andWhere('t.code = :val')
-                ->setParameter('val', $value)
-                ->getQuery()
-                ->getOneOrNullResult();
-        } catch (NonUniqueResultException $e) {
-        }
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->andWhere('t.code = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
     }
+
 }

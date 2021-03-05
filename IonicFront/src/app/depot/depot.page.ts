@@ -118,7 +118,8 @@ export class DepotPage implements OnInit {
     this.alertController.create({
     header: 'Confirmation',
       cssClass: 'my-custom-class',
-    message: 'Etes vous sur de bien vouloir faire ce depot?',
+      // tslint:disable-next-line:max-line-length
+    message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
     buttons: [
       {
         text: 'Annuler',

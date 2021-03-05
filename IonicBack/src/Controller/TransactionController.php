@@ -224,7 +224,7 @@ class TransactionController extends AbstractController
 
     /**
      * @Route(
-     *     path="/api/transactions/code",
+     *     path="/api/transactions/{code}",
      *     name="code",
      *     methods={"GET"},
      *     defaults={
@@ -233,16 +233,13 @@ class TransactionController extends AbstractController
      *          "__api_item_operation_name"="getTransactionCode"
      *     }
      * )
-     * @param Request $request
+     * @param string $code
+     * @return JsonResponse
      */
-    public function code(Request $request){
-        $dep= json_decode($request->getContent(), true);
-        $obj= $this->repo->findTransaction($dep['code']);
-        //return $this->json($obj,200);
-        $status = Response::HTTP_BAD_REQUEST;
-        if ($obj instanceof Transaction){
-            $status =Response::HTTP_CREATED;
-        }
-        return $this->json($obj,$status);
+    public function code(string $code)
+    {
+        // $dep= json_decode($request->getContent(), true);
+            $obj= $this->repo->findTransaction($code);
+        return $this->json($obj,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
     }
 }

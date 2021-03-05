@@ -1,5 +1,5 @@
-import {User} from "./user";
-import {Compte} from "./compte";
+import {User} from './user';
+import {Compte} from './compte';
 
 export class Transaction {
   id?: number;

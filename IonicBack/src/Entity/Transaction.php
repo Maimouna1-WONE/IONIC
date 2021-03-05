@@ -50,7 +50,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                    "method"="GET",
  *                      "route_name"="code",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"
+ *          "security_message"="Vous n'avez pas access à cette Ressource",
+ *     "normalization_context"={"groups"={"getcode:read"}}
  *                }
  *     }
  * )
@@ -61,13 +62,13 @@ class Transaction
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups ({"gettransaction:read"})
+     * @Groups ({"gettransaction:read","getcode:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups ({"gettransaction:read","depotua:write","recudepot:read","recuratrait:read"})
+     * @Groups ({"gettransaction:read","depotua:write","getcode:read","recudepot:read","recuratrait:read"})
      * @Assert\NotBlank(message = "Donner le montant")
      * @Assert\PositiveOrZero(
      *      message="Le montant doit etre positif"
@@ -77,56 +78,56 @@ class Transaction
 
     /**
      * @ORM\Column(type="date")
-     * @Groups ({"gettransaction:read","recudepot:read"})
+     * @Groups ({"gettransaction:read","recudepot:read","getcode:read"})
      */
     private $date_depot;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups ({"gettransaction:read","recuratrait:read"})
+     * @Groups ({"gettransaction:read","recuratrait:read","getcode:read"})
      */
     private $date_retrait;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups ({"gettransaction:read","recudepot:read"})
+     * @Groups ({"gettransaction:read","recudepot:read","getcode:read"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="integer",nullable=true)
-     * @Groups ({"gettransaction:read","depotua:write"})
+     * @Groups ({"gettransaction:read","depotua:write","getcode:read"})
      * @Assert\NotBlank(message = "Donner les frais")
      */
     private $frais;
 
     /**
      * @ORM\Column(type="integer",nullable=true)
-     * @Groups ({"gettransaction:read","depotua:write","getpart:read","recudepot:read"})
+     * @Groups ({"gettransaction:read","depotua:write","getcode:read","getpart:read","recudepot:read"})
      */
     private $frais_depot;
 
     /**
      * @ORM\Column(type="integer",nullable=true)
-     * @Groups ({"gettransaction:read","depotua:write","getpart:read","recuratrait:read"})
+     * @Groups ({"gettransaction:read","depotua:write","getcode:read","getpart:read","recuratrait:read"})
      */
     private $frais_retrait;
 
     /**
      * @ORM\Column(type="integer",nullable=true)
-     * @Groups ({"gettransaction:read","depotua:write","getpart:read"})
+     * @Groups ({"gettransaction:read","depotua:write","getpart:read","getcode:read"})
      */
     private $frais_etat;
 
     /**
      * @ORM\Column(type="integer",nullable=true)
-     * @Groups ({"gettransaction:read","depotua:write","getpart:read"})
+     * @Groups ({"gettransaction:read","depotua:write","getpart:read","getcode:read"})
      */
     private $frais_systeme;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"recudepot:read","recuratrait:read"})
+     * @Groups ({"recudepot:read","recuratrait:read","getcode:read"})
      */
     private $type;
 
@@ -137,23 +138,25 @@ class Transaction
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="transactions", cascade={"persist"})
-     * @Groups ({"depotua:write","recudepot:read"})
+     * @Groups ({"depotua:write","recudepot:read","getcode:read"})
      */
     private $user_depot;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="transactions", cascade={"persist"})
-     * @Groups ({"depotua:write","recuratrait:read"})
+     * @Groups ({"depotua:write","recuratrait:read","getcode:read"})
      */
     private $user_retrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="transactions")
+     * @Groups ({"getcode:read"})
      */
     private $client_depot;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="transactions")
+     * @Groups ({"getcode:read"})
      */
     private $client_retrait;
 
