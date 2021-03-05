@@ -25,4 +25,14 @@ export class TransactionService{
     // @ts-ignore
     return this.http.get<Transaction>(`/api/transactions/${data}`);
   }
+  getALl(): Observable<Transaction[]>
+  {
+    // @ts-ignore
+    return this.http.get<Transaction[]>(`/api/transactions`);
+  }
+  getMesTransactions(): Observable<Transaction[]>
+  {
+    // @ts-ignore
+    return this.http.get<Transaction[]>(`/api/transactions/me`);
+  }
 }

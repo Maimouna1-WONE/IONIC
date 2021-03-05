@@ -242,4 +242,25 @@ class TransactionController extends AbstractController
             $obj= $this->repo->findTransaction($code);
         return $this->json($obj,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
     }
+    /**
+     * @Route(
+     *     path="/api/transactions/me",
+     *     name="getMestransaction",
+     *     methods={"GET"},
+     *     defaults={
+     *          "__controller"="App\Controller\TransactionController::getMestransaction",
+     *          "__api_resource_class"=Transaction::class,
+     *          "__api_item_operation_name"="getMestransaction"
+     *     }
+     * )
+     */
+    public function getMestransaction(): JsonResponse
+    {
+        dd('ok');
+        $id = $this->user->getId();
+        //dd($this->user);
+        $transactions = $this->repo->findMesTransaction($id);
+        //dd($transactions);
+        return $this->json($transactions,Response::HTTP_OK);
+    }
 }

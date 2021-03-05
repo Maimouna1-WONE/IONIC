@@ -51,6 +51,7 @@ export class RetraitPage implements OnInit {
     this.segment = ev.detail.value;
   }
   OnSubmit() {
+    this.submitted = true;
     this.alertController.create({
       header: 'Confirmation',
       cssClass: 'my-custom-class',

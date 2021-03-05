@@ -24,4 +24,11 @@ ion-menu-button {
   margin-bottom: -10px;
 }
 
+#trr {
+  border-bottom: solid 2px #51BFD0;
+  margin-left: 30%;
+  width: 40%;
+  margin-bottom: -10px;
+}
+
 /*# sourceMappingURL=header.page.css.map */

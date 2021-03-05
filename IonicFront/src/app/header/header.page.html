@@ -51,7 +51,7 @@
         <ion-col></ion-col>
         <ion-col></ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'; else other">
         <ion-col>
           <ion-segment disabled id="tr" color="light">
             <ion-segment-button value="friends">
@@ -59,15 +59,25 @@
             </ion-segment-button>
           </ion-segment>
         </ion-col>
-
         <ion-col>
-          <ion-segment color="light" disabled id="tttr" *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'">
+          <ion-segment color="light" disabled id="tttr">
             <ion-segment-button value="friends">
               <ion-label><ion-icon name="repeat" style="color: #16a7be"></ion-icon>Toutes les {{page}}s</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-col>
       </ion-row>
+      <ng-template #other>
+        <ion-row>
+          <ion-col>
+            <ion-segment disabled id="trr" color="light">
+              <ion-segment-button value="friends">
+                <ion-label><ion-icon name="{{GiveIcon(page)}}" style="color: #16a7be"></ion-icon>Mes {{page}}s</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-col>
+        </ion-row>
+      </ng-template>
     </ion-grid>
   </ion-header>
 </ng-template>

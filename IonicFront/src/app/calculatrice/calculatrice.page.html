@@ -1,23 +1,24 @@
 <app-header></app-header>
 <ion-content>
-
+<ion-card>
   <ion-card>
-  <form (ngSubmit)="OnSubmit()">
   <ion-item lines="full">
     <ion-label position="floating" color="medium">Type de transaction</ion-label>
-    <ion-input type="text" clear-input></ion-input>
+    <ion-input type="text" clear-input [(ngModel)]="type"></ion-input>
   </ion-item>
+    </ion-card>
+  <ion-card>
   <ion-item lines="full">
     <ion-label position="floating" color="medium">Montant</ion-label>
-    <ion-input type="number" clear-input></ion-input>
+    <ion-input type="number" clear-input [(ngModel)]="montant"></ion-input>
   </ion-item>
+  </ion-card>
   <ion-row>
     <ion-col>
-      <ion-button type="submit" expand="block" style="margin-top: 20%;" color="danger" >Calculer</ion-button>
+      <ion-button type="button" expand="block" style="margin-top: 20%;" color="danger" (click)="Calculer()" >Calculer</ion-button>
     </ion-col>
   </ion-row>
-  </form>
-  </ion-card>
+</ion-card>
 </ion-content>
 
 <app-footer></app-footer>

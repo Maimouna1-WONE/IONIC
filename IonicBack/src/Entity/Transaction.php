@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "getTransactions"={"method"="GET",
  *                      "path"="",
  *     "normalization_context"={"groups"={"gettransaction:read"}},
- *      "security"="is_granted('ROLE_ADMIN_SYS')",
+ *      "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     },
  *     itemOperations={
@@ -49,6 +49,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "getTransactionCode"={
  *                    "method"="GET",
  *                      "route_name"="code",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource",
+ *     "normalization_context"={"groups"={"getcode:read"}}
+ *                },"getMestransaction"={
+ *                    "method"="GET",
+ *                      "route_name"="getMestransaction",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource",
  *     "normalization_context"={"groups"={"getcode:read"}}
@@ -127,7 +133,7 @@ class Transaction
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups ({"recudepot:read","recuratrait:read","getcode:read"})
+     * @Groups ({"recudepot:read","recuratrait:read","getcode:read","gettransaction:read"})
      */
     private $type;
 

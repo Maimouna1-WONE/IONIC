@@ -115,6 +115,7 @@ export class DepotPage implements OnInit {
     return this.frais + this.montant;
   }
   OnSubmit() {
+    this.submitted = true;
     this.alertController.create({
     header: 'Confirmation',
       cssClass: 'my-custom-class',

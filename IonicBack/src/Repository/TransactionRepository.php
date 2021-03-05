@@ -57,5 +57,13 @@ class TransactionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    public function findMesTransaction(int $value)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->andWhere('t.user_depot.id = :val' || 't.user_retrait.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
 }

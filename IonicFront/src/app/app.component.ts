@@ -24,7 +24,7 @@ export class AppComponent {
               private userservice: UserService) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
-        if (JSON.parse(val).id){
+        if ((JSON.parse(val)).id){
           this.userservice.getbyId(JSON.parse(val).id).subscribe(
             res => {
               this.avatar = res.avatar;

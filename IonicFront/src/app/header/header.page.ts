@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PageService} from "../services/page.service";
 import {Router} from "@angular/router";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,16 @@ import {Router} from "@angular/router";
 export class HeaderPage implements OnInit {
   public segment = 'list'; page: string; icon: string;
   role: string;
-  constructor(private pageservice: PageService, private route: Router) {
-    if (JSON.parse(String(localStorage.getItem('currentUserInfo')))) {
-      this.role = JSON.parse(String(localStorage.getItem('currentUserInfo'))).roles[0];
+  constructor(private pageservice: PageService,
+              private route: Router,
+              private storage: Storage) {
+    if ((this.storage.get('currentUserInfo'))) {
+      this.storage.get('currentUserInfo').then((val) => {
+        if (JSON.parse(val).roles){
+          this.role = JSON.parse(val).roles[0];
+          console.log(this.role);
+        }
+      });
     }
   }
 
@@ -20,7 +28,7 @@ export class HeaderPage implements OnInit {
     this.pageservice.page = this.route.url.substr(1);
     this.page = this.pageservice.page;
   }
-GiveIcon(t: string){
+  GiveIcon(t: string){
     if (t === 'commission'){
       this.icon = 'cash-outline';
     }
@@ -37,5 +45,5 @@ GiveIcon(t: string){
     this.icon = 'calculator';
   }
     return this.icon;
-}
+  }
 }

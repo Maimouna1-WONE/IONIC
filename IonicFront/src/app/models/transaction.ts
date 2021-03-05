@@ -4,6 +4,7 @@ import {Compte} from './compte';
 export class Transaction {
   id?: number;
   montant: number;
+  type: string;
   // tslint:disable-next-line:variable-name
   date_depot: any;
 // tslint:disable-next-line:variable-name
