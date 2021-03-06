@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { HeaderPageRoutingModule } from './header-routing.module';
 
 import { HeaderPage } from './header.page';
+import {FooterPageModule} from "../footer/footer.module";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        HeaderPageRoutingModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HeaderPageRoutingModule,
+    FooterPageModule
+  ],
     exports: [
         HeaderPage
     ],

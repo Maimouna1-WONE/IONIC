@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {ConnexionService} from "../connexion/connexion.service";
-import {Storage} from "@ionic/storage";
-import {TransactionService} from "../services/transaction.service";
-import {Transaction} from "../models/transaction";
+import {ConnexionService} from '../connexion/connexion.service';
+import {Storage} from '@ionic/storage';
+import {TransactionService} from '../services/transaction.service';
+import {Transaction} from '../models/transaction';
 
 @Component({
   selector: 'app-transaction',

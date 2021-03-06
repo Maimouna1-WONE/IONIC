@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *     "getTransactions"={"method"="GET",
  *                      "path"="",
- *     "normalization_context"={"groups"={"gettransaction:read"}},
+ *     "normalization_context"={"groups"={"getcode:read"}},
  *      "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     },

@@ -22,12 +22,6 @@ const routes: Routes = [
     path: 'connexion',
     loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule)
   },
-  { path: 'not-found', loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)},
-  // {path: '**', redirectTo: '/not-found'},
-  {
-    path: 'notfound',
-    loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule)
-  },
   {
     path: 'transaction',
     loadChildren: () => import('./transaction/transaction.module').then( m => m.TransactionPageModule)
@@ -64,7 +58,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })
