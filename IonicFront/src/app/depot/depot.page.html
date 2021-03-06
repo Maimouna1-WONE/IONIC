@@ -121,7 +121,7 @@
     <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Nom</ion-label>
-      <ion-input type="nom" clear-input formControlName="nom"></ion-input>
+      <ion-input type="text" clear-input formControlName="nom"></ion-input>
     </ion-item>
       <ion-grid *ngIf="submitted && (f.destinataire.get('nom').hasError('required') || f.destinataire.get('nom').hasError('pattern'))">
         <ion-row>

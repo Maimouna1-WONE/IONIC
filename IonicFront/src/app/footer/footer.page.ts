@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ConnexionService} from '../connexion/connexion.service';
+import {Storage} from '@ionic/storage';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,8 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterPage implements OnInit {
 
-  constructor() { }
-
+  role: string;
+  constructor(private auth: ConnexionService,
+              private storage: Storage) {
+    if ((this.storage.get('currentUserInfo'))) {
+      this.storage.get('currentUserInfo').then((val) => {
+        if (JSON.parse(val).roles){
+          this.role = JSON.parse(val).roles[0];
+        }
+      });
+    }
+  }
   ngOnInit() {
   }
 

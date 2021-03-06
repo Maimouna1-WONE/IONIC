@@ -28,7 +28,7 @@
     <ion-col [routerLink]="['/transaction']" routerLinkActive="selected">
       <ion-icon name="wallet-outline" color="medium" size="large"></ion-icon>
     </ion-col>
-    <ion-col [routerLink]="['/commission']" routerLinkActive="selected">
+    <ion-col [routerLink]="['/commission']" routerLinkActive="selected" *ngIf="role !== 'ROLE_UTILISATEUR_AGENCE'">
         <ion-icon name="cash-outline" color="medium" size="large"></ion-icon>
     </ion-col>
     <ion-col [routerLink]="['/calculatrice']">

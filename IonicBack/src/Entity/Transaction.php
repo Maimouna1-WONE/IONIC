@@ -22,8 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                      "route_name"="depotCaisssier",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_CAISSIER')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"},
- *      "security"="is_granted('ROLE_ADMIN_SYS')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *     "getTransactions"={"method"="GET",
  *                      "path"="",
  *     "normalization_context"={"groups"={"getcode:read"}},

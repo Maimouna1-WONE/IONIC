@@ -48,7 +48,7 @@ export class HeaderPage implements OnInit {
     this.transactionservice.getALl().subscribe(
       res => {
         this.alltransaction = res['hydra:member'];
-        console.log(this.alltransaction);
+        // console.log(this.alltransaction);
         if (this.alltransaction !== [])
         {
           for (const am of this.alltransaction){

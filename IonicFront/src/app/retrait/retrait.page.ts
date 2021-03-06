@@ -53,6 +53,7 @@ export class RetraitPage implements OnInit {
   }
   OnSubmit() {
     this.submitted = true;
+    if (this.addForm.status === 'VALID'){}
     this.alertController.create({
       header: 'Confirmation',
       cssClass: 'my-custom-class',

@@ -20,6 +20,7 @@
           </ion-grid>
 
           <ion-note *ngIf="username">{{username}}</ion-note>
+          <div *ngIf="role === 'ROLE_ADMIN_AGENCE'; else othere">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item *ngIf="p.url != 'logout'; else other"  [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'" style="color: orangered"></ion-icon>
@@ -32,6 +33,22 @@
               </ion-item>
             </ng-template>
           </ion-menu-toggle>
+          </div>
+
+          <ng-template #othere>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages1; let i = index">
+            <ion-item *ngIf="p.url != 'logout'; else other"  [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'" style="color: orangered"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+            <ng-template #other >
+              <ion-item (click)="deconnexion()" lines="none" detail="false" routerLinkActive="selected">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'" style="color: orangered"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ng-template>
+          </ion-menu-toggle>
+          </ng-template>
         </ion-list>
       </ion-content>
     </ion-menu>

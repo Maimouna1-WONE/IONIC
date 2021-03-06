@@ -117,7 +117,8 @@ export class DepotPage implements OnInit {
   OnSubmit() {
     // console.log(this.addForm.errors);
     this.submitted = true;
-    if (this.addForm.errors === null){
+    console.log(this.addForm);
+    if (this.addForm.status === 'INVALID'){
       this.alertController.create({
         header: 'Confirmation',
         cssClass: 'my-custom-class',
