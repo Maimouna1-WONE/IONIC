@@ -61,7 +61,9 @@ class TransactionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->select('t')
-            ->andWhere('t.user_depot.id = :val' || 't.user_retrait.id = :val')
+            // ->andWhere('t.user_depot = t.user_retrait')
+            ->andWhere('t.user_depot = :val')
+            ->orWhere('t.user_retrait = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getResult();

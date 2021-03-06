@@ -18,7 +18,7 @@ export class HeaderPage implements OnInit {
       this.storage.get('currentUserInfo').then((val) => {
         if (JSON.parse(val).roles){
           this.role = JSON.parse(val).roles[0];
-          console.log(this.role);
+          // console.log(this.role);
         }
       });
     }

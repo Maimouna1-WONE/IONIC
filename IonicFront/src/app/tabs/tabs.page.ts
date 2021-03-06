@@ -16,7 +16,9 @@ role: string;
   {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
-        this.role = JSON.parse(val).roles[0];
+        if (JSON.parse(val).roles){
+          this.role = JSON.parse(val).roles[0];
+        }
       });
     }
   }

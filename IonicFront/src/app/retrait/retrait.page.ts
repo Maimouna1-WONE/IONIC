@@ -24,9 +24,9 @@ export class RetraitPage implements OnInit {
   ngOnInit() {
     this.page = this.route.url.substr(1);
     this.addForm = this.formBuilder.group({
-      code: ['', Validators.required],
+      code: ['', [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{3}')]],
       destinataire: new FormGroup({
-        cni: new FormControl()
+        cni: new FormControl('', [Validators.required, Validators.pattern('^[1|2][0-9]{12}$')])
       })
     });
   }
@@ -35,17 +35,18 @@ export class RetraitPage implements OnInit {
     return this.addForm.controls;
   }
   getTransaction(){
-    this.transactionservice.getByCode(this.code.toString()).subscribe(
-      res => {
-        this.info = res[0];
-        console.log(this.info.date_depot);
-        this.depot = res[0].client_depot;
-        this.retrait = res[0].client_retrait;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if (this.addForm.get('code').errors === null){
+      this.transactionservice.getByCode(this.code.toString()).subscribe(
+        res => {
+          this.info = res[0];
+          this.depot = res[0].client_depot;
+          this.retrait = res[0].client_retrait;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;

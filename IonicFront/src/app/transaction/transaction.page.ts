@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {ConnexionService} from "../connexion/connexion.service";
 import {Storage} from "@ionic/storage";
 import {TransactionService} from "../services/transaction.service";
+import {Transaction} from "../models/transaction";
 
 @Component({
   selector: 'app-transaction',
@@ -11,6 +12,7 @@ import {TransactionService} from "../services/transaction.service";
 })
 export class TransactionPage implements OnInit {
   public segment = 'list'; page: string; role: string;
+  transactions: Transaction[]; total = 0;
   constructor(private route: Router,
               private auth: ConnexionService,
               private storage: Storage,
@@ -28,7 +30,13 @@ export class TransactionPage implements OnInit {
     this.page = this.route.url.substr(1);
     this.transactionservice.getMesTransactions().subscribe(
       res => {
-        console.log(res);
+        this.transactions = res;
+        if (this.transactions !== [])
+        {
+          for (const m of this.transactions){
+            this.total = this.total + m.montant;
+          }
+        }
       },
       error => {
         console.log(error);

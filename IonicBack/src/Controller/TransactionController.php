@@ -244,7 +244,7 @@ class TransactionController extends AbstractController
     }
     /**
      * @Route(
-     *     path="/api/transactions/me",
+     *     path="/api/transaction/me",
      *     name="getMestransaction",
      *     methods={"GET"},
      *     defaults={
@@ -253,14 +253,15 @@ class TransactionController extends AbstractController
      *          "__api_item_operation_name"="getMestransaction"
      *     }
      * )
+     * @return JsonResponse
      */
     public function getMestransaction(): JsonResponse
     {
-        dd('ok');
+        //dd('ok');
         $id = $this->user->getId();
         //dd($this->user);
         $transactions = $this->repo->findMesTransaction($id);
         //dd($transactions);
-        return $this->json($transactions,Response::HTTP_OK);
+        return $this->json($transactions,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
     }
 }

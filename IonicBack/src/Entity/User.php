@@ -96,7 +96,7 @@ class User implements UserInterface
      *      pattern="/^[A-Z][a-z]+$/",
      *      message="Le prenom commence par une lettre majuscule"
      * )
-     * @Groups ({"getuser:read","getusersprofil:read","getuseragence:read","depotua:write","recudepot:read","recuratrait:read"})
+     * @Groups ({"getcode:read","getuser:read","getusersprofil:read","getuseragence:read","depotua:write","recudepot:read","recuratrait:read"})
      */
     private $prenom;
 
@@ -108,7 +108,7 @@ class User implements UserInterface
      *      pattern="/^[A-Z]+$/",
      *      message="Le nom est ecrit en lettre capitale"
      * )
-     * @Groups ({"getuser:read","getusersprofil:read","getuseragence:read","depotua:write","recudepot:read","recuratrait:read"})
+     * @Groups ({"getcode:read","getuser:read","getusersprofil:read","getuseragence:read","depotua:write","recudepot:read","recuratrait:read"})
      */
     private $nom;
 

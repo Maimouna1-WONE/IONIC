@@ -34,12 +34,19 @@
 <ion-card style="margin-bottom: 10%; margin-top: 100%;">
     <ion-item lines="full" >
       <ion-label position="floating" color="medium">Email</ion-label>
-      <ion-input type="email" placeholder="aaaaaaaa@gmail.com" clear-input required formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"></ion-input>
+      <ion-input type="email" placeholder="aaaaaaaa@gmail.com" clear-input required formControlName="email"></ion-input>
     </ion-item>
-  <ion-grid *ngIf="(submitted && f.email.errors) || f.email.touched">
+  <ion-grid *ngIf="submitted && f.email.hasError('required')">
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-label class="ion-alert-danger">email is required</ion-label>
+        <ion-label class="ion-alert-danger">Email is required</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="submitted && f.email.hasError('pattern')">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label class="ion-alert-danger">L'ecriture est incorrect</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -47,12 +54,12 @@
     <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Password</ion-label>
-      <ion-input type="password" placeholder="*******" clear-input required formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"></ion-input>
+      <ion-input type="password" placeholder="*******" clear-input required formControlName="password"></ion-input>
     </ion-item>
-      <ion-grid *ngIf="(submitted && f.password.errors) || f.password.touched">
+      <ion-grid *ngIf="submitted && f.password.hasError('required')">
         <ion-row>
           <ion-col class="ion-text-center">
-            <ion-label class="ion-alert-danger">password is required</ion-label>
+            <ion-label class="ion-alert-danger">Password is required</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -65,7 +72,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" [disabled]="!loginForm.valid" expand="block" style="margin-top: 20%;" color="secondary">Se Connecter</ion-button>
+        <ion-button type="submit" expand="block" style="margin-top: 20%;" color="secondary">Se Connecter</ion-button>
       </ion-col>
     </ion-row>
   </form>

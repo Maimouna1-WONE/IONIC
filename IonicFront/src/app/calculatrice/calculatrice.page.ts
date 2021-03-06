@@ -80,8 +80,6 @@ page: string; frais_t: number;
     return this.frais;
   }
   Calculer(){
-    console.log(this.type);
-    console.log(this.montant);
     this.frais = this.calculerFrais();
     if (this.type === 'depot'){
       this.frais_t = (10 * this.frais) / 100;
@@ -89,7 +87,6 @@ page: string; frais_t: number;
     else{
       this.frais_t = (20 * this.frais) / 100;
     }
-    console.log(this.frais_t);
     this.alertController.create({
       header: 'Calculateur',
       cssClass: 'my-custom-class',

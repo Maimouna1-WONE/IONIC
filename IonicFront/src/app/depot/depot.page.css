@@ -3,4 +3,8 @@
   --background: linear-gradient(90deg, rgba(165, 255, 192, 1) 1%, rgba(0, 212, 255, 1) 100%);
 }
 
+.ion-alert-danger {
+  color: red;
+}
+
 /*# sourceMappingURL=depot.page.css.map */

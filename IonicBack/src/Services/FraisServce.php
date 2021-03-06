@@ -70,15 +70,17 @@ class FraisServce
         if ($mtn >= 2000000 && $mtn <= 250000){
             $frais= (2*$mtn)/100;
         }
-        $fe=(40*$frais)/100;
-        $fd=(30*$frais)/100;
-        $fa=(10*$frais)/100;
-        $fu=(20*$frais)/100;
+        //dd($frais);
+        $fe=(40* $frais)/100;
+        $ftransfert=(30*$frais)/100;
+        $fdepot=(10*$frais)/100;
+        $fretrait=(20*$frais)/100;
         $trans->setFrais($frais);
-        $trans->setFraisDepot($fd);
+        $trans->setFraisDepot($fdepot);
         $trans->setFraisEtat($fe);
-        $trans->setFraisRetrait($fu);
-        $trans->setFraisSysteme($fa);
+        $trans->setFraisRetrait($fretrait);
+        $trans->setFraisSysteme($ftransfert);
+        //dd($trans);
         return $trans;
     }
 }

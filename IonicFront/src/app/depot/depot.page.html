@@ -25,26 +25,61 @@
       <ion-card>
         <ion-item lines="full">
           <ion-label position="floating" color="medium">N° CNI</ion-label>
-          <ion-input type="text" clear-input [formControlName]="'cni'"></ion-input>
+          <ion-input type="number" clear-input [formControlName]="'cni'"></ion-input>
         </ion-item>
+        <ion-grid *ngIf="submitted && f.expediteur.get('cni').hasError('required')">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label class="ion-alert-danger">Donner le numero du CNI</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="submitted && f.expediteur.get('cni').hasError('pattern')">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label class="ion-alert-danger">Veuillez revoir le CNI</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card>
       <ion-card>
         <ion-item lines="full">
           <ion-label position="floating" color="medium">Nom</ion-label>
           <ion-input type="nom" clear-input [formControlName]="'nom'"></ion-input>
         </ion-item>
+        <ion-grid *ngIf="submitted && (f.expediteur.get('nom').hasError('required') || f.expediteur.get('nom').hasError('pattern'))">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label class="ion-alert-danger">Donner le nom de l'expediteur</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card>
       <ion-card>
         <ion-item lines="full">
           <ion-label position="floating" color="medium">Prenom</ion-label>
           <ion-input type="text" clear-input [formControlName]="'prenom'"></ion-input>
         </ion-item>
+        <ion-grid *ngIf="submitted && (f.expediteur.get('prenom').hasError('required') || f.expediteur.get('prenom').hasError('pattern'))">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label class="ion-alert-danger">Donner le prenom de l'expediteur</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card>
       <ion-card>
         <ion-item lines="full">
           <ion-label position="floating" color="medium">Telephone</ion-label>
           <ion-input type="number" clear-input [formControlName]="'telephone'"></ion-input>
         </ion-item>
+        <ion-grid *ngIf="submitted && (f.expediteur.get('telephone').hasError('required') || f.expediteur.get('telephone').hasError('pattern'))">
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <ion-label class="ion-alert-danger">Donner le telephone de l'expediteur</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card>
 
     </ion-list>
@@ -53,6 +88,13 @@
         <ion-label position="floating" color="medium">Montant</ion-label>
         <ion-input type="number" clear-input [(ngModel)]="montant" [formControlName]="'montant'"></ion-input>
       </ion-item>
+      <ion-grid *ngIf="submitted && (f.montant.hasError('required') || f.montant.hasError('pattern'))">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label class="ion-alert-danger">Donner le montant à envoyer</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
     <ion-card>
       <ion-item lines="full" style="width: 40%; float: right">
@@ -81,24 +123,45 @@
       <ion-label position="floating" color="medium">Nom</ion-label>
       <ion-input type="nom" clear-input formControlName="nom"></ion-input>
     </ion-item>
+      <ion-grid *ngIf="submitted && (f.destinataire.get('nom').hasError('required') || f.destinataire.get('nom').hasError('pattern'))">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label class="ion-alert-danger">Donner le nom du destinataire</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
     <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Prenom</ion-label>
       <ion-input type="text" clear-input formControlName="prenom"></ion-input>
     </ion-item>
+      <ion-grid *ngIf="submitted && (f.destinataire.get('prenom').hasError('required') || f.destinataire.get('prenom').hasError('pattern'))">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label class="ion-alert-danger">Donner le prenom du destinataire</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
     <ion-card>
     <ion-item lines="full">
       <ion-label position="floating" color="medium">Telephone</ion-label>
       <ion-input type="number" clear-input [formControlName]="'telephone'"></ion-input>
     </ion-item>
+      <ion-grid *ngIf="submitted && (f.destinataire.get('telephone').hasError('required') || f.destinataire.get('telephone').hasError('pattern'))">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-label class="ion-alert-danger">Donner le telephone du destinataire</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
     </ion-list>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" expand="block" color="danger" [disabled]="!addForm.value">Suivant</ion-button>
+        <ion-button type="submit" expand="block" color="danger">Suivant</ion-button>
       </ion-col>
     </ion-row>
   </ion-list>

@@ -33,6 +33,6 @@ export class TransactionService{
   getMesTransactions(): Observable<Transaction[]>
   {
     // @ts-ignore
-    return this.http.get<Transaction[]>(`/api/transactions/me`);
+    return this.http.get<Transaction[]>(`/api/transaction/me`);
   }
 }

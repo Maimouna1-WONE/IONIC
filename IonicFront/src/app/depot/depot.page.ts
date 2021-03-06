@@ -24,17 +24,17 @@ export class DepotPage implements OnInit {
     // @ts-ignore
     this.addForm = this.formBuilder.group({
       expediteur: new FormGroup({
-        nom: new FormControl(),
-        prenom: new FormControl(),
-        telephone: new FormControl(),
-        cni: new FormControl(),
+        nom: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]+$')]),
+        prenom: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]+$')]),
+        telephone: new FormControl('', [Validators.required, Validators.pattern('^7[7|6|8|0|5][0-9]{7}$')]),
+        cni: new FormControl('', [Validators.required, Validators.pattern('^[1|2][0-9]{12}$')]),
       }),
       destinataire: new FormGroup({
-        nom: new FormControl(),
-        prenom: new FormControl(),
-        telephone: new FormControl(),
+        nom: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]+$')]),
+        prenom: new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]+$')]),
+        telephone: new FormControl('', [Validators.required, Validators.pattern('^7[7|6|8|0|5][0-9]{7}$')]),
       }),
-      montant: ['', Validators.required],
+      montant: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
   }
   get f()
@@ -115,53 +115,56 @@ export class DepotPage implements OnInit {
     return this.frais + this.montant;
   }
   OnSubmit() {
+    // console.log(this.addForm.errors);
     this.submitted = true;
-    this.alertController.create({
-    header: 'Confirmation',
-      cssClass: 'my-custom-class',
-      // tslint:disable-next-line:max-line-length
-    message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
-    buttons: [
-      {
-        text: 'Annuler',
-        handler: () => {
-          console.log('I care about humanity');
-        }
-      },
-      {
-        text: 'Confirmer',
-        handler: () => {
-          this.transactionservice.DepotClient(this.addForm.value).subscribe(
-          res => {
-            console.log(res);
-            this.alertController.create({
-              header: 'Transfert reussi',
-              // tslint:disable-next-line:max-line-length
-              message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code ,
-              buttons: [
-              {
-                text: 'Retour',
-                handler: () => {
-                }
-              },
-              {
-                text: 'SMS',
-                handler: () => {}
-              }
-              ]
-            });
+    if (this.addForm.errors === null){
+      this.alertController.create({
+        header: 'Confirmation',
+        cssClass: 'my-custom-class',
+        // tslint:disable-next-line:max-line-length
+        message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
+        buttons: [
+          {
+            text: 'Annuler',
+            handler: () => {
+              console.log('I care about humanity');
+            }
           },
-          error => {
-            this.alertController.create({
-              header: 'Erreur'
-            });
+          {
+            text: 'Confirmer',
+            handler: () => {
+              this.transactionservice.DepotClient(this.addForm.value).subscribe(
+                res => {
+                  console.log(res);
+                  this.alertController.create({
+                    header: 'Transfert reussi',
+                    // tslint:disable-next-line:max-line-length
+                    message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code ,
+                    buttons: [
+                      {
+                        text: 'Retour',
+                        handler: () => {
+                        }
+                      },
+                      {
+                        text: 'SMS',
+                        handler: () => {}
+                      }
+                    ]
+                  });
+                },
+                error => {
+                  this.alertController.create({
+                    header: 'Erreur'
+                  });
+                }
+              );
+            }
           }
-        );
-        }
-      }
-    ]
-  }).then(res => {
-    res.present();
-  });
+        ]
+      }).then(res => {
+        res.present();
+      });
+    }
   }
 }
