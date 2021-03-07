@@ -11,8 +11,7 @@ class FraisServce
     {
         $trans= new Transaction();
         if ($mtn >= 0 && $mtn <= 5000){
-            $frais= 425;
-        }
+            $frais= 425;       }
         if ($mtn >= 5000 && $mtn <= 10000){
             $frais= 850;
         }
@@ -53,16 +52,16 @@ class FraisServce
             $frais= 15000;
         }
         if ($mtn >= 750000 && $mtn <= 900000){
-            $frais= 15000;
-        }
-        if ($mtn >= 900000 && $mtn <= 1000000){
             $frais= 22000;
         }
-        if ($mtn >= 1000000 && $mtn <= 1125000){
+        if ($mtn >= 900000 && $mtn <= 1000000){
             $frais= 25000;
         }
-        if ($mtn >= 1125000 && $mtn <= 1400000){
+        if ($mtn >= 1000000 && $mtn <= 1125000){
             $frais= 27000;
+        }
+        if ($mtn >= 1125000 && $mtn <= 1400000){
+            $frais= 30000;
         }
         if ($mtn >= 14000000 && $mtn <= 2000000){
             $frais= 30000;

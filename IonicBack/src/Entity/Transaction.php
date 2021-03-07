@@ -98,38 +98,43 @@ class Transaction
     private $code;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","getcode:read"})
      * @Assert\NotBlank(message = "Donner les frais")
      */
     private $frais;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","getcode:read","getpart:read","recudepot:read"})
      */
     private $frais_depot;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","getcode:read","getpart:read","recuratrait:read"})
      */
     private $frais_retrait;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","getpart:read","getcode:read"})
      */
     private $frais_etat;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer")
      * @Groups ({"gettransaction:read","depotua:write","getpart:read","getcode:read"})
      */
     private $frais_systeme;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message = "Donner le type de la transaction")
+     * @Assert\Regex(
+     *     pattern="/depot|retrait/",
+     *     message="Preciser le type de la transaction"
+     * )
      * @Groups ({"recudepot:read","recuratrait:read","getcode:read","gettransaction:read"})
      */
     private $type;
