@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 import {Router} from '@angular/router';
 import { Storage } from '@ionic/storage';
 import {User} from '../models/user';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class ConnexionService
   public currentUser: Observable<User>;
   infoUser: User; chaine: any;
   private decode = new JwtHelperService();
+  // url = environment.url;
 
   constructor(private http: HttpClient, private userService: UserService,
               private router: Router,
@@ -39,10 +41,10 @@ export class ConnexionService
   // tslint:disable-next-line:typedef
   login( email: string, password: string)
   {
-    return this.http.post<any>(`/api/login_check`, { 'email' : email, 'password' : password })
+    return this.http.post<any>(`/api/login_check`, { email, password })
       .pipe(map(token => {
           const tokenInfo = this.getInfoToken(token['token']);
-          // console.log(tokenInfo);
+          console.log(token);
           if (tokenInfo.statut === false) {
             this.storage.set('currentUser', JSON.stringify(token));
             this.storage.set('currentUserInfo', JSON.stringify(tokenInfo));

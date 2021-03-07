@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {AlertController} from "@ionic/angular";
+import {AlertController, ToastController} from "@ionic/angular";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TransactionService} from "../services/transaction.service";
 import {Transaction} from "../models/transaction";
@@ -16,10 +16,12 @@ export class RetraitPage implements OnInit {
   public segment = 'list'; page: string;
   addForm: FormGroup; submitted: boolean;
   info: Transaction; code: number; depot: Client; retrait: Client;
+  myToast: any;
   constructor(private route: Router,
               private alertController: AlertController,
               private formBuilder: FormBuilder,
-              private transactionservice: TransactionService) { }
+              private transactionservice: TransactionService,
+              private toastController: ToastController) { }
 
   ngOnInit() {
     this.page = this.route.url.substr(1);
@@ -72,6 +74,14 @@ export class RetraitPage implements OnInit {
             this.transactionservice.RetraitClient(this.addForm.value).subscribe(
               res => {
                 console.log(res);
+                this.myToast = this.toastController.create({
+                  // tslint:disable-next-line:max-line-length
+                  message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
+                  duration: 10000
+                }).then((toastData) => {
+                  // console.log(toastData);
+                  toastData.present();
+                });
                 /*this.alertController.create({
                   header: 'Retrait reussi',
                   // tslint:disable-next-line:max-line-length

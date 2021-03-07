@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlertController} from '@ionic/angular';
-
+import {AlertController, ToastController} from '@ionic/angular';
 @Component({
   selector: 'app-calculatrice',
   templateUrl: './calculatrice.page.html',
@@ -9,12 +8,22 @@ import {AlertController} from '@ionic/angular';
 })
 export class CalculatricePage implements OnInit {
   constructor(private route: Router,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private toastController: ToastController) { }
 // tslint:disable-next-line:variable-name
-page: string; frais_t: number;
+page: string; frais_t: number; private myToast: any;
   frais: number; montant: number; type: string;
   ngOnInit() {
     this.page = this.route.url.substr(1);
+  }
+  showToast() {
+    this.myToast = this.toastController.create({
+      message: 'Pour une transaction ' + this.type + ' de ' + this.montant + ', le frais est egal à: ' + this.frais_t + ' F CFA',
+      duration: 10000
+    }).then((toastData) => {
+      console.log(toastData);
+      toastData.present();
+    });
   }
   calculerFrais(){
     if (this.montant >= 0 && this.montant <= 5000){
@@ -87,7 +96,7 @@ page: string; frais_t: number;
     else{
       this.frais_t = (20 * this.frais) / 100;
     }
-    this.alertController.create({
+    /*this.alertController.create({
       header: 'Calculateur',
       cssClass: 'my-custom-class',
       // tslint:disable-next-line:max-line-length
@@ -102,6 +111,7 @@ page: string; frais_t: number;
       ]
     }).then(res => {
       res.present();
-    });
+    });*/
+    this.showToast();
   }
 }

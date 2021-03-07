@@ -13,24 +13,6 @@ export class JwtInterceptor implements HttpInterceptor {
                 private alertCtrl: AlertController) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      /*this.storage.get('currentUser').then((res) => {
-        const currentUser = JSON.parse(res);
-        if (currentUser && currentUser.token) {
-          request = request.clone({
-            setHeaders: {
-              Authorization: `Bearer ${currentUser.token}`
-            }
-          });
-        }
-        request = request.clone({
-          setHeaders: {
-            accept: `application/json`
-          }
-        });
-      });
-      return next.handle(request);
-    }
-    return request;*/
       return from( this.storage.get('currentUser')).pipe(
         switchMap(tokenData => {
           if (tokenData){

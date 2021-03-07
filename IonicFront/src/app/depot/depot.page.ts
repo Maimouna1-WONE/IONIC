@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {AlertController} from "@ionic/angular";
+import {AlertController, ToastController} from "@ionic/angular";
 import {TransactionService} from "../services/transaction.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -12,12 +12,13 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class DepotPage implements OnInit {
   public segment = 'list'; page: string;
   submitted = false; total: number; nom: string;
-  frais: number; montant: number;
+  frais: number; montant: number; myToast: any;
   addForm: FormGroup;
   constructor(private route: Router,
               private alertController: AlertController,
               private transactionservice: TransactionService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private toastController: ToastController) { }
 
   ngOnInit() {
     this.page = this.route.url.substr(1);
@@ -118,54 +119,44 @@ export class DepotPage implements OnInit {
     // console.log(this.addForm.errors);
     this.submitted = true;
     console.log(this.addForm);
-    if (this.addForm.status === 'INVALID'){
-      this.alertController.create({
-        header: 'Confirmation',
-        cssClass: 'my-custom-class',
-        // tslint:disable-next-line:max-line-length
-        message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
-        buttons: [
-          {
-            text: 'Annuler',
-            handler: () => {
-              console.log('I care about humanity');
-            }
-          },
-          {
-            text: 'Confirmer',
-            handler: () => {
-              this.transactionservice.DepotClient(this.addForm.value).subscribe(
-                res => {
-                  console.log(res);
-                  this.alertController.create({
-                    header: 'Transfert reussi',
-                    // tslint:disable-next-line:max-line-length
-                    message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code ,
-                    buttons: [
-                      {
-                        text: 'Retour',
-                        handler: () => {
-                        }
-                      },
-                      {
-                        text: 'SMS',
-                        handler: () => {}
-                      }
-                    ]
-                  });
-                },
-                error => {
-                  this.alertController.create({
-                    header: 'Erreur'
-                  });
-                }
-              );
-            }
+    this.alertController.create({
+      header: 'Confirmation',
+      cssClass: 'my-custom-class',
+      // tslint:disable-next-line:max-line-length
+      message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: () => {
+            console.log('I care about humanity');
           }
-        ]
-      }).then(res => {
-        res.present();
-      });
-    }
+        },
+        {
+          text: 'Confirmer',
+          handler: () => {
+            this.transactionservice.DepotClient(this.addForm.value).subscribe(
+              res => {
+                console.log(res);
+                this.myToast = this.toastController.create({
+                  // tslint:disable-next-line:max-line-length
+                  message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code,
+                  duration: 10000
+                }).then((toastData) => {
+                  // console.log(toastData);
+                  toastData.present();
+                });
+              },
+              error => {
+                this.alertController.create({
+                  header: 'Erreur'
+                });
+              }
+            );
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
   }
 }
