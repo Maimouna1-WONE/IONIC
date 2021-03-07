@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use App\Repository\TransactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -56,6 +58,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                }
  *     }
  * )
+ * @ApiFilter(BooleanFilter::class, properties={"statut"})
  */
 class Transaction
 {

@@ -44,7 +44,7 @@ export class ConnexionService
     return this.http.post<any>(`/api/login_check`, { email, password })
       .pipe(map(token => {
           const tokenInfo = this.getInfoToken(token['token']);
-          console.log(token);
+          // console.log(token);
           if (tokenInfo.statut === false) {
             this.storage.set('currentUser', JSON.stringify(token));
             this.storage.set('currentUserInfo', JSON.stringify(tokenInfo));

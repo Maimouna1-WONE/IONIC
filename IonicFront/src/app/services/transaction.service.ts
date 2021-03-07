@@ -28,7 +28,7 @@ export class TransactionService{
   getALl(): Observable<Transaction[]>
   {
     // @ts-ignore
-    return this.http.get<Transaction[]>(`/api/transactions`);
+    return this.http.get<Transaction[]>(`/api/transactions?statut=false`);
   }
   getMesTransactions(): Observable<Transaction[]>
   {
