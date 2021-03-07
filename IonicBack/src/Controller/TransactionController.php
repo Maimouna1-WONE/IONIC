@@ -139,4 +139,58 @@ class TransactionController extends AbstractController
         //dd($transactions);
         return $this->json($transactions,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
     }
+
+    /**
+     * @Route(
+     *     path="/api/transactionannule/{code}",
+     *     name="deleteTransaction",
+     *     methods={"DELETE"},
+     *     defaults={
+     *          "__controller"="App\Controller\TransactionController::deleteTransaction",
+     *          "__api_resource_class"=Transaction::class,
+     *          "__api_item_operation_name"="deleteTransaction"
+     *     }
+     * )
+     * @param string $code
+     * @return JsonResponse
+     */
+    public function deleteTransaction(string $code): JsonResponse
+    {
+        $obj= $this->repo->findTransaction($code);
+        if ($obj){
+            $agence=$this->user->getAgence()->getCompte();
+            if ($this->user === $obj[0]->getUserDepot()){
+                if ($obj[0]->getDateRetrait() === null ){
+                    $obj[0]->setMontant(0);
+                    $obj[0]->setCode("");
+                    ($obj[0]->getCompte())->setSolde($agence->getSolde() + $obj[0]->getMontant());
+                    $obj[0]->setType("retrait");
+                    $obj[0]->setUserRetrait($this->user);
+                    $obj[0]->setDateRetrait(new \DateTime());
+                    $obj[0]->setStatut(1);
+                    $errors = $this->validator->validate($obj[0]);
+                    if (count($errors)){
+                        $errors = $this->serializer->serialize($errors,"json");
+                        return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
+                    }
+                    $this->manager->persist($obj[0]);
+                    $this->manager->flush();
+                    $ok= "transaction annulée";
+                }
+                else{
+                    //return $this->json("Transaction deja annulée",200);
+                    $ok = "Transaction deja retirée";
+                }
+            }
+            else{
+                //return $this->json("Vous n'etes pas le prestataire",200);
+                $ok = "Vous n'etes pas le prestataire";
+            }
+        }
+        else{
+            $ok = "code introuvable";
+        }
+            //dd ($obj[0]);
+        return $this->json($ok,200);
+    }
 }

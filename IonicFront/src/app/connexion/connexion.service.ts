@@ -9,7 +9,8 @@ import { UserService } from '../services/user.service';
 import {Router} from '@angular/router';
 import { Storage } from '@ionic/storage';
 import {User} from '../models/user';
-import {environment} from "../../environments/environment";
+import {ToastController} from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +21,19 @@ export class ConnexionService
   public currentUser: Observable<User>;
   infoUser: User; chaine: any;
   private decode = new JwtHelperService();
+  myToast: any;
   // url = environment.url;
 
   constructor(private http: HttpClient, private userService: UserService,
               private router: Router,
-              private storage: Storage)
+              private storage: Storage,
+              private toastController: ToastController)
   {
     this.storage.get('currentUser').then((res) => {
       this.chaine = JSON.parse(res);
     });
     this.currentUserSubject = new BehaviorSubject<User>(this.chaine);
-    //console.log(this.currentUserSubject.value);
+    // console.log(this.currentUserSubject.value);
     this.currentUser = this.currentUserSubject.asObservable();
   }
   httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
@@ -43,8 +46,8 @@ export class ConnexionService
   {
     return this.http.post<any>(`/api/login_check`, { email, password })
       .pipe(map(token => {
-          const tokenInfo = this.getInfoToken(token['token']);
-          // console.log(token);
+          const tokenInfo = this.getInfoToken(token.token);
+          // console.log(tokenInfo);
           if (tokenInfo.statut === false) {
             this.storage.set('currentUser', JSON.stringify(token));
             this.storage.set('currentUserInfo', JSON.stringify(tokenInfo));
@@ -52,7 +55,9 @@ export class ConnexionService
             return tokenInfo.roles[0];
           }
           else {
-            console.log('erreur');
+            /*this.showToast();
+            this.router.navigate(['/accueil']);*/
+            console.log('non autorisé');
           }
         })
       );
@@ -77,5 +82,18 @@ export class ConnexionService
     {
       return null;
     }
+  }
+  showToast() {
+    /*this.myToast = this.toastController.create({
+      message: 'Desolé, Vous n\'etes pas autoriser à se connecter',
+      duration: 10000
+    }).then((toastData) => {
+      toastData.present();
+    });*/
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Vous n\'etes pas autorisé à se connecter!'
+    });
   }
 }

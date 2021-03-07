@@ -39,8 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                },
  *     "deleteTransaction"={"method"="DELETE",
- *                          "path"="/{id}",
- *                          "requirements"={"id":"\d+"},
+ *                          "route_name"="deleteTransaction}",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *     "getTransactionCode"={

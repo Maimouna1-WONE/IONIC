@@ -24,6 +24,7 @@
     "@ionic/storage": "^2.3.1",
     "angular-jwt": "^0.1.11",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^10.15.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
