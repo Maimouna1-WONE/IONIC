@@ -134,7 +134,7 @@ class ClientController extends AbstractController
         if ($agence->getSolde() >= $obj->getMontant()){
             if ($obj->getDateRetrait() === null ){
                 $obj->setMontant(0);
-                ($obj->getCompte())->setSolde(($agence->getSolde() + $obj->getMontant()) + $obj->getFraisRetrait());
+                ($agence)->setSolde(($agence->getSolde() + $obj->getMontant()) + $obj->getFraisRetrait());
                 $obj->setType("retrait");
                 $obj->setUserRetrait($this->user);
                 $obj->setDateRetrait(new \DateTime());
