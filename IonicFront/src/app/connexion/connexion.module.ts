@@ -8,6 +8,7 @@ import { ConnexionPageRoutingModule } from './connexion-routing.module';
 
 import { ConnexionPage } from './connexion.page';
 import {HttpClientModule} from '@angular/common/http';
+import {HeaderPageModule} from "../header/header.module";
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {HttpClientModule} from '@angular/common/http';
         IonicModule,
         ConnexionPageRoutingModule,
         ReactiveFormsModule,
-      HttpClientModule
+        HttpClientModule,
+        HeaderPageModule
     ],
   declarations: [ConnexionPage]
 })

@@ -55,47 +55,48 @@ export class DepotPage implements OnInit {
     return this.fraisService.calculerFrais(this.montant) + this.montant;
   }
   OnSubmit() {
-    // console.log(this.addForm.errors);
     this.submitted = true;
-    console.log(this.addForm);
-    this.alertController.create({
-      header: 'Confirmation',
-      cssClass: 'my-custom-class',
-      // tslint:disable-next-line:max-line-length
-      message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
-      buttons: [
-        {
-          text: 'Annuler',
-          handler: () => {
-            console.log('I care about humanity');
+    if (this.addForm.valid){
+      console.log(this.addForm);
+      this.alertController.create({
+        header: 'Confirmation',
+        cssClass: 'my-custom-class',
+        // tslint:disable-next-line:max-line-length
+        message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
+        buttons: [
+          {
+            text: 'Annuler',
+            handler: () => {
+              console.log('I care about humanity');
+            }
+          },
+          {
+            text: 'Confirmer',
+            handler: () => {
+              this.transactionservice.DepotClient(this.addForm.value).subscribe(
+                res => {
+                  console.log(res);
+                  this.myToast = this.toastController.create({
+                    // tslint:disable-next-line:max-line-length
+                    message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code,
+                    duration: 10000
+                  }).then((toastData) => {
+                    // console.log(toastData);
+                    toastData.present();
+                  });
+                },
+                error => {
+                  this.alertController.create({
+                    header: 'Erreur'
+                  });
+                }
+              );
+            }
           }
-        },
-        {
-          text: 'Confirmer',
-          handler: () => {
-            this.transactionservice.DepotClient(this.addForm.value).subscribe(
-              res => {
-                console.log(res);
-                this.myToast = this.toastController.create({
-                  // tslint:disable-next-line:max-line-length
-                  message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code,
-                  duration: 10000
-                }).then((toastData) => {
-                  // console.log(toastData);
-                  toastData.present();
-                });
-              },
-              error => {
-                this.alertController.create({
-                  header: 'Erreur'
-                });
-              }
-            );
-          }
-        }
-      ]
-    }).then(res => {
-      res.present();
-    });
+        ]
+      }).then(res => {
+        res.present();
+      });
+    }
   }
 }

@@ -11,13 +11,13 @@ import {ConnexionService} from './connexion.service';
   styleUrls: ['./connexion.page.scss'],
 })
 export class ConnexionPage implements OnInit {
+  cle = 'eye-off';
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
   error = '';
   dtee: User;
-  hide = true;
-  // tslint:disable-next-line:max-line-length
+  isActiveToggleTextPassword = true;
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -27,17 +27,17 @@ export class ConnexionPage implements OnInit {
       this.router.navigate(['/']);
     }
   }
+  // tslint:disable-next-line:typedef
+  get f()
+  {
+    return this.loginForm.controls;
+  }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-  }
-  // tslint:disable-next-line:typedef
-  get f()
-  {
-    return this.loginForm.controls;
   }
   // tslint:disable-next-line:typedef
   onSubmit()
@@ -75,5 +75,17 @@ export class ConnexionPage implements OnInit {
   }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
+  }
+  public toggleTextPassword(): void{
+    this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword !== true);
+    if (this.isActiveToggleTextPassword) {
+      this.cle = 'eye-off';
+    }
+    else{
+      this.cle = 'eye';
+    }
+  }
+  public getType() {
+    return this.isActiveToggleTextPassword ? 'password' : 'text';
   }
 }

@@ -55,62 +55,63 @@ export class RetraitPage implements OnInit {
   }
   OnSubmit() {
     this.submitted = true;
-    if (this.addForm.status === 'VALID'){}
-    this.alertController.create({
-      header: 'Confirmation',
-      cssClass: 'my-custom-class',
-      // tslint:disable-next-line:max-line-length
-      message: 'BENEFICIAIRE: ' + this.retrait.nom + '' + this.retrait.prenom + 'TELEPHONE: ' + this.retrait.telephone + 'N° CNI: ' + this.addForm.get('destinataire').get('cni').value + 'MONTANT: ' + this.info.montant + 'EMETTEUR: ' + this.depot.nom + ' ' + this.depot.prenom + 'TELEPHONE: ' + this.depot.telephone + '',
-      buttons: [
-        {
-          text: 'Annuler',
-          handler: () => {
-            console.log('I care about humanity');
-          }
-        },
-        {
-          text: 'Confirmer',
-          handler: () => {
-            this.transactionservice.RetraitClient(this.addForm.value).subscribe(
-              res => {
-                console.log(res);
-                this.myToast = this.toastController.create({
-                  // tslint:disable-next-line:max-line-length
-                  message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
-                  duration: 10000
-                }).then((toastData) => {
-                  // console.log(toastData);
-                  toastData.present();
-                });
-                /*this.alertController.create({
-                  header: 'Retrait reussi',
-                  // tslint:disable-next-line:max-line-length
-                  message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
-                  buttons: [
-                    {
-                      text: 'Retour',
-                      handler: () => {
+    if (this.addForm.valid){
+      this.alertController.create({
+        header: 'Confirmation',
+        cssClass: 'my-custom-class',
+        // tslint:disable-next-line:max-line-length
+        message: 'BENEFICIAIRE: ' + this.retrait.nom + '' + this.retrait.prenom + 'TELEPHONE: ' + this.retrait.telephone + 'N° CNI: ' + this.addForm.get('destinataire').get('cni').value + 'MONTANT: ' + this.info.montant + 'EMETTEUR: ' + this.depot.nom + ' ' + this.depot.prenom + 'TELEPHONE: ' + this.depot.telephone + '',
+        buttons: [
+          {
+            text: 'Annuler',
+            handler: () => {
+              console.log('I care about humanity');
+            }
+          },
+          {
+            text: 'Confirmer',
+            handler: () => {
+              this.transactionservice.RetraitClient(this.addForm.value).subscribe(
+                res => {
+                  console.log(res);
+                  this.myToast = this.toastController.create({
+                    // tslint:disable-next-line:max-line-length
+                    message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
+                    duration: 10000
+                  }).then((toastData) => {
+                    // console.log(toastData);
+                    toastData.present();
+                  });
+                  /*this.alertController.create({
+                    header: 'Retrait reussi',
+                    // tslint:disable-next-line:max-line-length
+                    message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
+                    buttons: [
+                      {
+                        text: 'Retour',
+                        handler: () => {
+                        }
+                      },
+                      {
+                        text: 'SMS',
+                        handler: () => {}
                       }
-                    },
-                    {
-                      text: 'SMS',
-                      handler: () => {}
-                    }
-                  ]
-                });*/
-              },
-              error => {
-                console.log(error);
-                /*this.alertController.create({
-                  header: 'Erreur'
-                });*/
-              }
-            );
+                    ]
+                  });*/
+                },
+                error => {
+                  console.log(error);
+                  /*this.alertController.create({
+                    header: 'Erreur'
+                  });*/
+                }
+              );
+            }
           }
-        }
-      ]
-    }).then(res => {
-      res.present();
-    });
+        ]
+      }).then(res => {
+        res.present();
+      });
+    }
   }
 }

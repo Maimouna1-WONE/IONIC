@@ -47,7 +47,7 @@ export class ConnexionService
     return this.http.post<any>(`/api/login_check`, { email, password })
       .pipe(map(token => {
           const tokenInfo = this.getInfoToken(token.token);
-          // console.log(tokenInfo);
+          console.log(tokenInfo);
           if (tokenInfo.statut === false) {
             this.storage.set('currentUser', JSON.stringify(token));
             this.storage.set('currentUserInfo', JSON.stringify(tokenInfo));
@@ -58,6 +58,7 @@ export class ConnexionService
             /*this.showToast();
             this.router.navigate(['/accueil']);*/
             console.log('non autorisé');
+            this.router.navigate(['/accueil']);
           }
         })
       );

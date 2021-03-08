@@ -11,6 +11,7 @@ export class User {
   telephone: string;
   avatar?: any;
   token?: string;
+  statut?: boolean;
   profil?: Profil;
   constructor(id: number, password: string,
               prenom: string, nom: string, adresse: string,

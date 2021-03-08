@@ -13,10 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TransactionRepository::class)
- * @UniqueEntity(
- *     fields={"code"},
- *     message = "ce code existe deja"
- * )
  * @ApiResource (
  *      routePrefix="/transactions",
  *     collectionOperations={
@@ -92,7 +88,7 @@ class Transaction
     private $date_retrait;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups ({"gettransaction:read","recudepot:read","getcode:read"})
      */
     private $code;

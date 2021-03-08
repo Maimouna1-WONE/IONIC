@@ -21,20 +21,21 @@ page: string; frais_t: number; private myToast: any;
   showToast() {
     this.myToast = this.toastController.create({
       message: 'Pour une transaction ' + this.type + ' de ' + this.montant + ', le frais est egal à: ' + this.frais_t + ' F CFA',
-      duration: 10000
+      duration: 2000
     }).then((toastData) => {
       console.log(toastData);
       toastData.present();
     });
   }
-  Calculer(){
-    this.frais = this.fraisService.calculerFrais(this.montant);
-    if (this.type === 'depot'){
-      this.frais_t = (10 * this.frais) / 100;
+  Calculer() {
+    if (this.montant >= 0) {
+      this.frais = this.fraisService.calculerFrais(this.montant);
+      if (this.type === 'depot') {
+        this.frais_t = (10 * this.frais) / 100;
+      } else {
+        this.frais_t = (20 * this.frais) / 100;
+      }
+      this.showToast();
     }
-    else{
-      this.frais_t = (20 * this.frais) / 100;
-    }
-    this.showToast();
   }
 }

@@ -87,7 +87,7 @@ class ClientController extends AbstractController
             $trans->setClientRetrait($dest);
             $trans->setUserDepot($this->user);
             $trans->setMontant($dep['montant']);
-            $agence->setSolde($agence->getSolde() - $dep['montant']);
+            $agence->setSolde(($agence->getSolde() - $dep['montant']) + $trans->getFraisDepot());
             $trans->setCompte($agence);
             $trans->setDateDepot(new \DateTime());
             $exp->addTransaction($trans);
@@ -134,7 +134,7 @@ class ClientController extends AbstractController
         if ($agence->getSolde() >= $obj->getMontant()){
             if ($obj->getDateRetrait() === null ){
                 $obj->setMontant(0);
-                ($obj->getCompte())->setSolde($agence->getSolde() + $obj->getMontant());
+                ($obj->getCompte())->setSolde(($agence->getSolde() + $obj->getMontant()) + $obj->getFraisRetrait());
                 $obj->setType("retrait");
                 $obj->setUserRetrait($this->user);
                 $obj->setDateRetrait(new \DateTime());

@@ -158,34 +158,56 @@ class TransactionController extends AbstractController
     {
         $obj= $this->repo->findTransaction($code);
         if ($obj){
-            $agence=$this->user->getAgence()->getCompte();
-            if ($this->user === $obj[0]->getUserDepot()){
-                if ($obj[0]->getDateRetrait() === null ){
-                    $obj[0]->setMontant(0);
-                    $obj[0]->setCode("");
-                    ($obj[0]->getCompte())->setSolde($agence->getSolde() + $obj[0]->getMontant());
-                    $obj[0]->setType("retrait");
-                    $obj[0]->setUserRetrait($this->user);
-                    $obj[0]->setDateRetrait(new \DateTime());
-                    $obj[0]->setStatut(1);
-                    $errors = $this->validator->validate($obj[0]);
-                    if (count($errors)){
-                        $errors = $this->serializer->serialize($errors,"json");
-                        return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
-                    }
-                    $this->manager->persist($obj[0]);
-                    $this->manager->flush();
-                    $ok= "transaction annulée";
+            $agenceAnnule=($this->user->getAgence())->getCompte();
+            $agence= $obj[0]->getCompte();
+            if ($obj[0]->getDateRetrait() === null){
+
+                $transAnnule=$this->frais->generateFrais($obj[0]->getMontant());
+                $transAnnule->setMontant($obj[0]->getMontant());
+                $transAnnule->setDateDepot(new \DateTime());
+                $code=random_int(100,999).'-'.random_int(100,999). '-'.random_int(100, 999);
+                $transAnnule->setCode((string)$code);
+                $transAnnule->setCompte($obj[0]->getUserDepot()->getAgence()->getCompte());
+                ($obj[0]->getCompte())->setSolde(($agence->getSolde() - $obj[0]->getMontant()) + $transAnnule->getFraisDepot());
+                $transAnnule->setType("depot");
+                $transAnnule->setUserDepot($obj[0]->getUserDepot());
+                //dd($transAnnule);
+
+                $transAnnule->setUserRetrait($this->user);
+                $transAnnule->setType("retrait");
+                $transAnnule->setMontant(0);
+                $transAnnule->setDateRetrait(new \DateTime());
+
+                //dd($transAnnule);
+
+                $agenceAnnule->setSolde($agence->getSolde() + $obj[0]->getMontant() + $obj[0]->getFraisRetrait() + $transAnnule->getFraisRetrait());
+                $obj[0]->setType("retrait");
+                $obj[0]->setMontant(0);
+                $obj[0]->setUserRetrait($this->user);
+                $obj[0]->setDateRetrait(new \DateTime());
+                $obj[0]->setStatut(1);
+                //dd($obj[0]);
+
+                $errors = $this->validator->validate($obj[0]);
+                if (count($errors)){
+                    $errors = $this->serializer->serialize($errors,"json");
+                    return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
                 }
-                else{
-                    //return $this->json("Transaction deja annulée",200);
-                    $ok = "Transaction deja retirée";
-                }
+                $this->manager->persist($obj[0]);
+                $this->manager->flush();
+                $ok= "transaction annulée";
+            }
+            else{
+                //return $this->json("Transaction deja annulée",200);
+                $ok = "Transaction deja retirée";
+            }
+            //dd($agence);
+            /*if ($this->user === $obj[0]->getUserDepot()){
             }
             else{
                 //return $this->json("Vous n'etes pas le prestataire",200);
                 $ok = "Vous n'etes pas le prestataire";
-            }
+            }*/
         }
         else{
             $ok = "code introuvable";
