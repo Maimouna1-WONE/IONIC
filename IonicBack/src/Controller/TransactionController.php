@@ -152,15 +152,18 @@ class TransactionController extends AbstractController
      *     }
      * )
      * @param string $code
+     * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
-    public function deleteTransaction(string $code): JsonResponse
+    public function deleteTransaction(string $code, Request $request): JsonResponse
     {
         $obj= $this->repo->findTransaction($code);
+        $dep= json_decode($request->getContent(), true);
         if ($obj){
             $agenceAnnule=($this->user->getAgence())->getCompte();
             $agence= $obj[0]->getCompte();
-            if ($obj[0]->getDateRetrait() === null){
+            if ($obj[0]->getDateRetrait() === null && $dep['cni'] === $obj[0]->getClientDepot()->getCni()){
 
                 $transAnnule=$this->frais->generateFrais($obj[0]->getMontant());
                 $transAnnule->setMontant($obj[0]->getMontant());
@@ -171,6 +174,7 @@ class TransactionController extends AbstractController
                 ($obj[0]->getCompte())->setSolde(($agence->getSolde() - $obj[0]->getMontant()) + $transAnnule->getFraisDepot());
                 $transAnnule->setType("depot");
                 $transAnnule->setUserDepot($obj[0]->getUserDepot());
+                $transAnnule->setUserRetrait($this->user);
                 //dd($transAnnule);
 
                 $transAnnule->setUserRetrait($this->user);
@@ -186,7 +190,7 @@ class TransactionController extends AbstractController
                 $obj[0]->setUserRetrait($this->user);
                 $obj[0]->setDateRetrait(new \DateTime());
                 $obj[0]->setStatut(1);
-                //dd($obj[0]);
+                dd($obj[0]);
 
                 $errors = $this->validator->validate($obj[0]);
                 if (count($errors)){
@@ -198,8 +202,13 @@ class TransactionController extends AbstractController
                 $ok= "transaction annulée";
             }
             else{
+                if ($obj[0]->getDateRetrait() === null){
+                    $ok = "Transaction deja retirée";
+                }
+                else{
+                    $ok = "Le CNI ne vous correspond pas";
+                }
                 //return $this->json("Transaction deja annulée",200);
-                $ok = "Transaction deja retirée";
             }
             //dd($agence);
             /*if ($this->user === $obj[0]->getUserDepot()){
