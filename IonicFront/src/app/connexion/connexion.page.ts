@@ -66,6 +66,10 @@ export class ConnexionPage implements OnInit {
           {
             console.log('good C');
           }
+          else if (data === 'ROLE_CLIENT')
+          {
+            this.returnUrl = '/client';
+          }
           this.router.navigate([this.returnUrl]);
         },
         error => {

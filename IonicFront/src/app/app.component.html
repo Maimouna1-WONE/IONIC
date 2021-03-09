@@ -20,6 +20,7 @@
           </ion-grid>
 
           <ion-note *ngIf="username">{{username}}</ion-note>
+
           <div *ngIf="role === 'ROLE_ADMIN_AGENCE'; else othere">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item *ngIf="p.url != 'logout'; else other"  [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -54,4 +55,5 @@
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+
 </ion-app>

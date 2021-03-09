@@ -14,8 +14,10 @@ class JwtCreatedSubsciber{
         $data = $event->getData();
 
         $data['id'] = $user->getId();
-        $data['date_depot'] =  ($user->getAgence())->getCompte()->getDateDepot();
-        $data['solde'] =  ($user->getAgence())->getCompte()->getSolde();
+        if ($user->getProfil()->getId() !== 5){
+            $data['date_depot'] =  ($user->getAgence())->getCompte()->getDateDepot();
+            $data['solde'] =  ($user->getAgence())->getCompte()->getSolde();
+        }
         $data['statut'] =  $user->getStatut();
         //$data['avatar'] =  $user->getAvatar();
 

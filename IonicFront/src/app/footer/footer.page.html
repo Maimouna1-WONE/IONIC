@@ -21,7 +21,7 @@
 </ion-tabs>-->
 
 <ion-grid slot="bottom" fixed>
-  <ion-row class="ion-text-center">
+  <ion-row class="ion-text-center" *ngIf="role !== 'ROLE_CLIENT'; else other">
     <ion-col [routerLink]="['/folder/Inbox']" routerLinkActive="selected">
       <ion-icon name="home-outline" color="medium" size="large"></ion-icon>
     </ion-col>
@@ -35,4 +35,12 @@
       <ion-icon name="calculator-outline" color="medium" size="large"></ion-icon>
     </ion-col>
   </ion-row>
+
+  <ng-template #other>
+  <ion-row class="ion-text-center">
+    <ion-col [routerLink]="['/client']" routerLinkActive="selected">
+      <ion-icon name="stop" color="medium" size="large"></ion-icon>
+    </ion-col>
+  </ion-row>
+  </ng-template>
 </ion-grid>

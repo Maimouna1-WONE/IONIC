@@ -53,9 +53,15 @@ const routes: Routes = [
   {
     path: 'footer',
     loadChildren: () => import('./footer/footer.module').then( m => m.FooterPageModule)
+  },
+  {
+    path: 'client',
+    loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
   }
 ];
 
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   imports: [
     RouterModule.forRoot(routes)
