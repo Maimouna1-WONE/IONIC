@@ -56,13 +56,56 @@ export class DepotPage implements OnInit {
   }
   OnSubmit() {
     this.submitted = true;
-    if (this.addForm.valid){
-      console.log(this.addForm);
+    //if (this.addForm.valid){
       this.alertController.create({
         header: 'Confirmation',
-        cssClass: 'my-custom-class',
+        cssClass: 'ion-alert',
         // tslint:disable-next-line:max-line-length
-        message: 'EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + '' + this.addForm.get('expediteur').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + 'N° CNI: ' + this.addForm.get('expediteur').get('cni').value + 'MONTANT A ENVOYER: ' + this.addForm.get('montant').value + 'RECEPETUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + 'TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '',
+        message: '<ion-grid>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label style="float: left; color: red">EMETTEUR</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('expediteur').get('nom').value + ' ' + this.addForm.get('expediteur').get('prenom').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label>TELEPHONE</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('expediteur').get('telephone').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label>N° CNI</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('expediteur').get('cni').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label>MONTANT A ENVOYER</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('montant').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label>RECEPTEUR</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          '<ion-row>' +
+          '<ion-col>' +
+          '<ion-label>TELEPHONE</ion-label>' +
+          // tslint:disable-next-line:max-line-length
+          '<ion-input readonly>' + this.addForm.get('destinataire').get('telephone').value + '</ion-input>' +
+          '</ion-col>' +
+          '</ion-row>' +
+          // tslint:disable-next-line:max-line-length
+          '</ion-grid>',
         buttons: [
           {
             text: 'Annuler',
@@ -72,6 +115,7 @@ export class DepotPage implements OnInit {
           },
           {
             text: 'Confirmer',
+            cssClass: 'success-button',
             handler: () => {
               this.transactionservice.DepotClient(this.addForm.value).subscribe(
                 res => {
@@ -97,6 +141,6 @@ export class DepotPage implements OnInit {
       }).then(res => {
         res.present();
       });
-    }
+    //}
   }
 }
