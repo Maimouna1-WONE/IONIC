@@ -162,35 +162,14 @@ class TransactionController extends AbstractController
         $dep= json_decode($request->getContent(), true);
         if ($obj){
             $agenceAnnule=($this->user->getAgence())->getCompte();
-            $agence= $obj[0]->getCompte();
             if ($obj[0]->getDateRetrait() === null && $dep['cni'] === $obj[0]->getClientDepot()->getCni()){
-
-                $transAnnule=$this->frais->generateFrais($obj[0]->getMontant());
-                $transAnnule->setMontant($obj[0]->getMontant());
-                $transAnnule->setDateDepot(new \DateTime());
-                $code=random_int(100,999).'-'.random_int(100,999). '-'.random_int(100, 999);
-                $transAnnule->setCode((string)$code);
-                $transAnnule->setCompte($obj[0]->getUserDepot()->getAgence()->getCompte());
-                ($obj[0]->getCompte())->setSolde(($agence->getSolde() - $obj[0]->getMontant()) + $transAnnule->getFraisDepot());
-                $transAnnule->setType("depot");
-                $transAnnule->setUserDepot($obj[0]->getUserDepot());
-                $transAnnule->setUserRetrait($this->user);
-                //dd($transAnnule);
-
-                $transAnnule->setUserRetrait($this->user);
-                $transAnnule->setType("retrait");
-                $transAnnule->setMontant(0);
-                $transAnnule->setDateRetrait(new \DateTime());
-
-                //dd($transAnnule);
-
-                $agenceAnnule->setSolde($agence->getSolde() + $obj[0]->getMontant() + $obj[0]->getFraisRetrait() + $transAnnule->getFraisRetrait());
+                $agenceAnnule->setSolde($agenceAnnule->getSolde() + $obj[0]->getMontant() + $obj[0]->getFraisRetrait());
                 $obj[0]->setType("retrait");
                 $obj[0]->setMontant(0);
                 $obj[0]->setUserRetrait($this->user);
                 $obj[0]->setDateRetrait(new \DateTime());
                 $obj[0]->setStatut(1);
-                dd($obj[0]);
+                //dd($obj[0]);
 
                 $errors = $this->validator->validate($obj[0]);
                 if (count($errors)){
@@ -208,9 +187,7 @@ class TransactionController extends AbstractController
                 else{
                     $ok = "Le CNI ne vous correspond pas";
                 }
-                //return $this->json("Transaction deja annulée",200);
             }
-            //dd($agence);
             /*if ($this->user === $obj[0]->getUserDepot()){
             }
             else{
