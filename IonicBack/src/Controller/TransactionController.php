@@ -7,11 +7,9 @@ use App\Repository\CompteRepository;
 use App\Repository\TransactionRepository;
 use App\Repository\UserRepository;
 use App\Services\FraisServce;
-use App\Services\TransactionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Services\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +17,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class TransactionController extends AbstractController
 {
@@ -176,6 +173,20 @@ class TransactionController extends AbstractController
                     $errors = $this->serializer->serialize($errors,"json");
                     return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
                 }
+                /*$sid = "AC8a13a06d90b747c73802704790b09db1"; // Your Account SID from www.twilio.com/console
+                $token = "ae25fd2514d8b7e456ee7c31fc88c839"; // Your Auth Token from www.twilio.com/console
+
+                $client = new Twilio\Rest\Client($sid, $token);
+                $message = $client->messages->create(
+                    '777460900', // Text this number
+                    [
+                        'from' => '777460900', // From a valid Twilio number
+                        'body' => 'Hello from Twilio!'
+                    ]
+                );
+
+                print $message->sid;
+                dd($obj[0]);*/
                 $this->manager->persist($obj[0]);
                 $this->manager->flush();
                 $ok= "transaction annulée";

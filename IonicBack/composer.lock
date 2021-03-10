@@ -5211,8 +5211,7 @@
                 "symfony/rocket-chat-notifier": "<5.2",
                 "symfony/sinch-notifier": "<5.2",
                 "symfony/slack-notifier": "<5.2",
-                "symfony/telegram-notifier": "<5.2",
-                "symfony/twilio-notifier": "<5.2"
+                "symfony/telegram-notifier": "<5.2"
             },
             "require-dev": {
                 "symfony/event-dispatcher-contracts": "^2",
