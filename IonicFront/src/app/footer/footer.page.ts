@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ConnexionService} from '../connexion/connexion.service';
 import {Storage} from '@ionic/storage';
 import {UserService} from '../services/user.service';
+import {PageService} from "../services/page.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-footer',
@@ -10,9 +12,12 @@ import {UserService} from '../services/user.service';
 })
 export class FooterPage implements OnInit {
 
-  role: string;
+  role: string; page: string; colour: string;
   constructor(private auth: ConnexionService,
-              private storage: Storage) {
+              private storage: Storage,
+              private pageservice: PageService,
+              private route: Router) {
+    this.page = this.route.url.substr(1);
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         if (JSON.parse(val).roles){
@@ -23,5 +28,10 @@ export class FooterPage implements OnInit {
   }
   ngOnInit() {
   }
-
+/*color(){
+    if (this.page === 'folder/Inbox'){
+      this.colour = 'oranged';
+    }
+    return this.colour;
+}*/
 }

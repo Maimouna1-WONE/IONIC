@@ -148,6 +148,7 @@ class ClientController extends AbstractController
                 $errors = $this->serializer->serialize($errors,"json");
                 return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
             }
+            //dd($obj);
             $this->manager->persist($obj);
             $this->manager->flush();
             $ok= $obj;

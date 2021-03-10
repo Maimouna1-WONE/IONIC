@@ -1,4 +1,4 @@
-<ion-header style="background-color: #E5E5E5">
+<ion-header style="background-color: #E5E5E5; height: 42%">
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -10,7 +10,7 @@
         </div>
       </ion-col>
       <ion-col>
-        <ion-thumbnail style="width: 100%; height: 100%;">
+        <ion-thumbnail style="width: 100%; height: 100%; margin-top: 6%">
           <img id="imglogo" src="../../assets/Logo%20MONEY%20SA%201.png" alt="">
         </ion-thumbnail>
       </ion-col>
@@ -41,7 +41,8 @@
         <ion-toolbar>
           <ion-label position="floating" style="font-size: 100%">Mon solde disponible</ion-label>
           <ion-item>
-            <ion-input readonly [type]="getType()" value="{{solde}}" style="border-radius: 5%; border: none; color: #51BFD0; font-size: 100%"></ion-input><ion-label style="padding-right: 40%; font-size: 20px">Fcfa</ion-label>
+            <ion-input readonly [type]="getType()" [value]="solde" style="border-radius: 5%; border: none; color: #51BFD0; font-size: 100%"></ion-input>
+            <ion-label style="padding-right: 20%; font-size: 20px">Fcfa</ion-label>
             <ion-icon name="{{cle}}" item-right (click)="toggleTextPassword()" style="color: #51BFD0"></ion-icon>
           </ion-item>
           <ion-input readonly value="Mise à jour le {{date | date: 'dd/MM/yyyy'}} à {{date | date: 'mm:ss'}}"></ion-input>
@@ -52,9 +53,8 @@
   </ion-grid>
 </ion-header>
 
-
 <ion-content>
-    <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>
 
 

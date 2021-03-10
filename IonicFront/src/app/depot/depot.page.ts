@@ -13,7 +13,7 @@ import {FraisService} from "../services/frais.service";
 export class DepotPage implements OnInit {
   public segment = 'list'; page: string;
   submitted = false; total: number; nom: string;
-  frais: number; montant: number; myToast: any;
+  frais: number; montant: number;
   addForm: FormGroup;
   constructor(private route: Router,
               private alertController: AlertController,
@@ -56,62 +56,39 @@ export class DepotPage implements OnInit {
   }
   OnSubmit() {
     this.submitted = true;
-    //if (this.addForm.valid){
+    if (this.addForm.valid){
       this.alertController.create({
         header: 'Confirmation',
         cssClass: 'ion-alert',
+        mode: 'ios',
         // tslint:disable-next-line:max-line-length
-        message: '<ion-grid>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label style="float: left; color: red">EMETTEUR</ion-label>' +
+        message: '<ion-list>' +
+          '<ion-item>' +
           // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('expediteur').get('nom').value + ' ' + this.addForm.get('expediteur').get('prenom').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label>TELEPHONE</ion-label>' +
+          '<ion-label>EMETTEUR: ' + this.addForm.get('expediteur').get('nom').value + ' ' + this.addForm.get('expediteur').get('prenom').value + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
           // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('expediteur').get('telephone').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label>N° CNI</ion-label>' +
+          '<ion-label>TELEPHONE: ' + this.addForm.get('expediteur').get('telephone').value + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
+          '<ion-label>N° CNI: ' + this.addForm.get('expediteur').get('cni').value + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
+          '<ion-label>MONTANT A ENVOYER:'  + this.addForm.get('montant').value + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
           // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('expediteur').get('cni').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label>MONTANT A ENVOYER</ion-label>' +
-          // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('montant').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label>RECEPTEUR</ion-label>' +
-          // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          '<ion-row>' +
-          '<ion-col>' +
-          '<ion-label>TELEPHONE</ion-label>' +
-          // tslint:disable-next-line:max-line-length
-          '<ion-input readonly>' + this.addForm.get('destinataire').get('telephone').value + '</ion-input>' +
-          '</ion-col>' +
-          '</ion-row>' +
-          // tslint:disable-next-line:max-line-length
-          '</ion-grid>',
+          '<ion-label>RECEPTEUR: ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
+          '<ion-label>TELEPHONE: ' + this.addForm.get('destinataire').get('telephone').value + '</ion-label>' +
+          '</ion-item>' +
+          '</ion-list>',
         buttons: [
           {
             text: 'Annuler',
-            handler: () => {
-              console.log('I care about humanity');
-            }
+            cssClass: 'annuler',
           },
           {
             text: 'Confirmer',
@@ -120,18 +97,45 @@ export class DepotPage implements OnInit {
               this.transactionservice.DepotClient(this.addForm.value).subscribe(
                 res => {
                   console.log(res);
-                  this.myToast = this.toastController.create({
-                    // tslint:disable-next-line:max-line-length
-                    message: 'Vous avez envoyé ' + this.addForm.get('montant').value + ' à' + this.addForm.get('destinataire').get('nom').value + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '\n CODE DE TRANSACTION: ' + res.code,
-                    duration: 10000
-                  }).then((toastData) => {
-                    // console.log(toastData);
-                    toastData.present();
+                  this.alertController.create({
+                    header: 'Transfert reussi',
+                    cssClass: 'sms',
+                    buttons: [
+                      {
+                        text: '',
+                        cssClass: 'share'
+                      },
+                      {
+                        text: '',
+                        cssClass: 'sms'
+                      }
+                    ],
+                    message:  '<ion-grid>' +
+                      '<ion-row>' +
+                      '<ion-col>' +
+                      '<ion-label>INFOS</ion-label>' +
+                      // tslint:disable-next-line:max-line-length
+                      '<ion-input readonly>Vous avez envoyé ' +  this.addForm.get('montant').value + ' à ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '</ion-input>' +
+                      '</ion-col>' +
+                      '</ion-row>' +
+                      '<ion-row>' +
+                      '<ion-col>' +
+                      '<ion-label>CODE DE TRANSACTION</ion-label>' +
+                      // tslint:disable-next-line:max-line-length
+                      '<ion-input readonly>' + res.code + '</ion-input>' +
+                      '</ion-col>' +
+                      '</ion-row>' +
+                      '</ion-grid>',
+                  }).then(result => {
+                    result.present();
                   });
                 },
                 error => {
                   this.alertController.create({
-                    header: 'Erreur'
+                    header: 'Erreur ! ' + error,
+                    message: 'Veuiller reessayer'
+                  }).then(result1 => {
+                    result1.present();
                   });
                 }
               );
@@ -141,6 +145,6 @@ export class DepotPage implements OnInit {
       }).then(res => {
         res.present();
       });
-    //}
+    }
   }
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {ConnexionService} from "../connexion/connexion.service";
 import { Storage } from '@ionic/storage';
-import {UserService} from "../services/user.service";
+import {UserService} from '../services/user.service';
+import {UtilsService} from '../services/utils.service';
 
 @Component({
   selector: 'app-folder',
@@ -11,13 +11,13 @@ import {UserService} from "../services/user.service";
 })
 export class FolderPage implements OnInit {
   public folder: string; avatar: string;
-  solde: number; hide: boolean; cle = 'eye';
-  date: Date;
+  solde: string; hide: boolean; cle = 'eye';
+  date: Date; length = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userservice: UserService,
-              private storage: Storage) {
-    // console.log(this.storage.get('currentUserInfo'));
+              private storage: Storage,
+              private util: UtilsService) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         if (JSON.parse(val).id){
@@ -31,12 +31,8 @@ export class FolderPage implements OnInit {
           );
         }
         this.date = JSON.parse(val).date_depot.date;
-        this.solde = JSON.parse(val).solde;
+        this.solde = this.util.formatMillier(JSON.parse(val).solde, '.');
       });
-      // this.avatar = JSON.parse(String(this.storage.get('currentUserInfo'))).avatar;
-      // this.date = JSON.parse(String(this.storage.get('currentUserInfo'))).date_depot.date;
-      // console.log(this.date);
-      // this.solde = JSON.parse(String(this.storage.get('currentUserInfo'))).solde;
     }
   }
   isActiveToggleTextPassword = true;
@@ -52,8 +48,5 @@ export class FolderPage implements OnInit {
   public getType() {
     return this.isActiveToggleTextPassword ? 'text' : 'password';
   }
-  ngOnInit() {
-    this.folder = this.activatedRoute.snapshot.paramMap.get('id');
-  }
-
+  ngOnInit() {}
 }

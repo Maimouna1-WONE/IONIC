@@ -8,36 +8,32 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
-
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
-
 /* Basic CSS for apps built with Ionic */
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
-
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-.ion-alert{
-  .success-button{
-    background-image: url("./assets/Rectangle 66.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    text-align: center !important;
-    color: white;
-  }
-  .annuler{
-    color: grey;
-  }
+.ion-alert .success-button {
+  background-image: url("./assets/Rectangle 66.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center !important;
+  color: white;
 }
-.sms{
+.ion-alert .annuler {
+  color: grey;
+}
+
+.sms {
   background-image: url("./assets/SMS.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -45,7 +41,8 @@
   text-align: center !important;
   color: white;
 }
-.share{
+
+.share {
   background-image: url("./assets/share.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -53,3 +50,5 @@
   text-align: center !important;
   color: white;
 }
+
+/*# sourceMappingURL=global.css.map */

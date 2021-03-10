@@ -1,37 +1,16 @@
 
-
-<!--<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="ok" [routerLink]="['/folder/Inbox']" routerLinkActive="selected">
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="transaction" [routerLink]="['/transaction']" routerLinkActive="selected">
-      <ion-icon name="repeat-outline"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="commission" [routerLink]="['/commission']">
-      <ion-icon name="list-circle-outline"></ion-icon>
-    </ion-tab-button>
-
-    <ion-tab-button tab="calculatrice" [routerLink]="['/calculatrice']">
-      <ion-icon name="calculator-outline"></ion-icon>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>-->
-
 <ion-grid slot="bottom" fixed>
   <ion-row class="ion-text-center" *ngIf="role !== 'ROLE_CLIENT'; else other">
-    <ion-col [routerLink]="['/folder/Inbox']" routerLinkActive="selected">
-      <ion-icon name="home-outline" color="medium" size="large"></ion-icon>
+    <ion-col [routerLink]="['/folder/Inbox']">
+      <ion-icon name="home-outline" size="large" color="medium"></ion-icon>
     </ion-col>
-    <ion-col [routerLink]="['/transaction']" routerLinkActive="selected">
+    <ion-col [routerLink]="['/transaction']" routerLinkActive="active">
       <ion-icon name="wallet-outline" color="medium" size="large"></ion-icon>
     </ion-col>
-    <ion-col [routerLink]="['/commission']" routerLinkActive="selected" *ngIf="role !== 'ROLE_UTILISATEUR_AGENCE'">
+    <ion-col [routerLink]="['/commission']" routerLinkActive="active" *ngIf="role !== 'ROLE_UTILISATEUR_AGENCE'">
         <ion-icon name="cash-outline" color="medium" size="large"></ion-icon>
     </ion-col>
-    <ion-col [routerLink]="['/calculatrice']">
+    <ion-col [routerLink]="['/calculatrice']" routerLinkActive="active">
       <ion-icon name="calculator-outline" color="medium" size="large"></ion-icon>
     </ion-col>
   </ion-row>

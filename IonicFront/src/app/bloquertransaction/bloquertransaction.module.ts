@@ -4,9 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CalculatricePageRoutingModule } from './calculatrice-routing.module';
+import { BloquertransactionPageRoutingModule } from './bloquertransaction-routing.module';
 
-import { CalculatricePage } from './calculatrice.page';
+import { BloquertransactionPage } from './bloquertransaction.page';
 import {HeaderPageModule} from "../header/header.module";
 import {FooterPageModule} from "../footer/footer.module";
 
@@ -15,11 +15,11 @@ import {FooterPageModule} from "../footer/footer.module";
     CommonModule,
     FormsModule,
     IonicModule,
-    CalculatricePageRoutingModule,
+    BloquertransactionPageRoutingModule,
     HeaderPageModule,
     FooterPageModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [CalculatricePage]
+  declarations: [BloquertransactionPage]
 })
-export class CalculatricePageModule {}
+export class BloquertransactionPageModule {}

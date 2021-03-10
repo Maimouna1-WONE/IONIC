@@ -13,7 +13,7 @@ import {Transaction} from "../models/transaction";
 export class CommissionPage implements OnInit {
 
   public segment = 'list'; page: string; role: string;
-  commissions: Transaction[]; total = 0;
+  commissions: Transaction[]; total = 0; lenght: number;
   constructor(private route: Router,
               private storage: Storage,
               private transactionService: TransactionService)
@@ -33,6 +33,7 @@ export class CommissionPage implements OnInit {
         this.commissions = res['hydra:member'];
         for (const m of this.commissions){
           this.total = this.total + m.montant;
+          this.lenght = this.total.toString().length;
         }
       },
       error => {

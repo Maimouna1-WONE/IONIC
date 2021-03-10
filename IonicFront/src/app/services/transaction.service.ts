@@ -35,4 +35,9 @@ export class TransactionService{
     // @ts-ignore
     return this.http.get<Transaction[]>(`/api/transaction/me`);
   }
+  deleteTransaction(data: string, cni: Object)
+  {
+    // @ts-ignore
+    return this.http.put(`/api/transactionannule/${data}`, cni);
+  }
 }

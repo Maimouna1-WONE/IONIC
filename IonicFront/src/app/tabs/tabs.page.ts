@@ -9,7 +9,7 @@ import {Storage} from '@ionic/storage';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-role: string;
+role: string;  page: string;
   constructor(private route: Router,
               private auth: ConnexionService,
               private storage: Storage)

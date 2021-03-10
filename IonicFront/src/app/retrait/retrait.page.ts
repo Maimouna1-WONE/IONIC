@@ -58,52 +58,41 @@ export class RetraitPage implements OnInit {
     if (this.addForm.valid){
       this.alertController.create({
         header: 'Confirmation',
-        cssClass: 'my-custom-class',
-        // tslint:disable-next-line:max-line-length
-        message: 'BENEFICIAIRE: ' + this.retrait.nom + '' + this.retrait.prenom + 'TELEPHONE: ' + this.retrait.telephone + 'N° CNI: ' + this.addForm.get('destinataire').get('cni').value + 'MONTANT: ' + this.info.montant + 'EMETTEUR: ' + this.depot.nom + ' ' + this.depot.prenom + 'TELEPHONE: ' + this.depot.telephone + '',
+        cssClass: 'ion-alert',
+        message: '<ion-list>' +
+          '<ion-item>' +
+          '<ion-label>BENEFICIAIRE: ' + this.retrait.nom + '' + this.retrait.prenom + '</ion-label>' +
+          '</ion-item>' +
+          '<ion-item>' +
+          '<ion-label>TELEPHONE: ' + this.retrait.telephone + '</ion-label>' +
+          '</ion-item>' +
+          '</ion-list>',
         buttons: [
           {
             text: 'Annuler',
-            handler: () => {
-              console.log('I care about humanity');
-            }
+            cssClass: 'annuler'
           },
           {
             text: 'Confirmer',
+            cssClass: 'success-button',
             handler: () => {
               this.transactionservice.RetraitClient(this.addForm.value).subscribe(
                 res => {
                   console.log(res);
-                  this.myToast = this.toastController.create({
-                    // tslint:disable-next-line:max-line-length
-                    message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
-                    duration: 10000
-                  }).then((toastData) => {
-                    // console.log(toastData);
-                    toastData.present();
+                  this.alertController.create({
+                    message: '' + res
+                  }).then(result11 => {
+                    result11.present();
                   });
-                  /*this.alertController.create({
-                    header: 'Retrait reussi',
-                    // tslint:disable-next-line:max-line-length
-                    message: 'Vous venez de faire un retrait de ' + this.info.montant + '',
-                    buttons: [
-                      {
-                        text: 'Retour',
-                        handler: () => {
-                        }
-                      },
-                      {
-                        text: 'SMS',
-                        handler: () => {}
-                      }
-                    ]
-                  });*/
                 },
                 error => {
                   console.log(error);
-                  /*this.alertController.create({
-                    header: 'Erreur'
-                  });*/
+                  this.alertController.create({
+                    header: 'Erreur ! ' + error,
+                    message: 'Veuiller reessayer'
+                  }).then(result1 => {
+                    result1.present();
+                  });
                 }
               );
             }

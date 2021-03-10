@@ -12,15 +12,15 @@ import {TabsPageModule} from "../tabs/tabs.module";
 import {ClientPageModule} from "../client/client.module";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        FolderPageRoutingModule,
-        FooterPageModule,
-        TabsPageModule,
-        ClientPageModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    FolderPageRoutingModule,
+    FooterPageModule,
+    TabsPageModule,
+    ClientPageModule,
+  ],
   declarations: [FolderPage]
 })
 export class FolderPageModule {}

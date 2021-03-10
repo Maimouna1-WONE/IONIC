@@ -75,15 +75,15 @@
         <ion-label >{{com.type}}</ion-label>
       </ion-col>
       <ion-col col-3>
-        <ion-label >{{com.montant}}</ion-label>
+        <ion-label>{{com.montant | separator: '.'}}</ion-label>
       </ion-col>
     </ion-row>
     </ion-card>
   </ion-list>
   <ion-card>
-    <ion-item lines="full" style="width: 40%; float: right">
+    <ion-item lines="full" style="width: 70%; float: right">
       <ion-label position="floating" color="medium">Total</ion-label>
-      <ion-input type="number" [value]="total" readonly style="color: orangered"></ion-input>
+      <ion-input type="number" [value]="total | separator: '.'" readonly style="color: orangered"></ion-input>
     </ion-item>
   </ion-card>
 

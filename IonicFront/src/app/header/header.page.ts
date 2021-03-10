@@ -77,6 +77,9 @@ export class HeaderPage implements OnInit {
     if (t === 'calculatrice'){
     this.icon = 'calculator';
   }
+    if (t === 'bloquertransaction'){
+      this.icon = 'close';
+    }
     return this.icon;
   }
   segmentChanged(ev: any) {

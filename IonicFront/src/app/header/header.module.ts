@@ -8,6 +8,7 @@ import { HeaderPageRoutingModule } from './header-routing.module';
 
 import { HeaderPage } from './header.page';
 import {FooterPageModule} from "../footer/footer.module";
+import {SeparatorPipe} from "../pipes/separator.pipe";
 
 @NgModule({
   imports: [
@@ -18,8 +19,8 @@ import {FooterPageModule} from "../footer/footer.module";
     FooterPageModule
   ],
     exports: [
-        HeaderPage
+        HeaderPage, SeparatorPipe
     ],
-    declarations: [HeaderPage]
+    declarations: [HeaderPage, SeparatorPipe]
 })
 export class HeaderPageModule {}

@@ -57,6 +57,10 @@ const routes: Routes = [
   {
     path: 'client',
     loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
+  },
+  {
+    path: 'bloquertransaction',
+    loadChildren: () => import('./bloquertransaction/bloquertransaction.module').then( m => m.BloquertransactionPageModule)
   }
 ];
 

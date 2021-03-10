@@ -141,7 +141,7 @@ class TransactionController extends AbstractController
      * @Route(
      *     path="/api/transactionannule/{code}",
      *     name="deleteTransaction",
-     *     methods={"DELETE"},
+     *     methods={"PUT"},
      *     defaults={
      *          "__controller"="App\Controller\TransactionController::deleteTransaction",
      *          "__api_resource_class"=Transaction::class,
@@ -185,8 +185,8 @@ class TransactionController extends AbstractController
                     ]
                 );
 
-                print $message->sid;
-                dd($obj[0]);*/
+                print $message->sid;*/
+                //dd($obj[0]);
                 $this->manager->persist($obj[0]);
                 $this->manager->flush();
                 $ok= "transaction annulée";
