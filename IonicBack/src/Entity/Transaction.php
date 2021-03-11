@@ -19,14 +19,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "depotCaisssier"={"method"="POST",
  *                      "route_name"="depotCaisssier",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_CAISSIER')",
- *          "security_message"="Vous n'avez pas access à cette Ressource"},
- *     "getTransactions"={"method"="GET",
- *                      "path"="",
- *     "normalization_context"={"groups"={"getcode:read"}},
- *      "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"}
  *     },
  *     itemOperations={
+ *     "getTransactions"={"method"="GET",
+ *                      "route_name"="getTransactions",
+ *     "normalization_context"={"groups"={"getcode:read"}},
+ *      "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource"},
  *              "getTransactionId"={
  *                    "method"="GET",
  *                      "path"="/{id}",
@@ -53,7 +53,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                }
  *     }
  * )
- * @ApiFilter(BooleanFilter::class, properties={"statut"})
  */
 class Transaction
 {

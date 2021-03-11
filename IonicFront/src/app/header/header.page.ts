@@ -12,7 +12,7 @@ import {TransactionService} from "../services/transaction.service";
 })
 export class HeaderPage implements OnInit {
   public segment = 'friends'; page: string; icon: string;
-  seg: string;
+  seg: string; id: number;
   role: string; alltransaction: Transaction[];
   transactions: Transaction[]; total = 0; alltotal = 0;
   constructor(private pageservice: PageService,
@@ -21,6 +21,24 @@ export class HeaderPage implements OnInit {
               private transactionservice: TransactionService) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
+        // console.log(JSON.parse(val));
+        this.id = JSON.parse(val).compte;
+        this.transactionservice.getALl(this.id).subscribe(
+          res => {
+            // console.log(res);
+            this.alltransaction = res;
+            // console.log(this.alltransaction);
+            if (this.alltransaction !== [])
+            {
+              for (const am of this.alltransaction){
+                this.alltotal = this.alltotal + am.montant;
+              }
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
         if (JSON.parse(val).roles){
           this.role = JSON.parse(val).roles[0];
         }
@@ -38,21 +56,6 @@ export class HeaderPage implements OnInit {
         {
           for (const m of this.transactions){
             this.total = this.total + m.montant;
-          }
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.transactionservice.getALl().subscribe(
-      res => {
-        this.alltransaction = res['hydra:member'];
-        // console.log(this.alltransaction);
-        if (this.alltransaction !== [])
-        {
-          for (const am of this.alltransaction){
-            this.alltotal = this.alltotal + am.montant;
           }
         }
       },

@@ -13,13 +13,27 @@ import {Transaction} from "../models/transaction";
 export class CommissionPage implements OnInit {
 
   public segment = 'list'; page: string; role: string;
-  commissions: Transaction[]; total = 0; lenght: number;
+  commissions: Transaction[]; total = 0; lenght: number; id: number;
   constructor(private route: Router,
               private storage: Storage,
               private transactionService: TransactionService)
   {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
+        this.id = JSON.parse(val).compte;
+        this.transactionService.getALl(this.id).subscribe(
+          res => {
+            // console.log(res);
+            this.commissions = res;
+            for (const m of this.commissions){
+              this.total = this.total + m.montant;
+              this.lenght = this.total.toString().length;
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
         if (JSON.parse(val).roles){
           this.role = JSON.parse(val).roles[0];
         }
@@ -28,18 +42,6 @@ export class CommissionPage implements OnInit {
   }
   ngOnInit() {
     this.page = this.route.url.substr(1);
-    this.transactionService.getALl().subscribe(
-      res => {
-        this.commissions = res['hydra:member'];
-        for (const m of this.commissions){
-          this.total = this.total + m.montant;
-          this.lenght = this.total.toString().length;
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;

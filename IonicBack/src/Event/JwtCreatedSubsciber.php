@@ -19,7 +19,7 @@ class JwtCreatedSubsciber{
             $data['solde'] =  ($user->getAgence())->getCompte()->getSolde();
         }
         $data['statut'] =  $user->getStatut();
-        //$data['avatar'] =  $user->getAvatar();
+        $data['compte'] =  ($user->getAgence())->getCompte()->getId();
 
         // Revoie des donnees du Token
         $event->setData($data);
