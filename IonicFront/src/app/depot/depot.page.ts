@@ -4,6 +4,7 @@ import {AlertController, ToastController} from "@ionic/angular";
 import {TransactionService} from "../services/transaction.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FraisService} from "../services/frais.service";
+import {UtilsService} from "../services/utils.service";
 
 @Component({
   selector: 'app-depot',
@@ -20,7 +21,8 @@ export class DepotPage implements OnInit {
               private transactionservice: TransactionService,
               private formBuilder: FormBuilder,
               private toastController: ToastController,
-              private fraisService: FraisService) { }
+              private fraisService: FraisService,
+              private utilservice: UtilsService) { }
 
   ngOnInit() {
     this.page = this.route.url.substr(1);
@@ -75,7 +77,7 @@ export class DepotPage implements OnInit {
           '<ion-label>N° CNI: ' + this.addForm.get('expediteur').get('cni').value + '</ion-label>' +
           '</ion-item>' +
           '<ion-item>' +
-          '<ion-label>MONTANT A ENVOYER:'  + this.addForm.get('montant').value + '</ion-label>' +
+          '<ion-label>MONTANT A ENVOYER:'  + this.utilservice.formatMillier(this.addForm.get('montant').value, '.') + '</ion-label>' +
           '</ion-item>' +
           '<ion-item>' +
           // tslint:disable-next-line:max-line-length

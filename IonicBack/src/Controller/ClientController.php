@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Twilio\Rest;
 
 class ClientController extends AbstractController
 {
@@ -101,6 +101,19 @@ class ClientController extends AbstractController
                 $errors = $this->serializer->serialize($errors,"json");
                 return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
             }
+            // messagerie
+            /*$sid = "AC8a13a06d90b747c73802704790b09db1";
+            $token = "90a732fb9b9a11ccbf34ed80414093b4";
+            $client = new Rest\Client($sid, $token);
+            $client->messages->create(
+                '+221777460900', // Text this number
+                [
+                    'from' => '+16622220486', // From a valid Twilio number
+                    'body' => 'Hello from Twilio!'
+                ]
+            );*/
+
+            // messagerie
             $this->manager->persist($exp);
             $this->manager->persist($dest);
             $this->manager->persist($trans);
