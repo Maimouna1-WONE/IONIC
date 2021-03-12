@@ -68,8 +68,8 @@ class ClientController extends AbstractController
     public function depotClient(Request $request)
     {
         $agence=$this->user->getAgence()->getCompte();
-        if ($agence->getSolde() >= 5000){
-            $dep= json_decode($request->getContent(), true);
+        $dep= json_decode($request->getContent(), true);
+        if ($agence->getSolde() > $dep['montant']){
             $exp = new Client();
             $exp->setNom($dep['expediteur']['nom']);
             $exp->setPrenom($dep['expediteur']['prenom']);
@@ -91,14 +91,14 @@ class ClientController extends AbstractController
             $trans->setCompte($agence);
             $trans->setDateDepot(new \DateTime());
             $exp->addTransaction($trans);
-            $errors = $this->validator->validate($exp);
-            if (count($errors)){
-                $errors = $this->serializer->serialize($errors,"json");
+            $errors1 = $this->validator->validate($exp);
+            if (count($errors1)){
+                $errors = $this->serializer->serialize($errors1,"json");
                 return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
             }
-            $errors = $this->validator->validate($dest);
-            if (count($errors)){
-                $errors = $this->serializer->serialize($errors,"json");
+            $errors2 = $this->validator->validate($dest);
+            if (count($errors2)){
+                $errors = $this->serializer->serialize($errors2,"json");
                 return new JsonResponse($errors,Response::HTTP_BAD_REQUEST,[],true);
             }
             // messagerie
@@ -106,14 +106,12 @@ class ClientController extends AbstractController
             $token = "90a732fb9b9a11ccbf34ed80414093b4";
             $client = new Rest\Client($sid, $token);
             $client->messages->create(
-                '+221777460900', // Text this number
-                [
-                    'from' => '+16622220486', // From a valid Twilio number
-                    'body' => 'Hello from Twilio!'
-                ]
+                 '+221777460900', // Text this number
+               [
+                  'from' => '+16622220486', // From a valid Twilio number
+                   'body' => 'Hello from Twilio!'
+               ]
             );*/
-
-            // messagerie
             $this->manager->persist($exp);
             $this->manager->persist($dest);
             $this->manager->persist($trans);
@@ -121,7 +119,7 @@ class ClientController extends AbstractController
             $obj=$trans;
         }
         else{
-            $obj= "impossible de faire un depot";
+            $obj= "impossible de faire un depot, solde insuffisant";
         }
 
         return $this->json($obj,200);
@@ -144,6 +142,7 @@ class ClientController extends AbstractController
         $dep= json_decode($request->getContent(), true);
         $obj= $this->repoC->findOneBy(['code' => $dep['code']]);
         $agence=$this->user->getAgence()->getCompte();
+        //dd($agence->getSolde());
         if ($agence->getSolde() >= $obj->getMontant()){
             if ($obj->getDateRetrait() === null ){
                 $obj->setMontant(0);
@@ -154,7 +153,7 @@ class ClientController extends AbstractController
                 ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
             }
             else{
-                return $this->json("Retrait impossible",200);
+                return $this->json("Erreur !, Retrait deja effectué",200);
             }
             $errors = $this->validator->validate($obj);
             if (count($errors)){
@@ -167,7 +166,7 @@ class ClientController extends AbstractController
             $ok= $obj;
         }
         else{
-            $ok= "impossible de faire un retrait";
+            $ok= "Solde insuffisant, impossible de faire un retrait";
         }
         return $this->json($ok,200);
     }

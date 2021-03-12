@@ -32,7 +32,7 @@ export class BloquertransactionPage implements OnInit {
               res1 => {
                 this.result = res1;
                 this.alertController.create({
-                  header: 'Annulation reussie',
+                  header: 'Erreur lors de l\'annulation! ',
                   mode: 'ios',
                   // tslint:disable-next-line:max-line-length
                   message: '' + this.result,

@@ -195,8 +195,9 @@ class TransactionController extends AbstractController
                 if ($obj[0]->getDateRetrait() === null){
                     $ok = "Transaction deja retirée";
                 }
-                else{
+                else {if($dep['cni'] !== $obj[0]->getClientDepot()->getCni()) {
                     $ok = "Le CNI ne vous correspond pas";
+                }else{ $ok = "Transaction inexistante";}
                 }
             }
             /*if ($this->user === $obj[0]->getUserDepot()){

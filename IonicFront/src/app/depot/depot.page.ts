@@ -117,7 +117,7 @@ export class DepotPage implements OnInit {
                       '<ion-col>' +
                       '<ion-label>INFOS</ion-label>' +
                       // tslint:disable-next-line:max-line-length
-                      '<ion-input readonly>Vous avez envoyé ' +  this.addForm.get('montant').value + ' à ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '</ion-input>' +
+                      '<ion-input readonly>Vous avez envoyé ' +  this.utilservice.formatMillier(this.addForm.get('montant').value, '.') + ' à ' + this.addForm.get('destinataire').get('nom').value + ' ' + this.addForm.get('destinataire').get('prenom').value + ' le ' + res.date_depot + '</ion-input>' +
                       '</ion-col>' +
                       '</ion-row>' +
                       '<ion-row>' +

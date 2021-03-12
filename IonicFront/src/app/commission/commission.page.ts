@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ConnexionService} from '../connexion/connexion.service';
 import {Storage} from '@ionic/storage';
 import {TransactionService} from "../services/transaction.service";
 import {Transaction} from "../models/transaction";
+import {IonContent, IonInfiniteScroll, IonList} from "@ionic/angular";
 
 @Component({
   selector: 'app-commission',
@@ -11,8 +12,7 @@ import {Transaction} from "../models/transaction";
   styleUrls: ['./commission.page.scss'],
 })
 export class CommissionPage implements OnInit {
-
-  public segment = 'list'; page: string; role: string;
+  public segment = 'list'; page: string; role: string; aa = [];
   commissions: Transaction[]; total = 0; lenght: number; id: number;
   constructor(private route: Router,
               private storage: Storage,
@@ -42,8 +42,12 @@ export class CommissionPage implements OnInit {
   }
   ngOnInit() {
     this.page = this.route.url.substr(1);
+    for (let val = 0; val < 100; val ++){
+      this.aa.push(`element _ ${val}`);
+    }
   }
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
   }
 }
+
