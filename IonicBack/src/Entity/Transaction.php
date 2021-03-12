@@ -77,6 +77,7 @@ class Transaction
     /**
      * @ORM\Column(type="date")
      * @Groups ({"gettransaction:read","recudepot:read","getcode:read"})
+     * @Groups ({"getcompte:read"})
      */
     private $date_depot;
 

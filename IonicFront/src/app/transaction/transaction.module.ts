@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { TransactionPageRoutingModule } from './transaction-routing.module';
 
 import { TransactionPage } from './transaction.page';
-import {HeaderPageModule} from "../header/header.module";
-import {FooterPageModule} from "../footer/footer.module";
+import {HeaderPageModule} from '../header/header.module';
+import {FooterPageModule} from '../footer/footer.module';
 
 @NgModule({
   imports: [

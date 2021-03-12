@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ClientPageRoutingModule } from './client-routing.module';
 
 import { ClientPage } from './client.page';
-import {FooterPageModule} from "../footer/footer.module";
+import {FooterPageModule} from '../footer/footer.module';
 
 @NgModule({
   imports: [

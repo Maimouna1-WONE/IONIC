@@ -82,9 +82,23 @@
   <ion-card>
     <ion-item lines="full" style="width: 70%; float: right">
       <ion-label position="floating" color="medium">Total</ion-label>
-      <ion-input type="number" [value]="total | separator: '.'" readonly style="color: orangered"></ion-input>
+      <ion-input type="text" value="{{tot}}" readonly style="color: orangered"></ion-input>
     </ion-item>
   </ion-card>
+
+<!--<ion-list>
+  <ion-item *ngFor="let item of data; let i = index">
+    item- {{i + 1}}
+  </ion-item>
+</ion-list>-->
+
+  <ion-infinite-scroll threshold="5px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-card>
 </ion-content>
 

@@ -31,7 +31,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                    "method"="GET",
  *                      "path"="/{id}",
  *                          "requirements"={"id":"\d+"},
- *     "security"="is_granted('ROLE_ADMIN_SYS')",
+ *     "normalization_context"={"groups"={"getcompte:read"}},
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource"
  *                },"updateCompte"={
  *                    "method"="PUT",
@@ -96,6 +97,7 @@ class Compte
 
     /**
      * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="compte")
+     * @Groups ({"getcompte:read"})
      */
     private $transactions;
 

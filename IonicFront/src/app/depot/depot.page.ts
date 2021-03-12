@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {AlertController, ToastController} from "@ionic/angular";
-import {TransactionService} from "../services/transaction.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {FraisService} from "../services/frais.service";
-import {UtilsService} from "../services/utils.service";
+import {Router} from '@angular/router';
+import {AlertController, ToastController} from '@ionic/angular';
+import {TransactionService} from '../services/transaction.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FraisService} from '../services/frais.service';
+import {UtilsService} from '../services/utils.service';
 
 @Component({
   selector: 'app-depot',
@@ -47,6 +47,7 @@ export class DepotPage implements OnInit {
     return this.addForm.controls;
   }
   segmentChanged(ev: any) {
+    console.log(ev);
     this.segment = ev.detail.value;
   }
   suivant(){

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 // @ts-ignore
 import { JwtHelperService } from '@auth0/angular-jwt';
 // @ts-ignore
@@ -57,7 +57,7 @@ export class ConnexionService
             /*this.showToast();
             this.router.navigate(['/accueil']);*/
             console.log('non autorisé');
-            this.router.navigate(['/accueil']);
+            this.router.navigate(['/login_check']);
           }
         })
       );

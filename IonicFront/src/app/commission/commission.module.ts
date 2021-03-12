@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { CommissionPageRoutingModule } from './commission-routing.module';
 
 import { CommissionPage } from './commission.page';
-import {HeaderPageModule} from "../header/header.module";
-import {FooterPageModule} from "../footer/footer.module";
+import {HeaderPageModule} from '../header/header.module';
+import {FooterPageModule} from '../footer/footer.module';
 
 @NgModule({
   imports: [

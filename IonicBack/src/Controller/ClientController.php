@@ -91,6 +91,7 @@ class ClientController extends AbstractController
             $trans->setCompte($agence);
             $trans->setDateDepot(new \DateTime());
             $exp->addTransaction($trans);
+            $agence->addTransaction($trans);
             $errors1 = $this->validator->validate($exp);
             if (count($errors1)){
                 $errors = $this->serializer->serialize($errors1,"json");
@@ -151,6 +152,7 @@ class ClientController extends AbstractController
                 $obj->setUserRetrait($this->user);
                 $obj->setDateRetrait(new \DateTime());
                 ($obj->getClientRetrait())->setCni($dep['destinataire']['cni']);
+                $agence->setTransaction($obj);
             }
             else{
                 return $this->json("Erreur !, Retrait deja effectué",200);

@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { BloquertransactionPageRoutingModule } from './bloquertransaction-routing.module';
 
 import { BloquertransactionPage } from './bloquertransaction.page';
-import {HeaderPageModule} from "../header/header.module";
-import {FooterPageModule} from "../footer/footer.module";
+import {HeaderPageModule} from '../header/header.module';
+import {FooterPageModule} from '../footer/footer.module';
 
 @NgModule({
   imports: [

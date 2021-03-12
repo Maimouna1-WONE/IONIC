@@ -5,6 +5,7 @@ namespace App\Event;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 
 class JwtCreatedSubsciber{
+
     public function updateJwtData(JWTCreatedEvent $event)
     {
         // On recupere l'utlisateur
@@ -14,12 +15,10 @@ class JwtCreatedSubsciber{
         $data = $event->getData();
 
         $data['id'] = $user->getId();
-        if ($user->getProfil()->getId() !== 5){
-            $data['date_depot'] =  ($user->getAgence())->getCompte()->getDateDepot();
-            $data['solde'] =  ($user->getAgence())->getCompte()->getSolde();
+        if (($user->getProfil())->getId() !== 5){
+            $data['compte'] = ($user->getAgence())->getCompte()->getId();
         }
-        $data['statut'] =  $user->getStatut();
-        $data['compte'] =  ($user->getAgence())->getCompte()->getId();
+        $data['statut'] = $user->getStatut();
 
         // Revoie des donnees du Token
         $event->setData($data);

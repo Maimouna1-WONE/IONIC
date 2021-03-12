@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {UtilsService} from "../services/utils.service";
+import {UtilsService} from '../services/utils.service';
 
 @Pipe({
   name: 'separator'

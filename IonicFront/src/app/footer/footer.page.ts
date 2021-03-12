@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ConnexionService} from '../connexion/connexion.service';
 import {Storage} from '@ionic/storage';
-import {UserService} from '../services/user.service';
-import {PageService} from "../services/page.service";
-import {Router} from "@angular/router";
+import {PageService} from '../services/page.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-footer',

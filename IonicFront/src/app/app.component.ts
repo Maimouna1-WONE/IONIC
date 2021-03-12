@@ -35,7 +35,8 @@ export class AppComponent {
               private userservice: UserService) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
-        if ((JSON.parse(val)).id){
+        // console.log(JSON.parse(val));
+        if ((JSON.parse(val))){
           this.userservice.getbyId(JSON.parse(val).id).subscribe(
             res => {
               this.avatar = res.avatar;
@@ -44,9 +45,9 @@ export class AppComponent {
               console.log(error);
             }
           );
+          this.username = JSON.parse(val).username;
+          this.role = JSON.parse(val).roles[0];
         }
-        this.username = JSON.parse(val).username;
-        this.role = JSON.parse(val).roles[0];
       });
     }
   }

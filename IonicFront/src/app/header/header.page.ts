@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {PageService} from "../services/page.service";
-import {Router} from "@angular/router";
-import {Storage} from "@ionic/storage";
-import {Transaction} from "../models/transaction";
-import {TransactionService} from "../services/transaction.service";
+import {PageService} from '../services/page.service';
+import {Router} from '@angular/router';
+import {Storage} from '@ionic/storage';
+import {Transaction} from '../models/transaction';
+import {TransactionService} from '../services/transaction.service';
+import {UtilsService} from '../services/utils.service';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +16,12 @@ export class HeaderPage implements OnInit {
   seg: string; id: number;
   role: string; alltransaction: Transaction[];
   transactions: Transaction[]; total = 0; alltotal = 0;
+  tot: string; alltot: string;
   constructor(private pageservice: PageService,
               private route: Router,
               private storage: Storage,
-              private transactionservice: TransactionService) {
+              private transactionservice: TransactionService,
+              private utilservice: UtilsService) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         // console.log(JSON.parse(val));
@@ -32,6 +35,7 @@ export class HeaderPage implements OnInit {
             {
               for (const am of this.alltransaction){
                 this.alltotal = this.alltotal + am.montant;
+                this.alltot = this.utilservice.formatMillier(this.alltotal, '.');
               }
             }
           },
@@ -56,6 +60,7 @@ export class HeaderPage implements OnInit {
         {
           for (const m of this.transactions){
             this.total = this.total + m.montant;
+            this.tot = this.utilservice.formatMillier(this.total, '.');
           }
         }
       },

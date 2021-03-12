@@ -1,6 +1,5 @@
 import {Profil} from './profil';
 
-
 export class User {
   id?: number;
   email: string;

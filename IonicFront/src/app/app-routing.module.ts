@@ -18,10 +18,12 @@ const routes: Routes = [
     path: 'accueil',
     loadChildren: () => import('./accueil/accueil.module').then( m => m.AccueilPageModule)
   },
+  /*
   {
     path: 'connexion',
     loadChildren: () => import('./connexion/connexion.module').then( m => m.ConnexionPageModule)
   },
+  */
   {
     path: 'transaction',
     loadChildren: () => import('./transaction/transaction.module').then( m => m.TransactionPageModule)

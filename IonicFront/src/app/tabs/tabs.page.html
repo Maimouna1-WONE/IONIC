@@ -1,4 +1,4 @@
-<ion-list style="width: 100%; height: 100%;">
+    <ion-list style="width: 100%; height: 100%;">
         <ion-item button [routerLink]="['/depot']" style="border-bottom: 2px solid #E56946;">
           <ion-icon name="return-up-forward" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Depot</ion-label>
@@ -23,13 +23,13 @@
           <ion-icon name="cash-outline" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Mes commissions</ion-label>
         </ion-item>
-  <ng-template #other>
-  <ion-row class="ion-text-center">
-    <ion-col [routerLink]="['/client']" routerLinkActive="selected">
-      <ion-icon name="stop" color="medium" size="large"></ion-icon>
-    </ion-col>
-  </ion-row>
-  </ng-template>
+      <!--<ng-template #other>
+      <ion-row class="ion-text-center">
+        <ion-col [routerLink]="['/client']" routerLinkActive="selected">
+          <ion-icon name="stop" color="medium" size="large"></ion-icon>
+        </ion-col>
+      </ion-row>
+      </ng-template>-->
         <ion-item button [routerLink]="['/calculatrice']" style="border-bottom: 2px solid #E56946;">
           <ion-icon name="calculator-outline" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Calculateur de frais</ion-label>
@@ -38,5 +38,5 @@
           <ion-icon name="exit-outline" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Deconnexion</ion-label>
         </ion-item>
-      </ion-list>
+    </ion-list>
 

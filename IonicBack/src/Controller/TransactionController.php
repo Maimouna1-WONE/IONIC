@@ -166,6 +166,7 @@ class TransactionController extends AbstractController
                 $obj[0]->setUserRetrait($this->user);
                 $obj[0]->setDateRetrait(new \DateTime());
                 $obj[0]->setStatut(1);
+                $agenceAnnule->setTransaction($obj[0]);
                 //dd($obj[0]);
 
                 $errors = $this->validator->validate($obj[0]);

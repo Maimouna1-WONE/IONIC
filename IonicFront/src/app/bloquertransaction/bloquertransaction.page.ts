@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Transaction} from "../models/transaction";
-import {Client} from "../models/client";
-import {Router} from "@angular/router";
-import {AlertController, ToastController} from "@ionic/angular";
-import {TransactionService} from "../services/transaction.service";
+import {Client} from '../models/client';
+import {Router} from '@angular/router';
+import {AlertController} from '@ionic/angular';
+import {TransactionService} from '../services/transaction.service';
 
 @Component({
   selector: 'app-bloquertransaction',
@@ -17,7 +16,7 @@ export class BloquertransactionPage implements OnInit {
   myToast: any; cni: string; result: any;
   constructor(private route: Router,
               private alertController: AlertController,
-              private transactionservice: TransactionService,) { }
+              private transactionservice: TransactionService) { }
 
   ngOnInit() {
     this.page = this.route.url.substr(1);

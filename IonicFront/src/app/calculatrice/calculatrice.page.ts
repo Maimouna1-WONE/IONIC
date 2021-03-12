@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
-import {FraisService} from "../services/frais.service";
-import {UtilsService} from "../services/utils.service";
+import {FraisService} from '../services/frais.service';
+import {UtilsService} from '../services/utils.service';
 @Component({
   selector: 'app-calculatrice',
   templateUrl: './calculatrice.page.html',
