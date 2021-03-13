@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class FraisService{
-  page: string; frais: number;
+  frais: number;
   constructor() { }
 
   calculerFrais(montant: number){
