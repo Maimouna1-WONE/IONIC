@@ -1,0 +1,39 @@
+Creer un nouveau projet Symfony avec la commande:
+- $ symfony new IonicBack --full
+Pour verifier si le projet est bien creé ,vous pouvez lancer le serveur avec:
+- $ symfony serve -d
+Une fois reussi, passons à la creation d'une base de donnée:
+- en configurant le fichier .env directement
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+- ou en creant un new fichier dans le meme repertoire que .env et en y mettant cette cette ligne deja configurée
+Lancer la commande:
+- $ php bin/console doctrine:database:create
+pour la creation de la base
+Ensuite faire les migrations avec:
+- $ php bin/console make:migration
+- $ php bin/console doctrine:migrations:migrate
+ou faire un update de la base de donnée:
+- $ php bin/console doctrine:schema:update --force
+Installons Api Platform avec:
+- $ composer require api
+et verifions si c'est bien installé en allant au niveau du navigateur et taper:
+- http://127.0.0.1:8000/api
+Une fois OK, on peux faire la configuration de l'API dans le fichier:
+- config/packages/api_platform.yaml
+Si c'est bien fait vous devriez voir les changements au niveau du navigateur
+Passons à la creation des entités, avant tout assurez vous que le MakerBundle est dejà installer. c'est lui qui vous permettra d'ecrire make:entity...voici la commande pour l'installer si tel n'est pas le cas:
+- $ composer require symfony/maker-bundle --dev
+Maintenant comme on doit gerer la connexion dans notre application, il va falloir creer une entité User et configer le security.yaml, installer JWT pour la generation de Token, generer les clés
+- $ php bin/console make:user
+- $ composer req lexik/jwt-authentication-bundle
+Pour la generation des cles (private et public), il faut d'abord creer un dossier jwt dans celui de config
+- $ mkdir config/jwt
+generer la cle privée
+- $ openssl genrsa -out config/jwt/private.pem -aes256 4096
+generer la cle publique
+- $ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+Pour configurer le security.yaml, il faut d'abord l'installer avec:
+- $ composer require symfony/security-bundle
+si l'installation est bien faite automatiquement, le fichier apparait dans config/packages et configure le
+Verifier si l'autenthification s e passe bien en faisant surchargeant la base de données avec une donnée de test
+NB: Ne pas oublier de faire un update de la base à chaque modification apportée sur les entité

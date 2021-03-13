@@ -1,0 +1,10 @@
+Installer le cli d'ionic si ce n'est pas fait:
+- $ npm install -g @ionic/cli
+Assurer que nodeJs est bien installé sinn:
+- https://nodejs.org/en/
+Creons un nouveau projet avec:
+- $ ionic start myApp [tabs | blank | sidemenu]
+Lancer le serveur:
+$ - ionic serve
+Creer de nouveau component avec la commande:
+- $ ionic g page nomPage
