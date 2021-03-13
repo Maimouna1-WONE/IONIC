@@ -1,6 +1,6 @@
 
 <ion-grid slot="bottom" fixed>
-  <ion-row class="ion-text-center" *ngIf="role !== 'ROLE_CLIENT'; else other">
+  <ion-row class="ion-text-center" *ngIf="role !== 'ROLE_CLIENT'; else other" style="background-color: white">
     <ion-col [routerLink]="['/folder/Inbox']">
       <ion-icon name="home-outline" size="large" routerLinkActive="active"></ion-icon>
     </ion-col>
