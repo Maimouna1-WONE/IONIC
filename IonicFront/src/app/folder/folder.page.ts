@@ -40,7 +40,7 @@ export class FolderPage implements OnInit {
             const lg = ((res.transactions).length);
             this.ok = (res.transactions)[lg - 1];
             this.date = this.ok.date_depot;
-            // console.log(this.ok);
+            // console.log(this.date);
           },
           error => {
             console.log(error);

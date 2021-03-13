@@ -16,6 +16,13 @@
     </ion-segment-button>
   </ion-segment>
 
+  <ion-card *ngIf="codebi">
+    <ion-item>
+      <ion-label position="floating" color="medium">Code de Transaction</ion-label>
+      <ion-input type="text" readonly value="{{codebi}}"></ion-input>
+    </ion-item>
+  </ion-card>
+
   <form (ngSubmit)="OnSubmit()" [formGroup]="addForm">
   <ion-list
     class="animate__animated animate__slideInUp animate__fast"

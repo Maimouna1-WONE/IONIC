@@ -14,7 +14,7 @@ import {UtilsService} from '../services/utils.service';
 export class DepotPage implements OnInit {
   public segment = 'list'; page: string;
   submitted = false; total: number; nom: string;
-  frais: number; montant: number;
+  frais: number; montant: number; codebi: string;
   addForm: FormGroup;
   constructor(private route: Router,
               private alertController: AlertController,
@@ -100,6 +100,7 @@ export class DepotPage implements OnInit {
               this.transactionservice.DepotClient(this.addForm.value).subscribe(
                 res => {
                   console.log(res);
+                  this.codebi = res.code;
                   this.alertController.create({
                     header: 'Transfert reussi',
                     cssClass: 'sms',
