@@ -73,9 +73,14 @@
       <ion-col col-3>
         <ion-label >{{com.type}}</ion-label>
       </ion-col>
-      <ion-col col-3>
-        <ion-label>{{com.montant | separator: '.'}}</ion-label>
+      <ion-col col-3 *ngIf="com.type === 'depot'; else retrait">
+        <ion-label>{{com.frais_depot | separator: '.'}}</ion-label>
       </ion-col>
+      <ng-template #retrait>
+        <ion-col col-3>
+          <ion-label>{{com.frais_retrait | separator: '.'}}</ion-label>
+        </ion-col>
+      </ng-template>
     </ion-row>
     </ion-card>
   </ion-list>

@@ -13,8 +13,10 @@ import {UtilsService} from '../services/utils.service';
 })
 export class CommissionPage implements OnInit {
   public segment = 'list'; page: string; role: string;
-  commissions: Transaction[]; total = 0; id: number;
-  tot: string;
+  // tslint:disable-next-line:variable-name
+  commissions: Transaction[]; total_dep = 0; id: number;
+  // tslint:disable-next-line:variable-name
+  tot: string; total_ret = 0; total: number;
   data: any[] = Array(20);
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   constructor(private route: Router,
@@ -29,7 +31,13 @@ export class CommissionPage implements OnInit {
           res => {
             this.commissions = res;
             for (const m of this.commissions){
-              this.total = this.total + m.montant;
+              if (m.type === 'depot'){
+                this.total_dep = this.total_dep + m.frais_depot;
+              }
+              else{
+                this.total_ret = this.total_ret + m.frais_retrait;
+              }
+              this.total = this.total_dep + this.total_ret;
               this.tot = this.utilservice.formatMillier(this.total, '.');
             }
           },
