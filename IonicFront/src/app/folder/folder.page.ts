@@ -1,17 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import {UserService} from '../services/user.service';
 import {UtilsService} from '../services/utils.service';
 import {Transaction} from '../models/transaction';
 import {CompteService} from '../services/compte.service';
-
+import {Platform} from "@ionic/angular";
+import {Geolocation} from "@ionic-native/geolocation/ngx";
+declare var google;
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
 })
 export class FolderPage implements OnInit {
+  map: any; current = null;
+  @ViewChild('map') mapElement: ElementRef;
   public folder: string; avatar: string;
   solde: string; hide: boolean; cle = 'eye';
   date: Date; length = 0; ok: Transaction;
@@ -62,5 +66,18 @@ export class FolderPage implements OnInit {
   public getType() {
     return this.isActiveToggleTextPassword ? 'text' : 'password';
   }
+  foumank(){
+    console.log('ok');
+  }
   ngOnInit() {}
+ /* ngAfterContentInit(): void {
+   /!* this.map = new google.maps.Map(
+    this.mapElement.nativeElement,
+    {
+      center: {lat: -34.397, long: 150.644},
+      zoom: 8
+    }
+  );*!/
+    console.log('ok');
+  }*/
 }

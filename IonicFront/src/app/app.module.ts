@@ -10,6 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {IonicStorageModule} from '@ionic/storage';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
+import {Geolocation} from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +23,9 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
-    })],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    }),
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

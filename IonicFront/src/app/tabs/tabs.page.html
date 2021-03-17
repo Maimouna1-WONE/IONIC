@@ -11,6 +11,10 @@
           <ion-icon name="wallet-outline" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Mes transactions</ion-label>
         </ion-item>
+      <ion-item button [routerLink]="['/transactionencours']" style="border-bottom: 2px solid #E56946;">
+        <ion-icon name="timer-outline" slot="start" style="color: orangered"></ion-icon>
+        <ion-label>Transactions en cours</ion-label>
+      </ion-item>
         <ion-item *ngIf="role != 'ROLE_UTILISATEUR_AGENCE'" button [routerLink]="['/transaction']" style="border-bottom: 2px solid #E56946;">
           <ion-icon name="repeat" slot="start" style="color: orangered"></ion-icon>
           <ion-label>Toutes mes transactions</ion-label>

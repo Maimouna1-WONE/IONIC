@@ -17,16 +17,26 @@ export class ConnexionPage implements OnInit {
   returnUrl: string;
   error = '';
   dtee: User;
+  lat: number;
+  long: number;
   isActiveToggleTextPassword = true;
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: ConnexionService )
+              private authenticationService: ConnexionService)
   {
     if (this.authenticationService.currentUserValue){
       this.router.navigate(['/']);
     }
   }
+ /* foumank(){
+    this.geolocation.getCurrentPosition({timeout: 1000, enableHighAccuracy: true}).then(res => {
+      this.lat = res.coords.latitude;
+      this.long = res.coords.longitude;
+    }).catch(e => {
+      console.log(e);
+    });
+  }*/
   // tslint:disable-next-line:typedef
   get f()
   {

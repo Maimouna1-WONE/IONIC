@@ -29,6 +29,11 @@ export class TransactionService{
     // @ts-ignore
     return this.http.get<Transaction[]>(`/api/ttetransactions/${id}`);
   }
+  getencours(id: number): Observable<Transaction[]>
+  {
+    // @ts-ignore
+    return this.http.get<Transaction[]>(`/api/gettransactionencours/${id}`);
+  }
   getMesTransactions(): Observable<Transaction[]>
   {
     // @ts-ignore

@@ -88,6 +88,9 @@ export class HeaderPage implements OnInit {
     if (t === 'bloquertransaction'){
       this.icon = 'close';
     }
+    if (t === 'transactionencours'){
+      this.icon = 'timer-outline';
+    }
     return this.icon;
   }
   segmentChanged(ev: any) {

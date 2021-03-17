@@ -63,6 +63,10 @@ const routes: Routes = [
   {
     path: 'bloquertransaction',
     loadChildren: () => import('./bloquertransaction/bloquertransaction.module').then( m => m.BloquertransactionPageModule)
+  },
+  {
+    path: 'transactionencours',
+    loadChildren: () => import('./transactionencours/transactionencours.module').then( m => m.TransactionencoursPageModule)
   }
 ];
 

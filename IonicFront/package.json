@@ -20,6 +20,9 @@
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
     "@auth0/angular-jwt": "^5.0.2",
+    "@ionic-native/core": "^5.31.1",
+    "@ionic-native/geolocation": "^5.31.1",
+    "@ionic-native/google-maps": "^5.5.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/storage": "^2.3.1",
     "angular-jwt": "^0.1.11",
@@ -40,6 +43,8 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-googlemaps": "^2.7.1",
     "cordova-sqlite-storage": "^5.1.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -57,7 +62,9 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-googlemaps": {},
+      "cordova-plugin-geolocation": {}
     }
   }
 }

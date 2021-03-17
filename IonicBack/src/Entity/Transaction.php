@@ -49,6 +49,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                      "route_name"="getMestransaction",
  *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
  *          "security_message"="Vous n'avez pas access à cette Ressource",
+ *     "normalization_context"={"groups"={"getcode:read"}}},
+ *     "gettransactionencours"={
+ *                    "method"="GET",
+ *                      "route_name"="gettransactionencours",
+ *     "security"="is_granted('ROLE_ADMIN_AGENCE') or is_granted('ROLE_UTILISATEUR_AGENCE')",
+ *          "security_message"="Vous n'avez pas access à cette Ressource",
  *     "normalization_context"={"groups"={"getcode:read"}}
  *                }
  *     }

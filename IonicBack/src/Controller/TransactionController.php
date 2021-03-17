@@ -233,4 +233,22 @@ class TransactionController extends AbstractController
         $tte=$this->repo->findttTransaction($id);
         return $this->json($tte,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
     }
+    /**
+     * @Route(
+     *     path="/api/gettransactionencours/{id}",
+     *     name="gettransactionencours",
+     *     methods={"GET"},
+     *     defaults={
+     *          "__controller"="App\Controller\TransactionController::gettransactionencours",
+     *          "__api_resource_class"=Transaction::class,
+     *          "__api_item_operation_name"="gettransactionencours"
+     *     }
+     * )
+     */
+    public function gettransactionencours()
+    {
+        $id=($this->user->getAgence())->getCompte()->getId();
+        $tte=$this->repo->findTransactionencours($id);
+        return $this->json($tte,Response::HTTP_OK, [] ,['groups' => ['getcode:read']]);
+    }
 }
