@@ -21,7 +21,7 @@ import {Geolocation} from '@ionic-native/geolocation';
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot({
-      name: '__mydb',
+      name: 'IonicBack',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
   ],

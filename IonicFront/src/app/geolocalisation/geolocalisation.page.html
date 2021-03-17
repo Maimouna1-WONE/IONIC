@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-button (click)="addMarker()">Marker</ion-button>
+  <div id="mapCanvas"></div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="presentActionSheet()" color="success">
+      <ion-icon name="map"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<app-footer></app-footer>

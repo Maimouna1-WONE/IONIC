@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlertController, ToastController} from '@ionic/angular';
+import {ActionSheetController, AlertController, Platform, ToastController} from '@ionic/angular';
 import {FraisService} from '../services/frais.service';
 import {UtilsService} from '../services/utils.service';
+
 @Component({
   selector: 'app-calculatrice',
   templateUrl: './calculatrice.page.html',
   styleUrls: ['./calculatrice.page.scss'],
 })
 export class CalculatricePage implements OnInit {
+// tslint:disable-next-line:variable-name
+  page: string; frais_t: number; private myToast: any;
+  frais: number; montant: number; type: string;
   constructor(private route: Router,
               private alertController: AlertController,
               private toastController: ToastController,
               private fraisService: FraisService,
-              private utilservice: UtilsService) { }
-// tslint:disable-next-line:variable-name
-page: string; frais_t: number; private myToast: any;
-  frais: number; montant: number; type: string;
+              private utilservice: UtilsService) {
+  }
   ngOnInit() {
     this.page = this.route.url.substr(1);
   }

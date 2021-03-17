@@ -17,6 +17,7 @@ export class AppComponent {
     { title: 'Transaction en cours', url: 'transactionencours', icon: 'timer' },
     { title: 'Mes commissions', url: 'commission', icon: 'cash' },
     { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
+    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'timer' },
     { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];
   appPages1 = [
@@ -26,6 +27,7 @@ export class AppComponent {
     { title: 'Annuler transaction', url: 'bloquertransaction', icon: 'close' },
     // { title: 'Toutes mes transactions', url: 'transaction', icon: 'repeat' },
     { title: 'Transaction en cours', url: 'transactionencours', icon: 'timer' },
+    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'timer' },
     { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
     { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];

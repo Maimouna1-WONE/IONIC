@@ -67,6 +67,10 @@ const routes: Routes = [
   {
     path: 'transactionencours',
     loadChildren: () => import('./transactionencours/transactionencours.module').then( m => m.TransactionencoursPageModule)
+  },
+  {
+    path: 'geolocalisation',
+    loadChildren: () => import('./geolocalisation/geolocalisation.module').then( m => m.GeolocalisationPageModule)
   }
 ];
 
