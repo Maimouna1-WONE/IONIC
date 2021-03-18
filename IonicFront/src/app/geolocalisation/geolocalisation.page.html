@@ -1,8 +1,11 @@
 <app-header></app-header>
 
 <ion-content>
-  <ion-button (click)="addMarker()">Marker</ion-button>
-  <div id="mapCanvas"></div>
+  <ion-button (click)="addMarker()" slot="fixed" vertical="top">
+    <ion-icon name="add-circle-outline" ></ion-icon>
+  </ion-button>
+
+  <div id="mapCanvas" style="border: solid 2px red"></div>
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button (click)="presentActionSheet()" color="success">
       <ion-icon name="map"></ion-icon>

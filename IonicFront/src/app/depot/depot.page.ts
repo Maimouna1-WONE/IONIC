@@ -99,7 +99,6 @@ export class DepotPage implements OnInit {
             handler: () => {
               this.transactionservice.DepotClient(this.addForm.value).subscribe(
                 res => {
-                  console.log(res);
                   this.codebi = res.code;
                   this.alertController.create({
                     header: 'Transfert reussi',

@@ -3,6 +3,7 @@ import {TransactionService} from "../services/transaction.service";
 import {Storage} from "@ionic/storage";
 import {Transaction} from "../models/transaction";
 import {UtilsService} from "../services/utils.service";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-transactionencours',
@@ -14,7 +15,8 @@ export class TransactionencoursPage implements OnInit {
   id: number; alltransaction: Transaction[]; alltot: string;
   constructor(private transactionservie: TransactionService,
               private storage: Storage,
-              private utilservice: UtilsService) {
+              private utilservice: UtilsService,
+              private alertController: AlertController) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         // console.log(JSON.parse(val));
@@ -31,7 +33,12 @@ export class TransactionencoursPage implements OnInit {
             }
           },
           error => {
-            console.log(error);
+            this.alertController.create({
+              header: 'Erreur Service! ' + error,
+              message: 'Veuiller reessayer'
+            }).then(result1 => {
+              result1.present();
+            });
           }
         );
       });

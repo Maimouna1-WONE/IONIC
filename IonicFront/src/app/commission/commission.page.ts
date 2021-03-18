@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {TransactionService} from '../services/transaction.service';
 import {Transaction} from '../models/transaction';
-import {IonInfiniteScroll} from '@ionic/angular';
+import {AlertController, IonInfiniteScroll} from '@ionic/angular';
 import {UtilsService} from '../services/utils.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class CommissionPage implements OnInit {
   constructor(private route: Router,
               private storage: Storage,
               private transactionService: TransactionService,
-              private utilservice: UtilsService)
+              private utilservice: UtilsService,
+              private alertcontroller: AlertController)
   {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
@@ -42,7 +43,14 @@ export class CommissionPage implements OnInit {
             }
           },
           error => {
-            console.log(error);
+            this.alertcontroller.create({
+              header: 'Erreur Service',
+              mode: 'ios',
+              // tslint:disable-next-line:max-line-length
+              message: 'Erreur lors de la recuperation des donnees' + error,
+            }).then(res4 => {
+              res4.present();
+            });
           }
         );
         if (JSON.parse(val).roles){

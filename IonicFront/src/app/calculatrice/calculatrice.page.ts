@@ -26,7 +26,9 @@ export class CalculatricePage implements OnInit {
     this.myToast = this.toastController.create({
       // tslint:disable-next-line:max-line-length
       message: 'Pour une transaction ' + this.type + ' de ' + this.utilservice.formatMillier(this.montant, '.') + ', le frais est egal à: ' + this.utilservice.formatMillier(this.frais_t, '.') + ' F CFA',
-      duration: 2000
+      duration: 2000,
+      color: 'success',
+      position: 'middle'
     }).then((toastData) => {
       console.log(toastData);
       toastData.present();

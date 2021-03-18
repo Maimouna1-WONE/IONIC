@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ConnexionService} from './connexion/connexion.service';
 import { Storage } from '@ionic/storage';
 import {UserService} from './services/user.service';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
     { title: 'Transaction en cours', url: 'transactionencours', icon: 'timer' },
     { title: 'Mes commissions', url: 'commission', icon: 'cash' },
     { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
-    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'timer' },
+    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'location' },
     { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];
   appPages1 = [
@@ -27,14 +28,15 @@ export class AppComponent {
     { title: 'Annuler transaction', url: 'bloquertransaction', icon: 'close' },
     // { title: 'Toutes mes transactions', url: 'transaction', icon: 'repeat' },
     { title: 'Transaction en cours', url: 'transactionencours', icon: 'timer' },
-    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'timer' },
+    { title: 'Geolocalisation', url: 'geolocalisation', icon: 'location' },
     { title: 'Calculateur de frais', url: 'calculatrice', icon: 'calculator' },
     { title: 'Deconnexion', url: 'logout', icon: 'exit'},
   ];
   username: string; avatar: any; role: string;
   constructor(private auth: ConnexionService,
               private storage: Storage,
-              private userservice: UserService) {
+              private userservice: UserService,
+              private alertController: AlertController) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         // console.log(JSON.parse(val));
@@ -44,7 +46,12 @@ export class AppComponent {
               this.avatar = res.avatar;
             },
             error => {
-              console.log(error);
+              this.alertController.create({
+                header: 'Erreur Service! ' + error,
+                message: 'Veuiller reessayer'
+              }).then(result1 => {
+                result1.present();
+              });
             }
           );
           this.username = JSON.parse(val).username;

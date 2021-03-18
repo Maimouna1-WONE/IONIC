@@ -5,6 +5,7 @@ import {Storage} from '@ionic/storage';
 import {Transaction} from '../models/transaction';
 import {TransactionService} from '../services/transaction.service';
 import {UtilsService} from '../services/utils.service';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderPage implements OnInit {
               private route: Router,
               private storage: Storage,
               private transactionservice: TransactionService,
-              private utilservice: UtilsService) {
+              private utilservice: UtilsService,
+              private alertController: AlertController) {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
         // console.log(JSON.parse(val));
@@ -65,7 +67,12 @@ export class HeaderPage implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        this.alertController.create({
+          header: 'Erreur Service! ' + error,
+          message: 'Veuiller reessayer'
+        }).then(result1 => {
+          result1.present();
+        });
       }
     );
   }
@@ -90,6 +97,9 @@ export class HeaderPage implements OnInit {
     }
     if (t === 'transactionencours'){
       this.icon = 'timer-outline';
+    }
+    if (t === 'geolocalisation'){
+      this.icon = 'telescope-outline';
     }
     return this.icon;
   }

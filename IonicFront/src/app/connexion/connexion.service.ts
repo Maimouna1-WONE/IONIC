@@ -22,7 +22,6 @@ export class ConnexionService
   infoUser: User; chaine: any;
   private decode = new JwtHelperService();
   myToast: any;
-  // url = environment.url;
 
   constructor(private http: HttpClient, private userService: UserService,
               private router: Router,
@@ -54,9 +53,7 @@ export class ConnexionService
             return tokenInfo.roles[0];
           }
           else {
-            /*this.showToast();
-            this.router.navigate(['/accueil']);*/
-            console.log('non autorisé');
+            this.showToast();
             this.router.navigate(['/login_check']);
           }
         })
@@ -84,16 +81,11 @@ export class ConnexionService
     }
   }
   showToast() {
-    /*this.myToast = this.toastController.create({
+    this.myToast = this.toastController.create({
       message: 'Desolé, Vous n\'etes pas autoriser à se connecter',
       duration: 10000
     }).then((toastData) => {
       toastData.present();
-    });*/
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Vous n\'etes pas autorisé à se connecter!'
     });
   }
 }

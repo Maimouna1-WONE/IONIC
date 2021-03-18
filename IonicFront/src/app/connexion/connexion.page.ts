@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {User} from '../models/user';
 import {ConnexionService} from './connexion.service';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-connexion',
@@ -23,20 +24,13 @@ export class ConnexionPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: ConnexionService)
+              private authenticationService: ConnexionService,
+              private alertController: AlertController)
   {
     if (this.authenticationService.currentUserValue){
       this.router.navigate(['/']);
     }
   }
- /* foumank(){
-    this.geolocation.getCurrentPosition({timeout: 1000, enableHighAccuracy: true}).then(res => {
-      this.lat = res.coords.latitude;
-      this.long = res.coords.longitude;
-    }).catch(e => {
-      console.log(e);
-    });
-  }*/
   // tslint:disable-next-line:typedef
   get f()
   {
@@ -84,6 +78,14 @@ export class ConnexionPage implements OnInit {
         },
         error => {
           this.error = error;
+          this.alertController.create({
+            header: 'Erreur connexion',
+            mode: 'ios',
+            // tslint:disable-next-line:max-line-length
+            message: 'Erreur service ' + this.error,
+          }).then(res4 => {
+            res4.present();
+          });
         }
       );
   }

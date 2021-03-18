@@ -4,6 +4,7 @@ import {ConnexionService} from '../connexion/connexion.service';
 import {Storage} from '@ionic/storage';
 import {TransactionService} from '../services/transaction.service';
 import {Transaction} from '../models/transaction';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-transaction',
@@ -16,7 +17,8 @@ export class TransactionPage implements OnInit {
   constructor(private route: Router,
               private auth: ConnexionService,
               private storage: Storage,
-              private transactionservice: TransactionService)
+              private transactionservice: TransactionService,
+              private alertController: AlertController)
   {
     if ((this.storage.get('currentUserInfo'))) {
       this.storage.get('currentUserInfo').then((val) => {
@@ -39,7 +41,12 @@ export class TransactionPage implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        this.alertController.create({
+          header: 'Erreur Service! ' + error,
+          message: 'Veuiller reessayer'
+        }).then(result1 => {
+          result1.present();
+        });
       }
     );
   }

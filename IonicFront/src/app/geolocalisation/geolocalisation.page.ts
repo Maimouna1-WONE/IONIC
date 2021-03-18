@@ -22,7 +22,7 @@ export class GeolocalisationPage implements OnInit {
   constructor( private actionController: ActionSheetController,
                private platform: Platform,
                private alertController: AlertController) {
-    if (this.platform.is('cordova')){
+    if (this.platform.is('ios')){
       this.loadMap();
     }
   }
@@ -44,30 +44,27 @@ export class GeolocalisationPage implements OnInit {
   }
   async presentActionSheet() {
     const actionSheet = await this.actionController.create({
-      header: 'Action',
-      cssClass: 'my-custom-class',
       buttons: [{
         text: 'Satellite',
-        role: 'destructive',
-        icon: 'trash',
+        icon: 'move',
         handler: () => {
           this.map.setMapTypeId(GoogleMapsMapTypeId.SATELLITE);
         }
       }, {
         text: 'Plan',
-        icon: 'share',
+        icon: 'globe',
         handler: () => {
           this.map.setMapTypeId(GoogleMapsMapTypeId.NORMAL);
         }
       }, {
         text: 'Terrain',
-        icon: 'heart',
+        icon: 'locate',
         handler: () => {
           this.map.setMapTypeId(GoogleMapsMapTypeId.TERRAIN);
         }
       }, {
         text: 'Hybrid',
-        icon: 'heart',
+        icon: 'telescope',
         handler: () => {
           this.map.setMapTypeId(GoogleMapsMapTypeId.HYBRID);
         }
